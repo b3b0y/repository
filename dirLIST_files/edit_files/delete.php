@@ -1,6 +1,7 @@
 <?PHP
 //dirLIST v0.3.0 file/folder deletion file
 session_start();
+include_once("../../php/config.php");
 
 if(!$_SESSION['logged_in'] || empty($_GET['item_name']))
 	die('Access Denied');

@@ -1,8 +1,11 @@
-<?PHP
+<?PHP session_start();
+include_once("php/config.php");
+require("dirLIST_files/config.php");
+require("dirLIST_files/functions.php");
 
 error_reporting(0);
 set_time_limit(0);
-session_start();
+
 
 
 if(!isset($_SESSION['login'])) 
@@ -10,15 +13,23 @@ if(!isset($_SESSION['login']))
         header("Location: login.php");
 } 
 
-require("php/config.php");
-require("dirLIST_files/config.php");
-require("dirLIST_files/functions.php");
 
+if(isset($_GET['id']))
+{
+		$result1 = mysql_query("SELECT * FROM fr_path  WHERE id = '".$_GET['id']."'")or die(mysql_error());
+		if(mysql_num_rows($result1) > 0)
+		{
+			$row = mysql_fetch_array($result1);
+			$dir_to_browse = $row['url']."/";
+		}
+}
+else
+{
+	$url_folder = base64_decode(trim($_GET['folder']));
+	if(!empty($_GET['folder']))
+		$dir_to_browse .= $url_folder."/";
+}
 
-
-$url_folder = base64_decode(trim($_GET['folder']));
-if(!empty($_GET['folder']))
-	$dir_to_browse2 .= $url_folder."/";
 
 
 //Load time
@@ -198,7 +209,7 @@ $lang_id = $default_language;
 			else if(event.toElement)
 				toElement = event.toElement;
 			
-			while (toElement && toElement.tagName != "file_edit_box") 
+			while (toElement && toElement.tagName != "DIV") 
 				toElement = toElement.parentNode;
 			
 			if(!toElement)
@@ -276,6 +287,22 @@ $lang_id = $default_language;
 					$this_file_name = basename($_SERVER['PHP_SELF']);
 					$this_file_size = filesize($this_file_name);
 					echo '<li> <i class="icon-home"></i> <a href="'.$this_file_name.'">Home</a><i class="icon-angle-right"> </i> </li>';
+					if(!empty($url_folder))
+					{
+						$folders_in_url = explode("/", $url_folder);
+						$folders_in_url_count = count($folders_in_url);
+						for($i=0;$i<$folders_in_url_count;$i++)
+						{
+							$temp = "";
+							for($j=0;$j<$i+1;$j++)
+							{
+								$temp .= "/".$folders_in_url[$j];
+							}
+							$temp = substr($temp, 1);
+							echo '<li> <a href="'.$this_file_name.'?folder='.base64_encode($temp).'">'.$folders_in_url[$i].'</a><i class="icon-angle-right"> </i></li>';
+						}
+					}
+
 					?>
 				</ul>
 				
@@ -297,7 +324,7 @@ $lang_id = $default_language;
 								 		while ($row = mysql_fetch_array($result)) 
 								 		{								 			
 								 ?>
-								 		<tr> <td><a href="index.php?folder=<?php echo  basename(base64_encode($row['url'])); ?>"><i class="halflings-icon folder-open"></i> <?php echo basename($row['url']); ?></a> </td> </tr>
+								 		<tr> <td><a href="index.php?id=<?php echo $row['id']; ?>"><i class="halflings-icon folder-open"></i> <?php echo basename($row['url']); ?></a> </td> </tr>
 								 <?php
 								 		}
 								 	}

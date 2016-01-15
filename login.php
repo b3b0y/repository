@@ -72,7 +72,7 @@
 							
 							<div class="input-prepend" title="Username">
 								<span class="add-on"><i class="halflings-icon user"></i></span>
-								<input tabindex="1"  class="input-large span10" name="user" id="username" type="text" placeholder="type username"/>
+								<input   class="input-large span10" name="user" id="username" type="text" placeholder="type username"/>
 							</div>
 							<div class="clearfix"></div>
 

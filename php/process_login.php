@@ -54,7 +54,7 @@
 				{
 					mysql_query("UPDATE fr_user SET status = 'online' , last_login_date  = '".date ("y/m/d g:i:s")."' WHERE username = '".$uname."'");
 					
-						
+					$_SESSION['logged_in'] = TRUE;	
 					if($row['UserLvl'] >= 3 ) //check if User level is 5
 					{
 						$_SESSION['login'] = "ADMIN";

@@ -39,7 +39,7 @@
 
 	if($folder_exists == false)
 	{
-		echo display_error_message('This folder is empty');
+		echo display_error_message("<b>Error:</b> Folder specified does not exist. This could be because you manually entered the folder name in the URL or you don't have permission to access this folder");
 		exit;
 	}
 	//Chcek if directory exists -done
@@ -69,7 +69,9 @@
 		case "upload_banned": echo display_error_message("<b>Upload failed, banned file type</b>")."<br/>";break;
 		case "upload_error": echo display_error_message("<b>Upload failed, an unknown error occured</b>")."<br />";break;
 		case "size": echo display_error_message("<b>File size exceeded limit. Max allowed is ".max_upload_size()."B</b>")."<br />";break;
-		case "nofile": echo display_error_message("<b>Please select a file to upload!</b>")."<br />";break;
+		case "nofile": echo display_error_message("<div class='box-content alerts'> <div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert'>×</button><strong>Please select a file to upload!</div></div>")."<br />";break;
+	
+
 	}
 	//Any upload error is displayed here -done
 
@@ -86,14 +88,7 @@
 	//Get directory content seperatiung files and folders into 2 arrays and filtering them to remove those exlcluded
 	//$dir_content = get_dir_content($dir_to_browse);
 
-	if(!empty($_GET['folder']))
-	{
-		$dir_content = get_dir_content($dir_to_browse2);
-	}
-	else
-	{
-		$dir_content = get_dir_content($dir_to_browse);
-	}
+	$dir_content = get_dir_content($dir_to_browse);
 
 	$folders['name'] = $dir_content['folders']['name'];
 	$folders['date'] = $dir_content['folders']['date'];
@@ -350,7 +345,7 @@
 			
 			$file_link = ($limit_download_speed == 1 || $listing_mode == 1) ? 'dirLIST_files/download.php?file='.base64_encode($files['link'][$key]) :$files['link'][$key];
 			
-			echo ' <a href="'.$file_link.'">'.$files['name'][$key].'</a></div>';
+			echo $files['name'][$key].'</div>';
 
 			if($_SESSION['logged_in'])
 				echo '<div style="float:right"><img border="0" src="dirLIST_files/edit_files/edit.png" onclick="show_div(1, \''.$count.'\');" style="cursor:pointer"></div>';

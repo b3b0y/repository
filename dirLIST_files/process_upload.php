@@ -1,5 +1,6 @@
 <?PHP
 //dirLIST v0.3.0 file upload processor file
+include_once("../php/config.php");
 require('config.php');
 require('functions.php');
 session_start();
