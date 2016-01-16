@@ -1,10 +1,45 @@
 <?php session_start();
 	
-		require("php/config.php");
+	include_once("php/config.php");
 	if(!isset($_SESSION['login'])) 
 	{
 	      header("Location: ../login.php");
 	} 
+
+	if(isset($_POST['sy']) && $_POST['sy'] == 'Generate S.Y.')
+	{
+		$result = mysql_query("SELECT * FRom fr_sy");
+		if(mysql_num_rows($result) == 0)
+		{
+		    $SYstart =  date('Y');
+		    $SYend = $SYstart + 1;
+
+		    mysql_query("INSERT INTO fr_sy(SYstart,SYend) VALUES('".$SYstart."','".$SYend."')");
+		}
+		else
+		{
+		  $result1 = mysql_query("SELECT * FROM fr_sy ORDER BY SYID DESC LIMIT 1");
+		  $row = mysql_fetch_array($result1);
+
+		  $SYstart = $row['SYend'];
+		  $SYend = $SYstart + 1;
+
+		  if($SYstart == date('Y'))
+		  {
+		    mysql_query("INSERT INTO fr_sy(SYstart,SYend) VALUES('".$SYstart."','".$SYend."')");
+		  }
+		  else
+		  {
+		     echo '<script> alert("Sorry you cant Generate School Year"); </script>';
+		  }
+		  
+		} 
+ 	 }
+ 	if(isset($_POST['semester']) &&  $_POST['semester'] == 'Save changes')
+	{
+	    mysql_query("INSERT INTO  fr_semester(Semester,SYID) VALUES('".$_POST['sem']."','".$_POST['sy']."')") or die("Error Semester:". mysql_error());
+		echo '<script> window.location.href="termmanagement.php?sem=true"; </script>';
+	}
 
 ?>
 
@@ -75,7 +110,7 @@
 					</li>
 					<li><a href="dashboard.php">Dashboard</a></li>
 					<i class="icon-angle-right"></i>
-					<li><a href="">User</a></li>
+					<li><a href="">Term Management</a></li>
 				</ul>
 
 				<div class="row-fluid">	
@@ -86,14 +121,14 @@
 						</div>
 						<div class="box-content">
 							
-							<a href="user.php?faculty=true" class="quick-button span2">
-								<i class="icon-group"></i>
-								<p>Faculty</p>
+							<a href="termmanagement.php?sy=true" class="quick-button span2">
+								<i class="icon-calendar"></i>
+								<p>School Year</p>
 								<span class="notification blue">1.367</span>
 							</a>
-							<a href="user.php?student=true" class="quick-button span2">
-								<i class="icon-group"></i>
-								<p>Student</p>
+							<a href="termmanagement.php?sem=true" class="quick-button span2">
+								<i class="icon-calendar"></i>
+								<p>Semester</p>
 								<span class="notification blue">1.367</span>
 							</a>
 							<div class="clearfix"></div>
@@ -105,62 +140,37 @@
 				<div class="row-fluid sortable">		
 				<div class="box span12">
 					<?php 
-						if(isset($_GET['faculty'])) 
+						if(isset($_GET['sy'])) 
 						{
 					?>
 							<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon user"></i><span class="break"></span>Faculty</h2>
+						<h2><i class="halflings-icon calendar"></i><span class="break"></span>School Year</h2>
 					</div>
 					<div class="box-content buttons">
-						<a href="user.php?user=faculty"> <button class="btn btn-large btn-success">ADD FACULTY</button> </a>
-						<button class="btn btn-large btn-success">Edit Selected</button>
-						<button class="btn btn-large btn-success">Delete Selected</button>
+						<form method="post" action="<?php $_SERVER['PHP_SELF'] ?>" name="form1">
+							<input type="submit" name="sy" class="btn btn-large btn-success" value="Generate S.Y.">
+						</form>
 					</div>
 					<div class="box-content">
 						<table class="table table-striped table-bordered bootstrap-datatable datatable">
 						  <thead>
 							  <tr>
 							  	  <th>#</th>
-								  <th>Name</th>
-								  <th>Username</th>
-								  <th>Last Login</th>
-								  <th>Last Log-Out</th>
-								  <th>User Level</th>
-								  <th>Status</th>
+							  	  <th>School Year</th>
 							  </tr>
 						  </thead>   
 						  <tbody>
 						  	<?php
-						  			if($_SESSION['Ulvl'] == "5")
-									{
-
-										$result = mysql_query("SELECT fr_user.*,position.*,fr_staff.* FROM fr_user,position,fr_staff WHERE fr_user.UserLvl > 1 AND fr_user.UserLvl = position.UserLvl AND fr_user.id = fr_staff.user_id ") or die ("Admin :". mysql_error());
-									}
-									else if($_SESSION['Ulvl'] == "4")
-									{
-										$result = mysql_query("SELECT fr_user.*,position.*,fr_staff.* FROM fr_user,position,fr_staff WHERE fr_user.UserLvl < 4 AND fr_user.UserLvl = position.UserLvl AND fr_user.id = fr_staff.user_id ") or die ("DEAN :". mysql_error());
-
-									}
-									else if($_SESSION['Ulvl'] == "3")
-									{
-										$result = mysql_query("SELECT fr_user.*,position.*,fr_staff.* FROM fr_user,position,fr_staff WHERE fr_user.UserLvl < 3 AND fr_user.UserLvl = position.UserLvl AND fr_user.id = fr_staff.user_id ") or die ("Instructor :". mysql_error());
-									}
-
+						  			$result = mysql_query("SELECT * FROM fr_sy");
 								 	if(mysql_num_rows($result) > 0)
 								 	{
 								 		while ($row = mysql_fetch_array($result)) 
 								 		{								 			
 								 ?>
 								 		<tr>
-											<td><input class="check" type="checkbox" name="users[]" value="<?php echo $row['username']; ?>"></td>      
-											<td><?php echo $row['FirstN'].' &nbsp'.$row['LastN'] ; ?></td>
-											<td><?php echo $row['username']; ?></td>
-										
-											<td><?php echo $row['last_login_date']; ?></td>
-											<td><?php echo $row['last_logout_date']; ?></td>
-											<td><?php echo $row['Position']; ?></td>
-											<td><?php echo $row['status']; ?></td>
-										</tr>  
+								 		  <td><?php echo $row['SYID']; ?></td>
+									      <td><?php echo $row['SYstart'].'-'.$row['SYend']; ?></td>
+									    </tr>   
 								<?php
 										}
 								?>
@@ -169,7 +179,7 @@
 									}	
 									else
 									{
-										echo "<tr > <td colspan='9'> File Records  Empty! </td></tr>";
+										echo "<tr > <td colspan='2'><center> File Records  Empty! </center></td><td> </td></tr>";
 									}
 								?>
 							
@@ -178,48 +188,38 @@
 					</div>
 					<?php 
 						}
-						else if(isset($_GET['student']))
+						else if(isset($_GET['sem']))
 						{
 					?>
 					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon user"></i><span class="break"></span>Student</h2>
+						<h2><i class="halflings-icon calendar"></i><span class="break"></span>Semester</h2>
 					</div>
 					<div class="box-content buttons">
-						<a href="user.php?user=student"> <button class="btn btn-large btn-success">ADD STUDENT</button> </a>
-						<button class="btn btn-large btn-success btn-setting">UPLOAD CSV FILE</button>
+						<button class="btn btn-large btn-success btn-setting">ADD SEMESTER</button>
 						<button class="btn btn-large btn-success">Edit Selected</button>
 						<button class="btn btn-large btn-success">Delete Selected</button>
 					</div>
 					<div class="box-content">
 						<table class="table table-striped table-bordered bootstrap-datatable datatable">
 						  <thead>
-							  <tr>    
-								<th>Name</th>
-								<th>Username</th>
-								<th>Course/Year</th>
-								<th>Last Login</th>
-								<th>Last Log-Out</th>
-								<th>Status</th>
+							  <tr>
+							  	    <th>Semester</th>
+              						<th>School Year</th>
 							  </tr>
 						  </thead>   
 						  <tbody>
 						  	<?php
 						  		
-									$result = mysql_query("SELECT fr_user.*,fr_stud.* FROM fr_user,fr_stud WHERE fr_user.UserLvl = 1  AND fr_user.id = fr_stud.user_id ") or die ("Instructor :". mysql_error());
+									$result = mysql_query("SELECT sem.*,sy.* FROM fr_semester as sem , fr_sy as sy WHERE sem.SYID = sy.SYID");
 									
-
 								 	if(mysql_num_rows($result) > 0)
 								 	{
 								 		while ($row = mysql_fetch_array($result)) 
 								 		{								 			
 								 ?>
 								 		<tr>
-											<td><?php echo $row['FName'].' &nbsp'.$row['LName'] ; ?></td>
-											<td><?php echo $row['username']; ?></td>
-											<td><?php echo $row['Course'].' - '.$row['Year']; ?></td>
-											<td><?php echo $row['last_login_date']; ?></td>
-											<td><?php echo $row['last_logout_date']; ?></td>
-											<td><?php echo $row['status']; ?></td>
+											<td><?php echo $row['Semester']; ?></td>
+              								<td><?php echo $row['SYstart'].'-'.$row['SYend']; ?></td>
 										</tr>  
 								<?php
 										}
@@ -229,7 +229,7 @@
 									}	
 									else
 									{
-										echo "<tr> <td colspan='6'><center> File Records  Empty!</center> </td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>";
+										echo "<tr > <td colspan='2'><center> File Records  Empty! </center></td><td> </td></tr>";
 									}
 								?>
 							
@@ -255,27 +255,57 @@
 		</div><!--/fluid-row-->
 	</div>
 	<div class="modal hide fade" id="myModal">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h3>UPLOAD CSV</h3>
-		</div>
-		<div class="modal-body">
-			<?php require('Forms/csv.php');; ?>
-		</div>
-		<div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Close</a>
-		</div>
+		<form method="post" action="termmanagement.php">  
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3>SEMESTER</h3>
+			</div>
+			<div class="modal-body">
+				<div class="control-group">
+					<label class="control-label" for="selectError">Select SEMESTER</label>
+					<div class="controls">
+					  <select name="sem" id="selectError" data-rel="chosen" required>
+					  	<option value=""> </option>
+						<option value="1st Semester">1st Semester</option> 
+	                    <option value="2nd Semester">2nd Semester</option>    
+	                    <option value="Summer">Summer</option>  
+					  </select><font style="color:red;"> *</font>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="selectError2">Select School Year</label>
+					<div class="controls">
+					  <select name="sy" id="selectError2" data-rel="chosen" required>
+					  	<option value=""> </option>
+						<?php 
+	                        $result = mysql_query("SELECT * FROM fr_sy");
+	                        if(mysql_num_rows($result) > 0)
+	                        {   
+	                            while ($row = mysql_fetch_array($result)) {
+	                                echo ' <option value="'.$row["SYID"].'">'.$row['SYstart'].'-'.$row['SYend'].'</option> ';
+	                            }
+	                        }
+
+	                    ?> 
+					  </select><font style="color:red;"> *</font>
+					</div>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				</button>
+				<a href="#" class="btn" data-dismiss="modal">Close</a>
+				<input name="semester" type="submit" value="Save changes" class="btn btn-primary">
+			</div>
+		</form>
 	</div>
 	
 	<div class="clearfix"></div>
 	
 	<footer>
-
 		<p>
-			<span style="text-align:left;float:left">&copy; 2013 <a href="http://jiji262.github.io/Bootstrap_Metro_Dashboard/" alt="Bootstrap_Metro_Dashboard">Bootstrap Metro Dashboard</a></span>
-			
+			<span style="text-align:left;float:left">&copy; <a href="index.php" alt="Bootstrap_Metro_Dashboard">CICTE WLC WEB-BASE FILE REPOSITORY</a></span>	
 		</p>
-
 	</footer>
 	
 	<!-- start: JavaScript-->

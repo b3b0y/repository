@@ -130,7 +130,7 @@ if(isset($_GET['faculty']) && $_GET['faculty'] == "faculty")
 					
 					mkdir (".".$path, 0700);
 				
-					//mysql_query("INSERT INTO fr_user_permissions(uid,upload,download,download_folders,create_folders,share,change_pass,rename_F,delete_F) VALUES('".$row['UserID']."','1','1','1','0','0','1','0','0')");
+					mysql_query("INSERT INTO fr_user_permissions(user_id,upload,download,download_folders,create_folders,share,change_pass,rename_F,delete_F) VALUES('".$row['id']."','1','1','1','0','0','1','0','0')");
 				}
 
 
@@ -143,7 +143,7 @@ if(isset($_GET['faculty']) && $_GET['faculty'] == "faculty")
 				unset($_SESSION['CFail']);
 				unset($_SESSION['UFail']);
 				
-				//echo '<script> alert("Successfully Added"); window.location.href="../Admin.php?ViewSta=View"; </script>';
+				echo '<script> alert("Successfully Added"); window.location.href="../user.php?faculty=true"; </script>';
 
 			}
 		}
@@ -155,7 +155,7 @@ if(isset($_GET['faculty']) && $_GET['faculty'] == "faculty")
 			$_SESSION['mname'] = $mname;
 			$_SESSION['ulvl'] = $ulvl;
 			$stop = 1;
-			echo '<script> alert("Password did not match"); window.location.href="../Admin.php?AddAcct=Add"; </script>';
+			echo '<script> alert("Password did not match"); window.location.href="../user.php?faculty=true"; </script>';
 			
 		}	
 }

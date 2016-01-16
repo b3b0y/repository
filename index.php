@@ -309,12 +309,12 @@ $lang_id = $default_language;
 				<div class="row-fluid">	
 					<div class="box span3">
 						<div class="box-header">
-							<h2><i class="halflings-icon eye-open"></i><span class="break"></span>Labels</h2>
+							<h2><i class="halflings-icon eye-open"></i><span class="break"></span>Folders</h2>
 						</div>
 						<div class="box-content">
 							<table class="table  table-striped">
 								<thead>
-									<th> My Folder</th>
+									<th><i class="halflings-icon folder-close"></i> My Folder</th>
 								</thead>
 								<tbody>
 								<?php 
@@ -333,7 +333,26 @@ $lang_id = $default_language;
 							 </table>
 							<table class="table table-striped">
 								<thead>
-									<th>Shared </th>
+									<th><i class="halflings-icon folder-close"></i> Shared </th>
+								</thead>
+								<tbody>
+								<?php 
+									$result = mysql_query("SELECT fp.* FROM  fr_path as fp ,fr_share_folder as fsf WHERE fp.id = fsf.path_id AND  fsf.user_id = '".$_SESSION['user_id']."'") or die('Error share: '. mysql_error());
+								 	if(mysql_num_rows($result) > 0)
+								 	{
+								 		while ($row = mysql_fetch_array($result)) 
+								 		{								 			
+								 ?>
+								 		<tr> <td> <a href="index.php?folder=<?php echo  basename(base64_encode($row['url'])); ?>"><i class="halflings-icon folder-open"></i> <?php echo basename($row['url']); ?></a> </td> </tr>
+								 <?php
+								 		}
+								 	}
+								 ?>
+								</tbody>
+						  	</table>
+						  	<table class="table table-striped">
+								<thead>
+									<th><i class="halflings-icon folder-close"></i> Subject </th>
 								</thead>
 								<tbody>
 								<?php 

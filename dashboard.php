@@ -1,6 +1,6 @@
 <?php session_start();
 
-	require("php/config.php");
+	include_once("php/config.php");
 
 	if(!isset($_SESSION['login'])) 
 	{
@@ -85,23 +85,22 @@
 						<div class="box-content">
 							
 							<a href="user.php" class="quick-button span2">
-								<i class="icon-group"></i>
+								<i class="glyphicons-icon group"></i>
 								<p>Users</p>
 								<span class="notification blue">1.367</span>
 							</a>
-							<a class="quick-button span2">
-								<i class="icon-comments-alt"></i>
+							<a href="termmanagement.php" class="quick-button span2">
+								<i class="glyphicons-icon calendar"></i>
 								<p>Semester</p>
 							</a>
-							<a class="quick-button span2">
-								<i class="icon-shopping-cart"></i>
+							<a href="subjectmanagement.php" class="quick-button span2">
+								<i class="glyphicons-icon book"></i>
 								<p>Subjects</p>
 							</a>
 							<a class="quick-button span2">
-								<i class="icon-barcode"></i>
-								<p>Products</p>
+								<i class="glyphicons-icon notes"></i>
+								<p>Reports</p>
 							</a>
-							
 							<div class="clearfix"></div>
 						</div>	
 					</div><!--/span-->
