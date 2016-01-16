@@ -173,16 +173,8 @@
 									    </tr>   
 								<?php
 										}
-								?>
-									
-								<?php	
-									}	
-									else
-									{
-										echo "<tr > <td colspan='2'><center> File Records  Empty! </center></td><td> </td></tr>";
 									}
 								?>
-							
 						  </tbody>
 					  </table>            
 					</div>
@@ -223,16 +215,9 @@
 										</tr>  
 								<?php
 										}
-								?>
-									
-								<?php	
-									}	
-									else
-									{
-										echo "<tr > <td colspan='2'><center> File Records  Empty! </center></td><td> </td></tr>";
 									}
 								?>
-							
+
 						  </tbody>
 					  </table>  
 					</div>

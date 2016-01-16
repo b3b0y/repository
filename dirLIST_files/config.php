@@ -6,9 +6,8 @@ $listing_mode = 0;
 //Directory to browse ***INCLUDING TRAILING SLASH***. Leave it as "./" if you want to browse the directory this file is in for HTTP listing or leave it blank for browsing the root directory for FTP listing.  This can be an absolute or relative path (relative to the index.php file). CAUTION: Listing a directory above your web root will cause errors.
 //$dir_to_browse = "./Data/"; //default[HTTP] = "./" or default[FTP] = "/"
 
-	if(!isset($_GET['id']) || !isset($_GET['subf']))
+	if(!isset($_GET['id']) || !isset($_GET['subf']) || !isset($_GET['studsub']))
 	{
-		$dir_to_browse = "";
 		$result1 = mysql_query("SELECT fr_path.* FROM fr_path  WHERE user_id = '".$_SESSION['user_id']."'")or die(mysql_error());
 		if(mysql_num_rows($result1) > 0)
 		{
@@ -18,6 +17,48 @@ $listing_mode = 0;
 	}
 	
 	
+	if(isset($_GET['id']))
+	{
+		$result1 = mysql_query("SELECT * FROM fr_path  WHERE id = '".$_GET['id']."'")or die(mysql_error());
+		if(mysql_num_rows($result1) > 0)
+		{
+			$row = mysql_fetch_array($result1);
+			 $_SESSION['dir_to_browse'] =  $row['url']."/";
+			$dir_to_browse = $row['url']."/";
+		}
+	}
+	else if(isset($_GET['subf'])) 
+	{
+		$result1 = mysql_query("SELECT * FROM fr_ins_subject  WHERE id = '".$_GET['subf']."'")or die(mysql_error());
+		if(mysql_num_rows($result1) > 0)
+		{
+			$row = mysql_fetch_array($result1);
+			 $_SESSION['dir_to_browse'] = $row['SubPath']."/";
+			 $dir_to_browse = $row['SubPath']."/";
+		}
+	}
+	else if(isset($_GET['studsub'])) 
+	{
+		$result1 = mysql_query("SELECT * FROM fr_stud_subject  WHERE subject_id = '".$_GET['studsub']."'")or die(mysql_error());
+		if(mysql_num_rows($result1) > 0)
+		{
+			$row = mysql_fetch_array($result1);
+			 $_SESSION['dir_to_browse'] = $row['url']."/";
+			echo $dir_to_browse = $row['url']."/";
+		}
+	}
+	else
+	{
+		if (!empty($_SESSION['dir_to_browse'])) 
+		{
+			$dir_to_browse =  $_SESSION['dir_to_browse'];
+			$url_folder = base64_decode(trim($_GET['folder']));
+		 	if(!empty($_GET['folder']))
+			 	$dir_to_browse .= $url_folder."/";
+		}
+	}
+
+
 
 
 

@@ -13,35 +13,19 @@ if(!isset($_SESSION['login']))
         header("Location: login.php");
 } 
 
-
-if(isset($_GET['id']))
+if (!empty($_SESSION['dir_to_browse'])) 
 {
-	$dir_to_browse = "";
-	$result1 = mysql_query("SELECT * FROM fr_path  WHERE id = '".$_GET['id']."'")or die(mysql_error());
-	if(mysql_num_rows($result1) > 0)
-	{
-		$row = mysql_fetch_array($result1);
-		$dir_to_browse = $row['url']."/";
-	}
-}
-else if(isset($_GET['subf'])) 
-{
-	$dir_to_browse = "";
-	$result1 = mysql_query("SELECT * FROM fr_ins_subject  WHERE id = '".$_GET['subf']."'")or die(mysql_error());
-	if(mysql_num_rows($result1) > 0)
-	{
-		$row = mysql_fetch_array($result1);
-		echo $dir_to_browse = $row['SubPath'];
-	}
+	$dir_to_browse =  $_SESSION['dir_to_browse'];
+	$url_folder = base64_decode(trim($_GET['folder']));
+ 	if(!empty($_GET['folder']))
+	  	$dir_to_browse .= $url_folder."/";
 }
 else
 {
-	$url_folder = base64_decode(trim($_GET['folder']));
-	if(!empty($_GET['folder']))
-		$dir_to_browse .= $url_folder."/";
+ 	$url_folder = base64_decode(trim($_GET['folder']));
+ 	if(!empty($_GET['folder']))
+	 echo	 $dir_to_browse .= $url_folder."/";
 }
-
-
 
 //Load time
 if($load_time == 1)
@@ -297,7 +281,7 @@ $lang_id = $default_language;
 					
 					$this_file_name = basename($_SERVER['PHP_SELF']);
 					$this_file_size = filesize($this_file_name);
-					echo '<li> <i class="icon-home"></i> <a href="'.$this_file_name.'">Home</a><i class="icon-angle-right"> </i> </li>';
+					echo '<li> <i class="icon-home"></i> <a href="'.$this_file_name.'">'.basename($_SESSION['dir_to_browse']).'</a><i class="icon-angle-right"> </i> </li>';
 					if(!empty($url_folder))
 					{
 						$folders_in_url = explode("/", $url_folder);
@@ -347,17 +331,33 @@ $lang_id = $default_language;
 									<th><i class="halflings-icon folder-close"></i> Subject </th>
 								</thead>
 								<tbody>
-								<?php 
-									$result = mysql_query("SELECT * FROM  fr_ins_subject WHERE  user_id = '".$_SESSION['user_id']."'") or die('Error share: '. mysql_error());
-								 	if(mysql_num_rows($result) > 0)
-								 	{
-								 		while ($row = mysql_fetch_array($result)) 
-								 		{								 			
+								<?php
+									if($_SESSION['UserLvl'] == 1)
+									{
+										$result = mysql_query("SELECT * FROM fr_stud_subject WHERE  user_id = '".$_SESSION['user_id']."'") or die('Error share: '. mysql_error());
+									 	if(mysql_num_rows($result) > 0)
+									 	{
+									 		while ($row = mysql_fetch_array($result)) 
+									 		{								 			
 								 ?>
-								 		<tr> <td> <a href="index.php?subf=<?php echo $row['id']; ?>"><i class="halflings-icon folder-open"></i> <?php echo basename($row['SubPath']); ?></a> </td> </tr>
+								 				<tr> <td> <a href="index.php?studsub=<?php echo $row['subject_id']; ?>"><i class="halflings-icon folder-open"></i> <?php echo $row['subject']; ?></a> </td> </tr>
 								 <?php
-								 		}
-								 	}
+								 			}
+								 		}	
+									} 
+									else
+									{
+										$result = mysql_query("SELECT * FROM  fr_ins_subject WHERE  user_id = '".$_SESSION['user_id']."'") or die('Error share: '. mysql_error());
+									 	if(mysql_num_rows($result) > 0)
+									 	{
+									 		while ($row = mysql_fetch_array($result)) 
+									 		{								 			
+								 ?>
+								 				<tr> <td> <a href="index.php?subf=<?php echo $row['id']; ?>&&folder=<?php echo base64_encode(basename($row['Subject'])); ?>"><i class="halflings-icon folder-open"></i> <?php echo $row['Subject']; ?></a> </td> </tr>
+								 <?php
+								 			}
+								 		}									
+									}
 								 ?>
 								</tbody>
 						  	</table>

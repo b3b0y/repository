@@ -66,22 +66,15 @@
 										</tr>  
 								<?php
 										}
-								?>
-									
-								<?php	
-									}	
-									else
-									{
-										echo "<tr > <td colspan='4'><center> File Records  Empty! </center></td><td> </td><td> </td><td> </td><td> </td></tr>";
 									}
 								?>
 							  </tbody>
 						  </table>
+						  	<div class="form-actions">
+							  <button type="submit" class="btn btn-primary">LOAD SUBJECT</button>
+							  <button type="reset" class="btn">Cancel</button>
+							</div>
 						 </div>
-						<div class="form-actions">
-						  <button type="submit" class="btn btn-primary">LOAD SUBJECT</button>
-						  <button type="reset" class="btn">Cancel</button>
-						</div>
 					</form>
 					  <?php
 				          }

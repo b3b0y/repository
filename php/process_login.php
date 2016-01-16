@@ -50,7 +50,7 @@
 			else
 			{
 
-				if($row['status'] == 'offline' || $row['status'] == 'live' )
+				if($row['status'] == 'offline' || $row['status'] == 'online' )
 				{
 					mysql_query("UPDATE fr_user SET status = 'online' , last_login_date  = '".date ("y/m/d g:i:s")."' WHERE username = '".$uname."'");
 					

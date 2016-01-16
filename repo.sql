@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 16, 2016 at 10:25 AM
+-- Generation Time: Jan 16, 2016 at 07:36 PM
 -- Server version: 5.0.51
 -- PHP Version: 5.2.6
 
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `fr_path` (
   `url` varchar(30000) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `fr_path`
@@ -107,7 +107,8 @@ CREATE TABLE IF NOT EXISTS `fr_path` (
 INSERT INTO `fr_path` (`id`, `url`, `user_id`) VALUES
 (1, './Data', 1),
 (2, './Data/Dean/Dean, Dean', 2),
-(3, './Data/Instructor/instructor, instructor', 3);
+(3, './Data/Instructor/instructor, instructor', 3),
+(4, './Data/Student/BSIT/student-1', 4);
 
 -- --------------------------------------------------------
 
@@ -211,20 +212,22 @@ INSERT INTO `fr_stud` (`id`, `user_id`, `ControlNo`, `FName`, `LName`, `Mname`, 
 CREATE TABLE IF NOT EXISTS `fr_stud_subject` (
   `id` int(11) NOT NULL auto_increment,
   `user_id` int(11) NOT NULL,
+  `subject` varchar(100) NOT NULL,
   `url` varchar(1000) NOT NULL,
-  `subjec_id` int(11) NOT NULL,
+  `subject_id` int(11) NOT NULL,
   `Date_Created` date NOT NULL,
   `Time_Created` time NOT NULL,
   `status` enum('APPROVED','DISAPPROVED') NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `fr_stud_subject`
 --
 
-INSERT INTO `fr_stud_subject` (`id`, `user_id`, `url`, `subjec_id`, `Date_Created`, `Time_Created`, `status`) VALUES
-(1, 5, 'C:/xampp/htdocs/WLCFileRepoRev/Data/Instructor/instructor, instructor/2016-2017/1st Semester/IT8/552-Marapoc-IT8', 1, '2016-01-13', '23:46:51', 'APPROVED');
+INSERT INTO `fr_stud_subject` (`id`, `user_id`, `subject`, `url`, `subject_id`, `Date_Created`, `Time_Created`, `status`) VALUES
+(5, 4, 'IT7', './Data/Dean/Dean, Dean/2016-2017/1st Semester/IT7/1-student-IT7', 1, '2016-01-17', '02:45:09', 'APPROVED'),
+(6, 4, 'IT8', './Data/Dean/Dean, Dean/2016-2017/1st Semester/IT8/1-student-IT8', 2, '2016-01-17', '02:45:09', 'APPROVED');
 
 -- --------------------------------------------------------
 
@@ -292,10 +295,10 @@ CREATE TABLE IF NOT EXISTS `fr_user` (
 --
 
 INSERT INTO `fr_user` (`id`, `username`, `password`, `UserLvl`, `status`, `last_login_date`, `last_logout_date`, `activate`) VALUES
-(1, 'admin', 'admin', 5, 'online', '2016-01-16 08:44:11', '0000-00-00 00:00:00', 1),
-(2, 'dean', '12345', 4, 'online', '2016-01-16 06:17:03', '0000-00-00 00:00:00', 1),
+(1, 'admin', 'admin', 5, 'offline', '2016-01-17 03:31:16', '2016-01-17 03:31:51', 1),
+(2, 'dean', '12345', 4, 'online', '2016-01-17 01:38:50', '2016-01-17 12:38:51', 1),
 (3, 'instructor', '12345', 3, 'offline', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1),
-(4, '1', 'aBKWOqCA', 1, 'pending', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1);
+(4, 'student', '12345', 1, 'online', '2016-01-17 03:31:58', '2016-01-17 03:29:13', 1);
 
 -- --------------------------------------------------------
 

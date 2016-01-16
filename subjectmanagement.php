@@ -51,7 +51,12 @@
 	<!-- end: Favicon -->
 	
 		
-		
+	<script type="text/javascript">
+		function clicked(e)
+		{
+		    if(!confirm('Are you sure you want to "DISAPPROVE" these subject?'))e.preventDefault();
+		}
+	</script>
 		
 </head>
 
@@ -91,22 +96,22 @@
 							<a href="subjectmanagement.php?subject=mysubject" class="quick-button span2">
 								<i class="icon-book"></i>
 								<p>My subject</p>
-								<span class="notification blue">1.367</span>
 							</a>
 							<a href="subjectmanagement.php?subject=subject" class="quick-button span2">
 								<i class="icon-book"></i>
 								<p>Subject</p>
-								<span class="notification blue">1.367</span>
 							</a>
 							<a href="subjectmanagement.php?subject=faculty" class="quick-button span2">
 								<i class="icon-book"></i>
 								<p>Faculty Subject</p>
-								<span class="notification blue">1.367</span>
 							</a>
 							<a href="subjectmanagement.php?subject=student" class="quick-button span2">
 								<i class="icon-book"></i>
 								<p>Student Subject</p>
-								<span class="notification blue">1.367</span>
+							</a>
+							<a href="subjectmanagement.php?subject=approve" class="quick-button span2">
+								<i class="icon-book"></i>
+								<p>Approve Subject</p>
 							</a>
 							<div class="clearfix"></div>
 						</div>	
@@ -145,16 +150,9 @@
 											    </tr>   
 										<?php
 												}
-										?>
-											
-										<?php	
-											}	
-											else
-											{
-												echo "<tr > <td colspan='4'><center> File Records  Empty! </center></td><td></td></tr>";
 											}
 										?>
-									
+
 								  </tbody>
 							  </table>            
 							</div>
@@ -201,16 +199,9 @@
 												</tr>  
 										<?php
 												}
-										?>
-											
-										<?php	
-											}	
-											else
-											{
-												echo "<tr > <td colspan='4'><center> File Records  Empty! </center></td><td> </td><td> </td><td> </td><td> </td></tr>";
 											}
 										?>
-									
+										
 								  </tbody>
 							  </table>  
 							</div>
@@ -239,7 +230,7 @@
 								  </thead>   
 								  <tbody>
 								  	<?php
-											$result = mysql_query("SELECT inst.*,sub.*,fr_subject.* FROM fr_ins_subject as sub,fr_staff as inst,fr_subject WHERE inst.user_id = sub.user_id AND fr_subject.SubCode = sub.Subject") or die("Error:".mysql_error());
+											$result = mysql_query("SELECT inst.*,sub.id,sub.Subject,fr_subject.* FROM fr_ins_subject as sub,fr_staff as inst,fr_subject WHERE inst.user_id = sub.user_id AND fr_subject.SubCode = sub.Subject") or die("Error:".mysql_error());
 											
 										 	if(mysql_num_rows($result) > 0)
 										 	{
@@ -247,20 +238,13 @@
 										 		{								 			
 										 ?>
 										 		<tr>
-										 			<td><input type="checkbox" name="subject[]" value="<?php echo $row['ID']; ?>" required> <?php echo $ctr; ?></td> 
+										 			<td><?php echo $row['id']; ?></td> 
 									              	<td><?php echo $row['FirstN']." ".$row['LastN']; ?></td>       
 									              	<td><?php echo $row['Subject']; ?></td>
 									              	<td><?php echo $row['Description']; ?></td>
 												</tr>  
 										<?php
 												}
-										?>
-											
-										<?php	
-											}	
-											else
-											{
-												echo "<tr > <td colspan='4'><center> File Records  Empty! </center></td><td> </td><td> </td><td> </td><td> </td></tr>";
 											}
 										?>
 									
@@ -268,8 +252,113 @@
 							  </table>  
 							</div>
 					
-					<?php
+					<?php 
 						}
+						else if(isset($_GET['subject']) && $_GET['subject'] == 'student')
+						{
+					?>
+							<div class="box-header" data-original-title>
+								<h2><i class="halflings-icon calendar"></i><span class="break"></span>Student Subject</h2>
+							</div>
+							<div class="box-content buttons">
+								<a href="subjectmanagement.php?faculty=add"><button class="btn btn-large btn-success">ADD SUBJECT</button></a>
+								<button class="btn btn-large btn-success">Edit Selected</button>
+								<button class="btn btn-large btn-success">Delete Selected</button>
+							</div>
+							<div class="box-content">
+								<table class="table table-striped table-bordered bootstrap-datatable datatable">
+								  <thead>
+									  <tr>
+									  		<th>Subject Code</th>
+							              	<th>ID Number</th>
+							              	<th>Student</th>      
+							              	<th>Description</th>
+									  </tr>
+								  </thead>   
+								  <tbody>
+								  	<?php
+
+										    $result = mysql_query("SELECT stud.*,sub.*,studsub.*,fr_subject.* FROM fr_ins_subject as sub,fr_stud as stud,fr_stud_subject as studsub , fr_subject WHERE fr_subject.SubCode = sub.Subject AND studsub.subject_id = sub.id AND studsub.user_id = stud.user_id AND sub.user_id = '".$_SESSION['user_id']."' AND studsub.status = 'APPROVED'")or die(mysql_error()); 
+
+											
+										 	if(mysql_num_rows($result) > 0)
+										 	{
+										 		while ($row = mysql_fetch_array($result)) 
+										 		{								 			
+										 ?>
+										 		<tr>
+										 			<td><?php echo $row['Subject']; ?></td>
+										            <td><?php echo $row['ControlNo']?></td>  
+										            <td><?php echo $row['FName']." ".$row['LName']; ?></td>       
+										            <td><?php echo $row['Description']; ?></td>
+												</tr>  
+										<?php
+												}
+											}
+										?>
+								  </tbody>
+							  </table>  
+							</div>
+					<?php 
+						}
+						else if(isset($_GET['subject']) && $_GET['subject'] == 'approve')
+						{
+							$result = mysql_query("SELECT stud.ControlNo,stud.FName,stud.LName,sub.Subject,studsub.subject_id,fr_subject.Description FROM fr_ins_subject as sub,fr_stud as stud,fr_stud_subject as studsub , fr_subject WHERE fr_subject.SubCode = sub.Subject AND studsub.subject_id = sub.id AND studsub.user_id = stud.user_id AND sub.user_id = '".$_SESSION['user_id']."' AND studsub.status='DISAPPROVED'") or die('Error: '.mysql_error());
+											
+						 	if(mysql_num_rows($result) > 0)
+						 	{
+					?>			
+							<form method="post" action="subjectmanagement/process_approve_subject.php">
+								<div class="box-header" data-original-title>
+									<h2><i class="halflings-icon calendar"></i><span class="break"></span>Approve Subject</h2>
+								</div>
+								<div class="box-content">
+									<table class="table table-striped table-bordered bootstrap-datatable datatable">
+									  <thead>
+										  <tr>
+										  		<th></th>
+								              	<th >Subject Code</th>
+								              	<th >ID Number</th>
+								              	<th >Student</th>      
+								              	<th >Description</th>
+										  </tr>
+									  </thead>   
+									  <tbody>
+								  		<?php
+										 		while ($row = mysql_fetch_array($result)) 
+										 		{								 			
+										 ?>
+										 		<tr>
+										 			<td><input type="checkbox" name="subject[]" value="<?php echo $row['subject_id']; ?>"></td>
+												  	<td><?php echo $row['Subject']; ?></td>
+												  	<td><?php echo $row['ControlNo']?></td>  
+												  	<td><?php echo $row['FName']." ".$row['LName']; ?></td>       
+												  	<td><?php echo $row['Description']; ?></td>
+												</tr>  
+										<?php
+												}
+										?>
+									  </tbody>
+								  </table>
+							  		<div class="form-actions">
+									  	<input name="approve" type="submit" value="APPROVE" class="btn btn-primary">
+										<input onclick="clicked(event)" name="disapprove" type="submit" value="DISAPPROVE"  class="btn btn-primary">
+									</div>   
+								</div>
+							</form>
+					<?php
+							}
+							else
+					        {
+					?>
+					           <div class="alert alert-error">
+									<strong>No Records found!
+								</div>
+
+					<?php
+					        }
+						}
+
 						else if(isset($_GET['user']) && $_GET['user'] == 'faculty')
 						{
 							require('Forms/faculty_form.php');
@@ -294,7 +383,7 @@
 		<form method="post" action="subjectmanagement/process_subject.php">  
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">×</button>
-				<h3>SEMESTER</h3>
+				<h3>ADD SUBJECT</h3>
 			</div>
 			<div class="modal-body">
 				<div class="control-group">
@@ -328,9 +417,8 @@
 
 			</div>
 			<div class="modal-footer">
-				</button>
-				<a href="#" class="btn" data-dismiss="modal">Close</a>
 				<input name="subject" type="submit" value="Save changes" class="btn btn-primary">
+				<a href="#" class="btn" data-dismiss="modal">Close</a>
 			</div>
 		</form>
 	</div>
