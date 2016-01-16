@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 15, 2016 at 09:50 PM
+-- Generation Time: Jan 16, 2016 at 10:25 AM
 -- Server version: 5.0.51
 -- PHP Version: 5.2.6
 
@@ -70,21 +70,22 @@ INSERT INTO `fr_folder_owner` (`id`, `path_id`, `user_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `fr_ins_subject` (
-  `ID` int(11) NOT NULL auto_increment,
+  `id` int(11) NOT NULL auto_increment,
   `user_id` int(11) NOT NULL,
   `Subject` varchar(50) NOT NULL,
   `SubPath` varchar(1000) NOT NULL,
-  `Folder_Owner` int(11) NOT NULL,
-  `Parent_F` int(11) NOT NULL,
   `Date_Created` date NOT NULL,
   `Time_Created` time NOT NULL,
-  PRIMARY KEY  (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `fr_ins_subject`
 --
 
+INSERT INTO `fr_ins_subject` (`id`, `user_id`, `Subject`, `SubPath`, `Date_Created`, `Time_Created`) VALUES
+(1, 2, 'IT7', './Data/Dean/Dean, Dean/2016-2017/1st Semester/IT7', '2016-01-16', '18:25:19'),
+(2, 2, 'IT8', './Data/Dean/Dean, Dean/2016-2017/1st Semester/IT8', '2016-01-16', '18:25:19');
 
 -- --------------------------------------------------------
 
@@ -97,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `fr_path` (
   `url` varchar(30000) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `fr_path`
@@ -105,9 +106,8 @@ CREATE TABLE IF NOT EXISTS `fr_path` (
 
 INSERT INTO `fr_path` (`id`, `url`, `user_id`) VALUES
 (1, './Data', 1),
-(2, './Data/Marapoc', 2),
-(3, './Data/leo', 3),
-(11, './Data/Student/BSIT/Mancera-445', 15);
+(2, './Data/Dean/Dean, Dean', 2),
+(3, './Data/Instructor/instructor, instructor', 3);
 
 -- --------------------------------------------------------
 
@@ -120,12 +120,14 @@ CREATE TABLE IF NOT EXISTS `fr_semester` (
   `Semester` varchar(100) NOT NULL,
   `SYID` int(11) NOT NULL,
   PRIMARY KEY  (`SemID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `fr_semester`
 --
 
+INSERT INTO `fr_semester` (`SemID`, `Semester`, `SYID`) VALUES
+(1, '1st Semester', 1);
 
 -- --------------------------------------------------------
 
@@ -158,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `fr_staff` (
   `LastN` varchar(50) NOT NULL,
   `midN` varchar(50) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `fr_staff`
@@ -166,7 +168,8 @@ CREATE TABLE IF NOT EXISTS `fr_staff` (
 
 INSERT INTO `fr_staff` (`id`, `user_id`, `FirstN`, `LastN`, `midN`) VALUES
 (1, 1, 'admin', 'admin', 'admin'),
-(2, 2, 'leo', 'maristela', 'marapoc');
+(2, 2, 'Dean', 'Dean', 'Dean'),
+(3, 3, 'instructor', 'instructor', '');
 
 -- --------------------------------------------------------
 
@@ -186,7 +189,7 @@ CREATE TABLE IF NOT EXISTS `fr_stud` (
   `size` int(11) NOT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `ControlNo` (`ControlNo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `fr_stud`
@@ -196,7 +199,8 @@ INSERT INTO `fr_stud` (`id`, `user_id`, `ControlNo`, `FName`, `LName`, `Mname`, 
 (1, 2, 552, 'Leo', 'Marapoc', '', 'BSIT', '4th Year', 0),
 (3, 14, 443, 'Romalyn', 'Bertudazo', '', 'BSIT', '4th Year', 0),
 (4, 15, 445, 'Sheila', 'Mancera', '', 'BSIT', '4th Year', 0),
-(5, 16, 123, 'Trina', 'Larazzabal', '', 'BSBA', '3rd Year', 0);
+(5, 16, 123, 'Trina', 'Larazzabal', '', 'BSBA', '3rd Year', 0),
+(6, 4, 1, 'student', 'student', '', 'BSIT', '4th Year', 0);
 
 -- --------------------------------------------------------
 
@@ -235,12 +239,15 @@ CREATE TABLE IF NOT EXISTS `fr_subject` (
   `status` enum('ASSIGNED','NOT ASSIGNED') NOT NULL default 'NOT ASSIGNED',
   `SemID` int(11) NOT NULL,
   PRIMARY KEY  (`subID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `fr_subject`
 --
 
+INSERT INTO `fr_subject` (`subID`, `SubCode`, `Description`, `status`, `SemID`) VALUES
+(1, 'IT7', 'Computer Programming', 'ASSIGNED', 1),
+(2, 'IT8', 'Operating System', 'ASSIGNED', 1);
 
 -- --------------------------------------------------------
 
@@ -253,12 +260,14 @@ CREATE TABLE IF NOT EXISTS `fr_sy` (
   `SYstart` int(11) NOT NULL,
   `SYend` int(11) NOT NULL,
   PRIMARY KEY  (`SYID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `fr_sy`
 --
 
+INSERT INTO `fr_sy` (`SYID`, `SYstart`, `SYend`) VALUES
+(1, 2016, 2017);
 
 -- --------------------------------------------------------
 
@@ -276,19 +285,17 @@ CREATE TABLE IF NOT EXISTS `fr_user` (
   `last_logout_date` datetime NOT NULL,
   `activate` int(11) NOT NULL default '1',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `fr_user`
 --
 
 INSERT INTO `fr_user` (`id`, `username`, `password`, `UserLvl`, `status`, `last_login_date`, `last_logout_date`, `activate`) VALUES
-(1, 'admin', 'admin', 5, 'online', '2016-01-16 05:27:49', '2016-01-16 05:27:43', 1),
-(2, 'marapoc', 'marapoc', 1, 'offline', '2016-01-15 04:59:41', '2016-01-15 05:33:19', 1),
-(3, 'leo', 'leo', 1, 'offline', '2016-01-15 04:59:04', '2016-01-15 05:37:20', 1),
-(14, '443', 'apg79s0K', 1, 'pending', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1),
-(15, 'mancera', '123', 1, 'offline', '2016-01-15 04:15:28', '2016-01-15 10:43:16', 1),
-(16, '123', '123', 1, 'pending', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1);
+(1, 'admin', 'admin', 5, 'online', '2016-01-16 08:44:11', '0000-00-00 00:00:00', 1),
+(2, 'dean', '12345', 4, 'online', '2016-01-16 06:17:03', '0000-00-00 00:00:00', 1),
+(3, 'instructor', '12345', 3, 'offline', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1),
+(4, '1', 'aBKWOqCA', 1, 'pending', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -298,7 +305,7 @@ INSERT INTO `fr_user` (`id`, `username`, `password`, `UserLvl`, `status`, `last_
 
 CREATE TABLE IF NOT EXISTS `fr_user_permissions` (
   `id` int(11) NOT NULL auto_increment,
-  `uid` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `upload` int(11) NOT NULL,
   `download` int(11) NOT NULL,
   `download_folders` int(11) NOT NULL,
@@ -308,16 +315,15 @@ CREATE TABLE IF NOT EXISTS `fr_user_permissions` (
   `rename_F` int(11) NOT NULL,
   `delete_F` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `fr_user_permissions`
 --
 
-INSERT INTO `fr_user_permissions` (`id`, `uid`, `upload`, `download`, `download_folders`, `create_folders`, `share`, `change_pass`, `rename_F`, `delete_F`) VALUES
-(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-(2, 15, 1, 1, 1, 0, 0, 1, 0, 0),
-(3, 15, 1, 1, 1, 0, 0, 1, 0, 0);
+INSERT INTO `fr_user_permissions` (`id`, `user_id`, `upload`, `download`, `download_folders`, `create_folders`, `share`, `change_pass`, `rename_F`, `delete_F`) VALUES
+(1, 2, 1, 1, 1, 0, 0, 1, 0, 0),
+(2, 3, 1, 1, 1, 0, 0, 1, 0, 0);
 
 -- --------------------------------------------------------
 
