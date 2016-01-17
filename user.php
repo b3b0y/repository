@@ -89,12 +89,20 @@
 							<a href="user.php?faculty=true" class="quick-button span2">
 								<i class="icon-group"></i>
 								<p>Faculty</p>
-								<span class="notification blue">1.367</span>
+								<?php 
+									$result = mysql_query("SELECT * FROM fr_staff");
+
+								?>
+								<span class="notification blue"><?php echo mysql_num_rows($result); ?></span>
 							</a>
 							<a href="user.php?student=true" class="quick-button span2">
 								<i class="icon-group"></i>
 								<p>Student</p>
-								<span class="notification blue">1.367</span>
+								<?php 
+									$result = mysql_query("SELECT * FROM fr_stud");
+
+								?>
+								<span class="notification blue"><?php echo mysql_num_rows($result); ?></span>
 							</a>
 							<div class="clearfix"></div>
 						</div>	

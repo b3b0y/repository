@@ -85,20 +85,24 @@
 						<div class="box-content">
 							
 							<a href="user.php" class="quick-button span2">
-								<i class="glyphicons-icon group"></i>
+								<i class="icon-group"></i>
 								<p>Users</p>
-								<span class="notification blue">1.367</span>
+								<?php 
+									$result = mysql_query("SELECT * FROM fr_user");
+
+								?>
+								<span class="notification blue"><?php echo mysql_num_rows($result); ?></span>
 							</a>
 							<a href="termmanagement.php" class="quick-button span2">
-								<i class="glyphicons-icon calendar"></i>
+								<i class="icon-calendar"></i>
 								<p>Semester</p>
 							</a>
 							<a href="subjectmanagement.php" class="quick-button span2">
-								<i class="glyphicons-icon book"></i>
+								<i class="icon-book"></i>
 								<p>Subjects</p>
 							</a>
 							<a class="quick-button span2">
-								<i class="glyphicons-icon notes"></i>
+								<i class="icon-table"></i>
 								<p>Reports</p>
 							</a>
 							<div class="clearfix"></div>

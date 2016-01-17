@@ -7,7 +7,7 @@
 					{
 				?>
 					<a class="quick-button-small span2  btn-link-1 launch-modal" href="#" data-modal-id="modal-register2">
-					 	<i class="glyphicons-icon upload"></i>
+					 	<i class="icon-upload-alt"></i>
 					 	<p>Upload</p>
 					 </a>
 				<?php
@@ -16,7 +16,7 @@
 					{
 				?>
 					 <a class="quick-button-small span2  btn-link-1 launch-modal" href="#" data-modal-id="modal-register">
-					 	<i class="glyphicons-icon folder_new"></i>
+					 	<i class="icon-folder-close"></i>
 					 	<p>New folder</p>
 					 </a>
 
@@ -25,7 +25,7 @@
 					if($view_mode_user_selectable == 1) 
 					{ 
 				?>
-				<a class="quick-button-small span2" href="dirLIST_files/change_view.php?folder=<?PHP echo $_GET['folder']; ?>"><?PHP echo ($view_mode == 0) ? '<i class="glyphicons-icon show_thumbnails_with_lines"></i>' : '<i class="glyphicons-icon show_big_thumbnails"></i>'; ?>
+				<a class="quick-button-small span2" href="dirLIST_files/change_view.php?folder=<?PHP echo $_GET['folder']; ?>"><?PHP echo ($view_mode == 0) ? '<i class="icon-th-list"></i>' : '<i class="icon-th-large"></i>'; ?>
 						<p>Thumbnail</p>
 	        	</a>
 				<?PHP } ?>

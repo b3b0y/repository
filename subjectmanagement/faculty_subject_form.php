@@ -58,7 +58,7 @@
 								 		{								 			
 								 ?>
 								 		<tr>
-								 			<td><input type="checkbox" name="subject[]" value="<?php echo $row['SubCode']; ?>" required></td>       
+								 			<td><input type="checkbox" name="subject[]" value="<?php echo $row['SubCode']; ?>"></td>       
 				                          	<td><?php echo $row['SubCode']; ?></td>
 				                          	<td><?php echo $row['Description']; ?></td>
 				                          	<td><input type="hidden" name="sem[]" value="<?php echo $row['Semester'] ?>"><input type="hidden" name="sy[]" value="<?php echo $row['SYstart'].'-'.$row['SYend'] ?>"><?php echo $row['Semester']." / ".$row['SYstart'].'-'.$row['SYend']; ?></td>

@@ -261,8 +261,6 @@
 								<h2><i class="halflings-icon calendar"></i><span class="break"></span>Student Subject</h2>
 							</div>
 							<div class="box-content buttons">
-								<a href="subjectmanagement.php?faculty=add"><button class="btn btn-large btn-success">ADD SUBJECT</button></a>
-								<button class="btn btn-large btn-success">Edit Selected</button>
 								<button class="btn btn-large btn-success">Delete Selected</button>
 							</div>
 							<div class="box-content">

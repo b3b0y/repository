@@ -9,7 +9,7 @@
 				<ul class="nav pull-right">
 					<li class="dropdown">
 						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-								<i class="halflings-icon white warning-sign"></i>
+								<i class="icon-envelope"></i>
 							<span class="label label-important"> 3 </span>
 						</a>
 						<ul class="dropdown-menu notifications">
@@ -24,9 +24,6 @@
 										<span class="time">1 min</span> 
                                     </a>
                                 </li>
-                                <li class="dropdown-menu-sub-footer">
-                            		<a>View all notifications</a>
-								</li>	
 							</ul>
 					</li>
 					<!-- start: User Dropdown -->

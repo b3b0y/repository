@@ -25,33 +25,36 @@ require('../dirLIST_files/functions.php');
       }
 
     $source = $item_path."/";
-    $destination = '.'.$row['url'].'/Archive'.'/'.base64_decode($_GET['item_name'].'/');
+    $destination = '.'.$row['url'].'/Archive'.'/'.base64_decode($_GET['item_name']).'/';
 
 
-     $date = date ("y/m/d");
-
-
+    if(is_dir($destination))
+    {
+        $date = date ("y/m/d");
+   
         $new = $row['url'].'/Archive'.'/'.base64_decode($_GET['item_name']);
-    mysql_query("INSERT INTO fr_achive(user_id,url,name,date) VALUES('".$_SESSION['user_id']."','".$new."','".base64_decode($_GET['item_name'])."','".$date."') ") or die('error: '. mysql_error());
+        
+        mysql_query("INSERT INTO fr_achive(user_id,url,name,date) VALUES('".$_SESSION['user_id']."','".$new."','".base64_decode($_GET['item_name'])."','".$date."') ") or die('error: '. mysql_error());
 
 
 
-   rcopy($source , $destination );
+           rcopy($source , $destination );
 
 
-    // Function to Copy folders and files       
-    function rcopy($src, $dst) {
-        if (is_dir ( $src )) {
-            mkdir ( $dst );
-            $files = scandir ( $src );
-            foreach ( $files as $file )
-                if ($file != "." && $file != "..")
-                    rcopy ( "$src/$file", "$dst/$file" );
-        } else if (file_exists ( $src ))
-            copy ( $src, $dst );
+            // Function to Copy folders and files       
+            function rcopy($src, $dst) {
+                if (is_dir ( $src )) {
+                    mkdir ( $dst );
+                    $files = scandir ( $src );
+                    foreach ( $files as $file )
+                        if ($file != "." && $file != "..")
+                            rcopy ( "$src/$file", "$dst/$file" );
+                } else if (file_exists ( $src ))
+                    copy ( $src, $dst );
+            }
+
+            delete_directory($item_path.'/', 0);
     }
-
-    delete_directory($item_path.'/', 0);
 
 
     header("Location: ../index.php?folder=".$_GET['folder']);

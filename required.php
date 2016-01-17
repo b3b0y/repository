@@ -77,19 +77,19 @@
               
               <div class="input-prepend" title="Username"> 
                 <span class="add-on"><i class="halflings-icon user"></i></span>
-                <input class="input-large span10" name="uname" id="username" type="text" placeholder="type new username"/> 
+                <input class="input-large span10" name="uname" id="username" type="text" placeholder="type new username" required /> 
               </div>
               <div class="clearfix"></div>
 
               <div class="input-prepend" title="Password">
                 <span class="add-on"><i class="halflings-icon lock"></i></span> 
-                <input class="input-large span10" name="Npass" id="password" type="password" placeholder="type new password"/>
+                <input class="input-large span10" name="Npass" id="password" type="password" placeholder="type new password" required/>
               </div>
               <div class="clearfix"></div>
 
               <div class="input-prepend" title="cPassword">
                 <span class="add-on"><i class="halflings-icon lock"></i></span>
-                <input class="input-large span10" name="Conpass" id="cPassword" type="password" placeholder="Confirm new password"/>
+                <input class="input-large span10" name="Conpass" id="cPassword" type="password" placeholder="Confirm new password" required/>
               </div>
               <div class="clearfix"></div>
    

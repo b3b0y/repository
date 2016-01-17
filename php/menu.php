@@ -7,14 +7,14 @@
 				if($_SESSION['UserLvl'] == '1')
 				{
 			?>
-					<li><a href="enroll_subject.php?subject=enroll"><i class=""></i><span class="hidden-tablet"> Enroll subject </span></a></li>
-					<li><a href="enroll_subject.php?subject=subject"><i class=""></i><span class="hidden-tablet"> My subject </span></a></li>		
+					<li><a href="enroll_subject.php?subject=enroll"><i class="icon-book"></i><span class="hidden-tablet"> Enroll subject </span></a></li>
+					<li><a href="enroll_subject.php?subject=subject"><i class="icon-book"></i><span class="hidden-tablet"> My subject </span></a></li>		
 			<?php
 				}
 				else
 				{
 			?>
-					<li><a href="dashboard.php"><i class="icon-bar-chart"></i><span class="hidden-tablet"> Dashboard </span></a></li>	
+					<li><a href="dashboard.php"><i class="icon-cog"></i><span class="hidden-tablet"> Dashboard </span></a></li>	
 			<?php
 				}
 			?>

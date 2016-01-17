@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 16, 2016 at 07:36 PM
+-- Generation Time: Jan 17, 2016 at 06:43 PM
 -- Server version: 5.0.51
 -- PHP Version: 5.2.6
 
@@ -18,6 +18,26 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Database: `repo`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fr_achive`
+--
+
+CREATE TABLE IF NOT EXISTS `fr_achive` (
+  `id` int(11) NOT NULL auto_increment,
+  `user_id` int(11) NOT NULL,
+  `url` varchar(3000) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `date` date NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `fr_achive`
+--
+
 
 -- --------------------------------------------------------
 
@@ -53,15 +73,12 @@ CREATE TABLE IF NOT EXISTS `fr_folder_owner` (
   `path_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `fr_folder_owner`
 --
 
-INSERT INTO `fr_folder_owner` (`id`, `path_id`, `user_id`) VALUES
-(1, 1, 1),
-(2, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -77,15 +94,17 @@ CREATE TABLE IF NOT EXISTS `fr_ins_subject` (
   `Date_Created` date NOT NULL,
   `Time_Created` time NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `fr_ins_subject`
 --
 
 INSERT INTO `fr_ins_subject` (`id`, `user_id`, `Subject`, `SubPath`, `Date_Created`, `Time_Created`) VALUES
-(1, 2, 'IT7', './Data/Dean/Dean, Dean/2016-2017/1st Semester/IT7', '2016-01-16', '18:25:19'),
-(2, 2, 'IT8', './Data/Dean/Dean, Dean/2016-2017/1st Semester/IT8', '2016-01-16', '18:25:19');
+(1, 2, 'IT7', './Data/Dean/dean, dean/2016-2017/1st Semester/IT7', '2018-01-16', '02:06:36'),
+(2, 2, 'IT4', './Data/Dean/dean, dean/2016-2017/1st Semester/IT4', '2018-01-16', '02:06:36'),
+(3, 4, 'IT8', './Data/Student/BSIT/student-1/2016-2017/1st Semester/IT8', '2018-01-16', '02:29:14'),
+(4, 4, 'English 4', './Data/Student/BSIT/student-1/2016-2017/1st Semester/English 4', '2018-01-16', '02:31:47');
 
 -- --------------------------------------------------------
 
@@ -106,9 +125,9 @@ CREATE TABLE IF NOT EXISTS `fr_path` (
 
 INSERT INTO `fr_path` (`id`, `url`, `user_id`) VALUES
 (1, './Data', 1),
-(2, './Data/Dean/Dean, Dean', 2),
-(3, './Data/Instructor/instructor, instructor', 3),
-(4, './Data/Student/BSIT/student-1', 4);
+(2, './Data/Dean/dean, dean', 2),
+(3, './Data/Instructor/instructor, instructor', 4),
+(4, './Data/Student/BSIT/student-1', 3);
 
 -- --------------------------------------------------------
 
@@ -138,8 +157,14 @@ INSERT INTO `fr_semester` (`SemID`, `Semester`, `SYID`) VALUES
 
 CREATE TABLE IF NOT EXISTS `fr_share_folder` (
   `id` int(11) NOT NULL auto_increment,
+  `owner_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `path_id` varchar(100) NOT NULL,
+  `url` varchar(100) NOT NULL,
+  `shared_name` varchar(100) NOT NULL,
+  `download` int(11) NOT NULL,
+  `upload` int(11) NOT NULL,
+  `date_shared` date NOT NULL,
+  `time_shared` time NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -169,8 +194,8 @@ CREATE TABLE IF NOT EXISTS `fr_staff` (
 
 INSERT INTO `fr_staff` (`id`, `user_id`, `FirstN`, `LastN`, `midN`) VALUES
 (1, 1, 'admin', 'admin', 'admin'),
-(2, 2, 'Dean', 'Dean', 'Dean'),
-(3, 3, 'instructor', 'instructor', '');
+(2, 2, 'dean', 'dean', 'dean'),
+(3, 4, 'instructor', 'instructor', '');
 
 -- --------------------------------------------------------
 
@@ -190,18 +215,14 @@ CREATE TABLE IF NOT EXISTS `fr_stud` (
   `size` int(11) NOT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `ControlNo` (`ControlNo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `fr_stud`
 --
 
 INSERT INTO `fr_stud` (`id`, `user_id`, `ControlNo`, `FName`, `LName`, `Mname`, `Course`, `Year`, `size`) VALUES
-(1, 2, 552, 'Leo', 'Marapoc', '', 'BSIT', '4th Year', 0),
-(3, 14, 443, 'Romalyn', 'Bertudazo', '', 'BSIT', '4th Year', 0),
-(4, 15, 445, 'Sheila', 'Mancera', '', 'BSIT', '4th Year', 0),
-(5, 16, 123, 'Trina', 'Larazzabal', '', 'BSBA', '3rd Year', 0),
-(6, 4, 1, 'student', 'student', '', 'BSIT', '4th Year', 0);
+(1, 3, 1, 'student', 'student', '', 'BSIT', '4th Year', 0);
 
 -- --------------------------------------------------------
 
@@ -219,15 +240,12 @@ CREATE TABLE IF NOT EXISTS `fr_stud_subject` (
   `Time_Created` time NOT NULL,
   `status` enum('APPROVED','DISAPPROVED') NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `fr_stud_subject`
 --
 
-INSERT INTO `fr_stud_subject` (`id`, `user_id`, `subject`, `url`, `subject_id`, `Date_Created`, `Time_Created`, `status`) VALUES
-(5, 4, 'IT7', './Data/Dean/Dean, Dean/2016-2017/1st Semester/IT7/1-student-IT7', 1, '2016-01-17', '02:45:09', 'APPROVED'),
-(6, 4, 'IT8', './Data/Dean/Dean, Dean/2016-2017/1st Semester/IT8/1-student-IT8', 2, '2016-01-17', '02:45:09', 'APPROVED');
 
 -- --------------------------------------------------------
 
@@ -242,7 +260,7 @@ CREATE TABLE IF NOT EXISTS `fr_subject` (
   `status` enum('ASSIGNED','NOT ASSIGNED') NOT NULL default 'NOT ASSIGNED',
   `SemID` int(11) NOT NULL,
   PRIMARY KEY  (`subID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `fr_subject`
@@ -250,7 +268,9 @@ CREATE TABLE IF NOT EXISTS `fr_subject` (
 
 INSERT INTO `fr_subject` (`subID`, `SubCode`, `Description`, `status`, `SemID`) VALUES
 (1, 'IT7', 'Computer Programming', 'ASSIGNED', 1),
-(2, 'IT8', 'Operating System', 'ASSIGNED', 1);
+(2, 'IT8', 'Operating System', 'ASSIGNED', 1),
+(3, 'IT4', 'Presentation Skills', 'ASSIGNED', 1),
+(4, 'English 4', 'Business Communication', 'ASSIGNED', 1);
 
 -- --------------------------------------------------------
 
@@ -295,10 +315,10 @@ CREATE TABLE IF NOT EXISTS `fr_user` (
 --
 
 INSERT INTO `fr_user` (`id`, `username`, `password`, `UserLvl`, `status`, `last_login_date`, `last_logout_date`, `activate`) VALUES
-(1, 'admin', 'admin', 5, 'offline', '2016-01-17 03:31:16', '2016-01-17 03:31:51', 1),
-(2, 'dean', '12345', 4, 'online', '2016-01-17 01:38:50', '2016-01-17 12:38:51', 1),
-(3, 'instructor', '12345', 3, 'offline', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1),
-(4, 'student', '12345', 1, 'online', '2016-01-17 03:31:58', '2016-01-17 03:29:13', 1);
+(1, 'admin', 'admin', 5, 'online', '2016-01-18 01:44:30', '0000-00-00 00:00:00', 1),
+(2, 'dean', '12345', 4, 'offline', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1),
+(3, 'student', '12345', 1, 'online', '2016-01-18 02:13:30', '2016-01-18 02:13:24', 1),
+(4, 'instructor', '12345', 3, 'offline', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -311,22 +331,21 @@ CREATE TABLE IF NOT EXISTS `fr_user_permissions` (
   `user_id` int(11) NOT NULL,
   `upload` int(11) NOT NULL,
   `download` int(11) NOT NULL,
-  `download_folders` int(11) NOT NULL,
   `create_folders` int(11) NOT NULL,
-  `share` int(11) NOT NULL,
-  `change_pass` int(11) NOT NULL,
   `rename_F` int(11) NOT NULL,
   `delete_F` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `fr_user_permissions`
 --
 
-INSERT INTO `fr_user_permissions` (`id`, `user_id`, `upload`, `download`, `download_folders`, `create_folders`, `share`, `change_pass`, `rename_F`, `delete_F`) VALUES
-(1, 2, 1, 1, 1, 0, 0, 1, 0, 0),
-(2, 3, 1, 1, 1, 0, 0, 1, 0, 0);
+INSERT INTO `fr_user_permissions` (`id`, `user_id`, `upload`, `download`, `create_folders`, `rename_F`, `delete_F`) VALUES
+(1, 1, 1, 1, 1, 1, 1),
+(2, 2, 1, 1, 1, 1, 1),
+(3, 3, 1, 1, 1, 1, 1),
+(4, 4, 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 

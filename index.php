@@ -31,6 +31,9 @@ else
 if($load_time == 1)
 	$start_time = array_sum(explode(" ",microtime()));
 
+$local_text = set_local_text($default_language);
+	$lang_id = $default_language;
+
 //Set the view mode: thumbnails or list
 if(isset($_SESSION['view_mode_session']))
 	$view_mode = $_SESSION['view_mode_session'];
@@ -299,106 +302,100 @@ if(isset($_SESSION['view_mode_session']))
 				<div class="row-fluid">	
 					<div class="box span3">
 						<div class="box-header">
-							<h2><i class="halflings-icon eye-open"></i><span class="break"></span>Folders</h2>
+							<h2><i class="icon-folder-close-alt"></i><span class="break"></span>Folders</h2>
 						</div>
-						<div class="box-content">
-							<table class="table  table-striped">
-								<thead>
-									<?php 
+						<div class="nav-collapse sidebar-nav">
+							<ul style="color: #4d4d4d" class="nav nav-tabs nav-stacked main-menu">
+								<?php 
 									$result = mysql_query("SELECT * FROM  fr_path WHERE user_id = '".$_SESSION['user_id']."'") or die('Error share: '. mysql_error());
 								 	if(mysql_num_rows($result) > 0)
 								 	{
 								 		while ($row = mysql_fetch_array($result)) 
 								 		{								 			
 								 ?>
-								 		<tr> <th><a href="index.php?id=<?php echo $row['id']; ?>"><i class="halflings-icon folder-close"></i>My Folder</a> </th> </tr>
-								 <?php
+											<li> <a href="index.php?id=<?php echo $row['id']; ?>"><font color="black">  <i class="icon-folder-close-alt"></i> My Folder </font> </a> </li>
+								
+								<?php
 								 		}
 								 	}
 								 ?>
-								</thead>
-							 </table>
-							<table class="table table-striped">
-								<thead>
-									<th><i class="halflings-icon folder-close"></i> Subject </th>
-								</thead>
-								<tbody>
+								 <li>
+									<a class="dropmenu" href="#"><font color="black"> <i class="icon-folder-close-alt"></i> Subject </font></a>
+									<ul>
+									<?php
+										if($_SESSION['UserLvl'] == 1)
+										{
+											$result = mysql_query("SELECT * FROM fr_stud_subject WHERE  user_id = '".$_SESSION['user_id']."'") or die('Error share: '. mysql_error());
+										 	if(mysql_num_rows($result) > 0)
+										 	{
+										 		while ($row = mysql_fetch_array($result)) 
+										 		{								 			
+									 ?>
+									 				<li><a class="submenu" href="index.php?studsub=<?php echo $row['subject_id']; ?>"><font color="black"> <i class="icon-file-alt"></i> <?php echo $row['subject']; ?> </font></a></li>
+									 <?php
+									 			}
+									 		}	
+										} 
+										else
+										{
+											$result = mysql_query("SELECT * FROM  fr_ins_subject WHERE  user_id = '".$_SESSION['user_id']."'") or die('Error share: '. mysql_error());
+										 	if(mysql_num_rows($result) > 0)
+										 	{
+										 		while ($row = mysql_fetch_array($result)) 
+										 		{								 			
+									 ?>
+									 				<li><a class="submenu" href="index.php?subf=<?php echo $row['id']; ?>?&&folder1=<?php echo $row['Subject']; ?>" > <i class="icon-file-alt"></i><font color="black"><?php echo $row['Subject']; ?></font></a></li>
+									 <?php
+									 			}
+									 		}									
+										}
+									 ?>
+									</ul>	
+								</li>
 								<?php
-									if($_SESSION['UserLvl'] == 1)
-									{
-										$result = mysql_query("SELECT * FROM fr_stud_subject WHERE  user_id = '".$_SESSION['user_id']."'") or die('Error share: '. mysql_error());
-									 	if(mysql_num_rows($result) > 0)
-									 	{
-									 		while ($row = mysql_fetch_array($result)) 
-									 		{								 			
-								 ?>
-								 				<tr> <td> <a href="index.php?studsub=<?php echo $row['subject_id']; ?>"><i class="halflings-icon folder-open"></i> <?php echo $row['subject']; ?></a> </td> </tr>
-								 <?php
-								 			}
-								 		}	
-									} 
-									else
-									{
-										$result = mysql_query("SELECT * FROM  fr_ins_subject WHERE  user_id = '".$_SESSION['user_id']."'") or die('Error share: '. mysql_error());
-									 	if(mysql_num_rows($result) > 0)
-									 	{
-									 		while ($row = mysql_fetch_array($result)) 
-									 		{								 			
-								 ?>
-								 				<tr> <td> <a href="index.php?subf=<?php echo $row['id']; ?>?&&folder1=<?php echo $row['Subject']; ?>"><i class="halflings-icon folder-open"></i> <?php echo $row['Subject']; ?></a> </td> </tr>
-								 <?php
-								 			}
-								 		}									
+									$result = mysql_query("SELECT * FROM  fr_share_folder WHERE user_id = '".$_SESSION['user_id']."' ") or die('Error share: '. mysql_error());
+								 	if(mysql_num_rows($result) > 0)
+								 	{
+								?>
+									<li>
+										<a class="dropmenu" href="#"><font color="black"><i class="icon-folder-close-alt"></i>Shared</font></a>
+										<ul>
+									  	<?php 
+											
+												while ($row = mysql_fetch_array($result)) 
+										 		{								 			
+										?>
+											 		<li><a class="submenu" href="index.php?share=<?php echo  $row['id']; ?>"><font color="black"> <i class="icon-file-alt"></i><?php echo basename($row['shared_name']); ?></font></a> </li>
+										<?php
+										 		}
+
+									  	?>
+										</ul>	
+									</li>
+								<?php
 									}
-								 ?>
-								</tbody>
-						  	</table>
-						  	<?php 
-								$result = mysql_query("SELECT * FROM  fr_share_folder WHERE user_id = '".$_SESSION['user_id']."' ") or die('Error share: '. mysql_error());
-							 	if(mysql_num_rows($result) > 0)
-							 	{
-						 	?>	
-									<table class="table table-striped">
-										<thead>
-											<th><i class="halflings-icon folder-close"></i> Shared </th>
-										</thead>
-										<tbody>
+							
+									$result = mysql_query("SELECT * FROM  fr_achive WHERE user_id = '".$_SESSION['user_id']."' ") or die('Error share: '. mysql_error());
+								 	if(mysql_num_rows($result) > 0)
+								 	{
+							 	?>	
+									<li>
+										<a class="dropmenu" href="#"><font color="black"> <i class="icon-folder-close-alt"></i> Archived </font></a>
+										<ul>
 										<?php
 												while ($row = mysql_fetch_array($result)) 
-										 		{								 			
-										 ?>
-										 		<tr> <td> <a href="index.php?share=<?php echo  $row['id']; ?>"><i class="halflings-icon folder-open"></i> <?php echo basename($row['shared_name']); ?></a> </td> </tr>
-										 <?php
-										 		}
-										 ?>
-										</tbody>
-								  	</table>
-						  	<?php
-						  		}
-							?>
-							<?php 
-								$result = mysql_query("SELECT * FROM  fr_achive WHERE user_id = '".$_SESSION['user_id']."' ") or die('Error share: '. mysql_error());
-							 	if(mysql_num_rows($result) > 0)
-							 	{
-						 	?>	
-									<table class="table table-striped">
-										<thead>
-											<th><i class="halflings-icon folder-close"></i> Archived </th>
-										</thead>
-										<tbody>
+											 	{								 			
+										?>
+											 		<li><a class="submenu" href="index.php?archive=<?php echo  $row['id']; ?>" > <i class="icon-file-alt"></i><?php echo $row['name']; ?></a></li>
 										<?php
-												while ($row = mysql_fetch_array($result)) 
-										 		{								 			
-										 ?>
-										 		<tr> <td> <a href="index.php?archive=<?php echo  $row['id']; ?>"><i class="halflings-icon folder-open"></i> <?php echo $row['name']; ?></a> </td> </tr>
-										 <?php
-										 		}
-										 ?>
-										</tbody>
-								  	</table>
-						  	<?php
-						  		}
-							?>
+											 	}
+									  	?>
+										</ul>	
+									</li>
+								<?php
+									}
+								?>
+							</ul>	
 						</div>
 					</div><!--/span-->
 					
@@ -466,7 +463,7 @@ if(isset($_SESSION['view_mode_session']))
 							</div>
 			    			<div class="modal-footer">
 								<a href="#" class="btn" data-dismiss="modal">Close</a>
-								 <input class="btn btn-primary" name="submit" type="submit" id="submit" value="<?PHP echo $local_text['upload']; ?>" />
+								 <input class="btn btn-primary" name="submit" type="submit" id="submit" value="upload" />
 							</div>
 		    			</form> 
 				<?PHP 
@@ -489,12 +486,12 @@ if(isset($_SESSION['view_mode_session']))
 	</footer>
 
 	<!-- start: JavaScript-->
-		<script src="assets/js/jquery-1.11.1.min.js"></script>
+		<script src="js/jquery-1.9.1.min.js"></script>
         <script src="assets/js/jquery.backstretch.min.js"></script>
         <script src="assets/js/scripts.js"></script>
 
 
-		<script src="js/jquery-1.9.1.min.js"></script>
+		
 	
 		<script src="js/jquery-migrate-1.0.0.min.js"></script>
 	

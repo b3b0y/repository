@@ -130,7 +130,7 @@ if(isset($_GET['faculty']) && $_GET['faculty'] == "faculty")
 					
 					mkdir (".".$path, 0700);
 				
-					mysql_query("INSERT INTO fr_user_permissions(user_id,upload,download,download_folders,create_folders,share,change_pass,rename_F,delete_F) VALUES('".$row['id']."','1','1','1','0','0','1','0','0')");
+					mysql_query("INSERT INTO fr_user_permissions(user_id,upload,download,create_folders,rename_F,delete_F) VALUES('".$row['id']."','1','1','1','1','1')");
 				}
 
 

@@ -124,12 +124,10 @@
 							<a href="termmanagement.php?sy=true" class="quick-button span2">
 								<i class="icon-calendar"></i>
 								<p>School Year</p>
-								<span class="notification blue">1.367</span>
 							</a>
 							<a href="termmanagement.php?sem=true" class="quick-button span2">
 								<i class="icon-calendar"></i>
 								<p>Semester</p>
-								<span class="notification blue">1.367</span>
 							</a>
 							<div class="clearfix"></div>
 						</div>	
