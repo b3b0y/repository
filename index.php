@@ -18,7 +18,7 @@ if (!empty($_SESSION['dir_to_browse']))
 	$dir_to_browse =  $_SESSION['dir_to_browse'];
 	$url_folder = base64_decode(trim($_GET['folder']));
  	if(!empty($_GET['folder']))
-	 echo 	$dir_to_browse .= $url_folder."/";
+	  $dir_to_browse .= $url_folder."/";
 }
 else
 {
@@ -433,21 +433,27 @@ $lang_id = $default_language;
 					<button type="button" class="close" data-dismiss="modal">×</button>
 					<h3>New folder</h3>
 				</div>
-				<form role="form" action="php/process_newfolder.php" method="post" class="registration-form">
-    			<div class="modal-body"> 
-            		<div class="control-group">
-						<label class="control-label" for="focusedInput">Folder name</label>
-						<div class="controls">
-						  <input name="file" placeholder="new folder" class="input-xlarge focused" id="focusedInput" type="text" value="" required><font style="color:red;" > *</font>
-						  <input name="folder" type="hidden" id="folder" value="<?PHP echo $_GET['folder']; ?>" />
-						</div>
-				  	</div>
-				</div>
-    			<div class="modal-footer">
-					<a href="#" class="btn" data-dismiss="modal">Close</a>
-					<button type="submit" name="submit" class="btn btn-primary">Save changes</a> </button>
-				</div>
-    			</form> 
+				<?php
+					//File uploading
+					if($file_uploads == 1 && $listing_mode == 0) 
+					{ 
+				?>
+						<form action="dirLIST_files/process_upload.php" method="post" enctype="multipart/form-data" name="upload_form" id="upload_form">
+			    			<div class="modal-body"> 
+			            		<div class="control-group">
+							        <input name="file" type="file" id="file" size="40" />
+							        <input name="folder" type="hidden" id="folder" value="<?PHP echo $_GET['folder']; ?>" /><?PHP echo $local_text['filesize_limit']; ?>: <?PHP echo max_upload_size(); ?>B
+							  	</div>
+							</div>
+			    			<div class="modal-footer">
+								<a href="#" class="btn" data-dismiss="modal">Close</a>
+								 <input class="btn btn-primary" name="submit" type="submit" id="submit" value="<?PHP echo $local_text['upload']; ?>" />
+							</div>
+		    			</form> 
+				<?PHP 
+					//File uploading -done
+					} 
+				?>	
     		</div>
     	</div>
     </div>

@@ -1,23 +1,4 @@
-<?php
-	//File uploading
-	if($file_uploads == 1 && $listing_mode == 0) { ?>
-	<table border="0" cellpadding="2" cellspacing="2" class="table_border">
-	    <tr class="top_row">
-	    	<td>
-	     		<form action="dirLIST_files/process_upload.php" method="post" enctype="multipart/form-data" name="upload_form" id="upload_form">
-			        <input name="file" type="file" id="file" size="40" />
-			        <input name="submit" type="submit" id="submit" value="<?PHP echo $local_text['upload']; ?>" />
-			        <input name="folder" type="hidden" id="folder" value="<?PHP echo $_GET['folder']; ?>" /><?PHP echo $local_text['filesize_limit']; ?>: <?PHP echo max_upload_size(); ?>B
-				</form>
-			</td>
-		
-	     </tr>
-	</table>
-        
-	<?PHP 
-	//File uploading -done
-	} 
-?>	
+
 	<div class="row-fluid">	
 		<div class="box-content">
 			<div class="box defualt span12">
