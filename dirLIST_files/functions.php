@@ -222,19 +222,6 @@ function max_upload_size()
 	return ($post < $file) ? $post : $file;
 }
 
-function sort_by_date($array)
-{
-	$temp = array();
-	foreach($array as $val)
-		$temp[] = strtotime($val);
-	asort($temp);
-	foreach($temp as $key => $val)
-	{
-		
-		$temp[$key] = date("d F Y", $val);
-	}
-	return $temp;
-}
 
 function icons($files, $view_mode)
 {

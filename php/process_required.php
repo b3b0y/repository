@@ -50,7 +50,7 @@
 				//update login status
 				mysql_query("UPDATE fr_user SET status = 'offline' , username = '".$_POST['uname']."' , password = '".$_POST['Npass']."' WHERE username = '".$_SESSION['user']."'");
 
-				mysql_query("INSERT INTO fr_user_permissions(uid,upload,download,download_folders,create_folders,share,change_pass,rename_F,delete_F) VALUES('".$row['user_id']."','1','1','1','0','0','1','0','0')");
+				mysql_query("INSERT INTO fr_user_permissions(user_id,upload,download,download_folders,create_folders,share,change_pass,rename_F,delete_F) VALUES('".$row['user_id']."','1','1','1','1','0','0','1','1')");
 
 				$_SESSION['cUser'] = $_POST['uname'];
 				$_SESSION['cpass'] = $_POST['Npass'];

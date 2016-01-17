@@ -25,6 +25,15 @@ $listing_mode = 0;
 			$row = mysql_fetch_array($result1);
 			 $_SESSION['dir_to_browse'] =  $row['url']."/";
 			$dir_to_browse = $row['url']."/";
+		
+			$result1 = mysql_query("SELECT * FROM fr_user_permissions WHERE user_id = '".$_SESSION['user_id']."'");
+			$row1 = mysql_fetch_array($result1);
+
+			$_SESSION['upload'] = $row1['upload'];
+			$_SESSION['download'] = $row1['download'];
+			$_SESSION['create_folders'] = $row1['create_folders'];
+			$_SESSION['rename'] = $row1['rename_F'];
+			$_SESSION['delete'] = $row1['delete_F'];
 		}
 	}
 	else if(isset($_GET['subf'])) 
@@ -35,6 +44,15 @@ $listing_mode = 0;
 			$row = mysql_fetch_array($result1);
 			 $_SESSION['dir_to_browse'] = $row['SubPath']."/";
 			 $dir_to_browse = $row['SubPath']."/";
+
+			$result1 = mysql_query("SELECT * FROM fr_user_permissions WHERE user_id = '".$_SESSION['user_id']."'");
+			$row1 = mysql_fetch_array($result1);
+
+			$_SESSION['upload'] = $row1['upload'];
+			$_SESSION['download'] = $row1['download'];
+			$_SESSION['create_folders'] = $row1['create_folders'];
+			$_SESSION['rename'] = $row1['rename_F'];
+			$_SESSION['delete'] = $row1['delete_F'];
 		}
 	}
 	else if(isset($_GET['studsub'])) 
@@ -44,7 +62,54 @@ $listing_mode = 0;
 		{
 			$row = mysql_fetch_array($result1);
 			 $_SESSION['dir_to_browse'] = $row['url']."/";
-			echo $dir_to_browse = $row['url']."/";
+			 $dir_to_browse = $row['url']."/";
+
+			$result1 = mysql_query("SELECT * FROM fr_user_permissions WHERE user_id = '".$_SESSION['user_id']."'");
+			$row1 = mysql_fetch_array($result1);
+
+			$_SESSION['upload'] = $row1['upload'];
+			$_SESSION['download'] = $row1['download'];
+			$_SESSION['create_folders'] = $row1['create_folders'];
+			$_SESSION['rename'] = $row1['rename_F'];
+			$_SESSION['delete'] = $row1['delete_F'];
+		}
+	}
+	else if(isset($_GET['share'])) 
+	{
+		$result1 = mysql_query("SELECT * FROM  fr_share_folder  WHERE id = '".$_GET['share']."'")or die(mysql_error());
+		if(mysql_num_rows($result1) > 0)
+		{
+			$row = mysql_fetch_array($result1);
+
+			$_SESSION['download'] = $row['download'];
+			$_SESSION['upload'] = $row['upload'];
+			$_SESSION['rename'] = 0;
+			$_SESSION['delete'] = 0;
+			$_SESSION['create_folders'] = 0;
+
+			$_SESSION['dir_to_browse'] = $row['url']."/";
+			$dir_to_browse = $row['url']."/";
+		}
+	}
+	else if(isset($_GET['archive'])) 
+	{
+		$result1 = mysql_query("SELECT * FROM  fr_achive  WHERE id = '".$_GET['archive']."'")or die(mysql_error());
+		if(mysql_num_rows($result1) > 0)
+		{
+			$row = mysql_fetch_array($result1);
+
+			$result1 = mysql_query("SELECT * FROM fr_user_permissions WHERE user_id = '".$_SESSION['user_id']."'");
+			$row1 = mysql_fetch_array($result1);
+
+			$_SESSION['upload'] = $row1['upload'];
+			$_SESSION['download'] = $row1['download'];
+			$_SESSION['create_folders'] = $row1['create_folders'];
+			$_SESSION['rename'] = $row1['rename_F'];
+			$_SESSION['delete'] = $row1['delete_F'];
+
+
+			$_SESSION['dir_to_browse'] = $row['url']."/";
+			$dir_to_browse = $row['url']."/";
 		}
 	}
 	else

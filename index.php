@@ -1,12 +1,11 @@
 <?PHP session_start();
+
 include_once("php/config.php");
 require("dirLIST_files/config.php");
 require("dirLIST_files/functions.php");
 
 error_reporting(0);
 set_time_limit(0);
-
-
 
 if(!isset($_SESSION['login'])) 
 {
@@ -36,10 +35,6 @@ if($load_time == 1)
 if(isset($_SESSION['view_mode_session']))
 	$view_mode = $_SESSION['view_mode_session'];
 	
-
-$local_text = set_local_text($default_language);
-$lang_id = $default_language;
-
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +43,7 @@ $lang_id = $default_language;
 
 	<!-- start: Meta -->
 	<meta charset="utf-8">
-	<title>WLC Web-Base File Repository - <?PHP if(empty($url_folder)) echo "Index of: home/"; else echo "Index of: home/".$url_folder.""; ?></title>
+	<title>WLC Web-Base File Repository </title>
 	<meta name="description" content="Bootstrap Metro Dashboard">
 	<meta name="author" content="Dennis Ji">
 	<meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
@@ -90,7 +85,7 @@ $lang_id = $default_language;
 		.option_style {font-family: Verdana, Tahoma;font-size: 11px;}
 		.language_selection {height: 22px;	width: 182px;background-color:<?PHP echo $color_scheme['main_table']['file_bg1']; ?>;	border: 1px dashed #666666;}
 		.selected_lang {background-color:<?PHP echo $color_scheme['main_table']['file_bg2']; ?>;}
-		#file_edit_box {position:absolute;width: 180px;display:none; z-index:50}
+		#file_edit_box {position:absolute;width: 180px;display:none; }
 		-->
 	</style>
 	<?PHP if($view_mode == 0) { //enable the javascript required for thumbnail view?>
@@ -190,9 +185,9 @@ $lang_id = $default_language;
 			if(x < 0) x = 0;
 			if(y < 0) y = 0;
 			
-			document.getElementById('file_edit_box').style.display = 'block';
+			document.getElementById('file_edit_box').style.display = 'inherit';
 			document.getElementById('file_edit_box').style.left = x-19+'px';
-			document.getElementById('file_edit_box').style.top = y-19+'px';
+			document.getElementById('file_edit_box').style.top = y-150+'px';
 		}
 
 		function mouse_out_handler(event)
@@ -204,7 +199,7 @@ $lang_id = $default_language;
 			else if(event.toElement)
 				toElement = event.toElement;
 			
-			while (toElement && toElement.tagName != "DIV") 
+			while (toElement && toElement.tagName == "file_edit_box") 
 				toElement = toElement.parentNode;
 			
 			if(!toElement)
@@ -260,7 +255,7 @@ $lang_id = $default_language;
 
 <body <?PHP if($view_mode == 0) echo 'onload="display_thumbs();"';?>>
 	<!-- start: Header -->
-	<?php include('php/header.php'); ?>
+	<?php include_once('php/header.php'); ?>
 	<!-- start: Header -->
 		
 <!-- start: Header -->
@@ -309,22 +304,19 @@ $lang_id = $default_language;
 						<div class="box-content">
 							<table class="table  table-striped">
 								<thead>
-									<th><i class="halflings-icon folder-close"></i> My Folder</th>
-								</thead>
-								<tbody>
-								<?php 
+									<?php 
 									$result = mysql_query("SELECT * FROM  fr_path WHERE user_id = '".$_SESSION['user_id']."'") or die('Error share: '. mysql_error());
 								 	if(mysql_num_rows($result) > 0)
 								 	{
 								 		while ($row = mysql_fetch_array($result)) 
 								 		{								 			
 								 ?>
-								 		<tr> <td><a href="index.php?id=<?php echo $row['id']; ?>"><i class="halflings-icon folder-open"></i> <?php echo basename($row['url']); ?></a> </td> </tr>
+								 		<tr> <th><a href="index.php?id=<?php echo $row['id']; ?>"><i class="halflings-icon folder-close"></i>My Folder</a> </th> </tr>
 								 <?php
 								 		}
 								 	}
 								 ?>
-								</tbody>
+								</thead>
 							 </table>
 							<table class="table table-striped">
 								<thead>
@@ -353,7 +345,7 @@ $lang_id = $default_language;
 									 		while ($row = mysql_fetch_array($result)) 
 									 		{								 			
 								 ?>
-								 				<tr> <td> <a href="index.php?subf=<?php echo $row['id']; ?>"><i class="halflings-icon folder-open"></i> <?php echo $row['Subject']; ?></a> </td> </tr>
+								 				<tr> <td> <a href="index.php?subf=<?php echo $row['id']; ?>?&&folder1=<?php echo $row['Subject']; ?>"><i class="halflings-icon folder-open"></i> <?php echo $row['Subject']; ?></a> </td> </tr>
 								 <?php
 								 			}
 								 		}									
@@ -361,25 +353,52 @@ $lang_id = $default_language;
 								 ?>
 								</tbody>
 						  	</table>
-							<table class="table table-striped">
-								<thead>
-									<th><i class="halflings-icon folder-close"></i> Shared </th>
-								</thead>
-								<tbody>
-								<?php 
-									$result = mysql_query("SELECT fp.* FROM  fr_path as fp ,fr_share_folder as fsf WHERE fp.id = fsf.path_id AND  fsf.user_id = '".$_SESSION['user_id']."'") or die('Error share: '. mysql_error());
-								 	if(mysql_num_rows($result) > 0)
-								 	{
-								 		while ($row = mysql_fetch_array($result)) 
-								 		{								 			
-								 ?>
-								 		<tr> <td> <a href="index.php?folder=<?php echo  basename(base64_encode($row['id'])); ?>"><i class="halflings-icon folder-open"></i> <?php echo basename($row['url']); ?></a> </td> </tr>
-								 <?php
-								 		}
-								 	}
-								 ?>
-								</tbody>
-						  	</table>
+						  	<?php 
+								$result = mysql_query("SELECT * FROM  fr_share_folder WHERE user_id = '".$_SESSION['user_id']."' ") or die('Error share: '. mysql_error());
+							 	if(mysql_num_rows($result) > 0)
+							 	{
+						 	?>	
+									<table class="table table-striped">
+										<thead>
+											<th><i class="halflings-icon folder-close"></i> Shared </th>
+										</thead>
+										<tbody>
+										<?php
+												while ($row = mysql_fetch_array($result)) 
+										 		{								 			
+										 ?>
+										 		<tr> <td> <a href="index.php?share=<?php echo  $row['id']; ?>"><i class="halflings-icon folder-open"></i> <?php echo basename($row['shared_name']); ?></a> </td> </tr>
+										 <?php
+										 		}
+										 ?>
+										</tbody>
+								  	</table>
+						  	<?php
+						  		}
+							?>
+							<?php 
+								$result = mysql_query("SELECT * FROM  fr_achive WHERE user_id = '".$_SESSION['user_id']."' ") or die('Error share: '. mysql_error());
+							 	if(mysql_num_rows($result) > 0)
+							 	{
+						 	?>	
+									<table class="table table-striped">
+										<thead>
+											<th><i class="halflings-icon folder-close"></i> Archived </th>
+										</thead>
+										<tbody>
+										<?php
+												while ($row = mysql_fetch_array($result)) 
+										 		{								 			
+										 ?>
+										 		<tr> <td> <a href="index.php?archive=<?php echo  $row['id']; ?>"><i class="halflings-icon folder-open"></i> <?php echo $row['name']; ?></a> </td> </tr>
+										 <?php
+										 		}
+										 ?>
+										</tbody>
+								  	</table>
+						  	<?php
+						  		}
+							?>
 						</div>
 					</div><!--/span-->
 					
@@ -431,7 +450,7 @@ $lang_id = $default_language;
     		<div class="modal-content">
     			<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">×</button>
-					<h3>New folder</h3>
+					<h3>Upload file</h3>
 				</div>
 				<?php
 					//File uploading
@@ -465,18 +484,18 @@ $lang_id = $default_language;
 
 		<p>
 			<span style="text-align:left;float:left">&copy; <a href="index.php" alt="Bootstrap_Metro_Dashboard">CICTE WLC WEB-BASE FILE REPOSITORY</a></span>
-			
 		</p>
 
 	</footer>
 
 	<!-- start: JavaScript-->
 		<script src="assets/js/jquery-1.11.1.min.js"></script>
-		<script src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/js/jquery.backstretch.min.js"></script>
         <script src="assets/js/scripts.js"></script>
 
 
+		<script src="js/jquery-1.9.1.min.js"></script>
+	
 		<script src="js/jquery-migrate-1.0.0.min.js"></script>
 	
 		<script src="js/jquery-ui-1.10.0.custom.min.js"></script>
@@ -535,32 +554,13 @@ $lang_id = $default_language;
 
 	<style type="text/css">
 
-		td
-		{
-			display: table-cell;
-			vertical-align: inherit;
-			z-index:99999;
-		}
-
-		.file_bg2
-		{
-			background-color: #dcff99;
-			
-		}
-
-		.file_bg2 img
-		{
-			
-		
-		}
-
+	
 		.file_bg2 ul 
 		{
 		    list-style-type: none;
 		    margin: 0;
 		    padding: 0;
 		    overflow: hidden;
-		    background-color: #dcff99;
 		}
 
 
@@ -576,106 +576,136 @@ $lang_id = $default_language;
 
 		.file_bg2 ul:hover
 		{
-			 background: #e5ffb3;
+			background-color: #e5f2ff;
+			border: 1px solid #99ccff;
+			opacity: 0.6;
+			filter: alpha(opacity=60);
 		}
 		
 	</style>
 
 
-	<div id="file_edit_box" onmouseout="mouse_out_handler(event);">
-	  <table width="100%" border="0" class="table_border" >
-	    <tr>
-	    	<td align="" class="file_bg2" onclick="ren();" style="cursor:pointer">
-	    	<ul>
-	    		<li>
-	    			<img src="dirLIST_files/edit_files/rename.png" alt="rename" name="rename" width="20px" height="20px" id="rename" style="cursor:pointer" />
-	    		</li>
-		    	<li>
-		    		Rename
-		    	</li>
-	    	</ul>
-	    	</td>
-	    </tr>
-	    <tr>
-	    	<td align="" class="file_bg2" onclick="delete_item();" style="cursor:pointer">
-		    	<ul>
-		    		<li>
-		    			<img src="dirLIST_files/edit_files/delete.png" alt="delete" name="detele" width="20px" height="20px" border="0" id="detele"/>
-		    		</li>
-			    	<li>
-			    		Delete
-			    	</li>
-		    	</ul>
-	      	</td>
-	    </tr>
-	    <tr>
-	    	<td align="" class="file_bg2" onclick="download();" style="cursor:pointer">
-		    	<ul>
-		    		<li>
-		    			<img src="dirLIST_files/edit_files/down.png" width="20px" height="20px">
-		    		</li>
-			    	<li>
-			    		Download
-			    	</li>
-		    	</ul>
-	      	</td>
-	    </tr>
-    <?php 
-	    if($_SESSION['UserLvl'] >= 3)
-	    {
-    ?>
-		    <tr>
-		    	 <td align="" class="file_bg2" onclick="set_deadline();" style="cursor:pointer">
-		    	 <ul>
-		    		<li>
-		    			<img src="dirLIST_files/edit_files/folderopened.png" width="20px" height="20px">
-		    		</li>
-			    	<li>
-			    		Set Deadline
-			    	</li>
-		    	</ul>
-		      	</td>
-		    </tr>
-		    <tr>
-		    	 <td align="" class="file_bg2" onclick="share_folder();" style="cursor:pointer">
-		    	 <ul>
-		    		<li>
-		    			<img src="dirLIST_files/edit_files/folderopened.png" width="20px" height="20px">
-		    		</li>
-			    	<li>
-			    		share
-			    	</li>
-		    	</ul>
-		      	</td>
-		    </tr>
-		    <tr>
-		    	<td align="" class="file_bg2" onclick="archive();" style="cursor:pointer">
-			    	<ul>
-			    		<li>
-			    			<img src="dirLIST_files/edit_files/rar.png" width="20px" height="20px">
-			    		</li>
-				    	<li>
-				    		Archive folder
-				    	</li>
-			    	</ul>
-		      	</td>
-		    </tr>
-		    <tr>
-		    	<td align="" class="file_bg2" onclick="backup();" style="cursor:pointer">
-			    	<ul>
-			    		<li>
-			    			<img src="dirLIST_files/edit_files/backup.jpg" width="20px" height="20px">
-			    		</li>
-				    	<li>
-				    		Backup folder
-				    	</li>
-			    	</ul>
-		      	</td>
-		    </tr>
-	<?php 
-	    }
-	?>
-	  </table>
+	<div id="file_edit_box" onclick="mouse_out_handler(event);">
+		<div class="box span3">
+		<div class="box-content">
+			  <table width="100%" border="0" class="table_border" >
+			     <?php
+			    	if($_SESSION['rename'] == 1)
+			    	{
+			    ?>
+					    <tr>
+					    	<td align="" class="file_bg2" onclick="ren();" style="cursor:pointer">
+					    	<ul>
+					    		<li>
+					    			<img src="dirLIST_files/edit_files/rename.png" alt="rename" name="rename" width="20px" height="20px" id="rename" style="cursor:pointer" />
+					    		</li>
+						    	<li>
+						    		Rename
+						    	</li>
+					    	</ul>
+					    	</td>
+					    </tr>
+			     <?php
+			     	}
+			    	if($_SESSION['delete'] == 1)
+			    	{
+			    ?>
+					    <tr>
+					    	<td align="" class="file_bg2" onclick="delete_item();" style="cursor:pointer">
+						    	<ul>
+						    		<li>
+						    			<img src="dirLIST_files/edit_files/delete.png" alt="delete" name="detele" width="20px" height="20px" border="0" id="detele"/>
+						    		</li>
+							    	<li>
+							    		Delete
+							    	</li>
+						    	</ul>
+					      	</td>
+					    </tr>
+			    <?php
+			    	}
+			    	if($_SESSION['download'] == 1)
+			    	{
+			    ?>
+					    <tr>
+					    	<td align="" class="file_bg2" onclick="download();" style="cursor:pointer">
+						    	<ul>
+						    		<li>
+						    			<img src="dirLIST_files/edit_files/down.png" width="20px" height="20px">
+						    		</li>
+							    	<li>
+							    		Download
+							    	</li>
+						    	</ul>
+					      	</td>
+					    </tr>
+		    <?php 
+		    		}
+			    if($_SESSION['UserLvl'] >= 3)
+			    {
+
+					$result = mysql_query("SELECT * FROM fr_ins_subject WHERE Subject = '".basename(base64_decode(trim($_GET['folder'])))."' || Subject = '".$_GET['folder1']."' AND user_id = '".$_SESSION['user_id']."'") or die('Error: '.mysql_error());
+					if(mysql_num_rows($result) > 0)
+					{
+						 $_SESSION['folder1'] = $_GET['folder1'];
+			?>
+					    <tr>
+					    	 <td align="" class="file_bg2" onclick="set_deadline();" style="cursor:pointer">
+					    	 <ul>
+					    		<li>
+					    			<img src="dirLIST_files/edit_files/folderopened.png" width="20px" height="20px">
+					    		</li>
+						    	<li>
+						    		Set Deadline
+						    	</li>
+					    	</ul>
+					      	</td>
+					    </tr>
+					    <tr>
+					    	 <td align="" class="file_bg2" onclick="share_folder();" style="cursor:pointer">
+					    	 <ul>
+					    		<li>
+					    			<img src="dirLIST_files/edit_files/folderopened.png" width="20px" height="20px">
+					    		</li>
+						    	<li>
+						    		share
+						    	</li>
+					    	</ul>
+					      	</td>
+					    </tr>
+				<?php
+					}
+				?>
+					    <tr>
+				    	<td align="" class="file_bg2" onclick="archive();" style="cursor:pointer">
+					    	<ul>
+					    		<li>
+					    			<img src="dirLIST_files/edit_files/rar.png" width="20px" height="20px">
+					    		</li>
+						    	<li>
+						    		Archive folder
+						    	</li>
+					    	</ul>
+				      	</td>
+				    </tr>
+				    <tr>
+				    	<td align="" class="file_bg2" onclick="backup();" style="cursor:pointer">
+					    	<ul>
+					    		<li>
+					    			<img src="dirLIST_files/edit_files/backup.jpg" width="20px" height="20px">
+					    		</li>
+						    	<li>
+						    		Backup folder
+						    	</li>
+					    	</ul>
+				      	</td>
+				    </tr>
+			<?php 
+			    }
+			?>
+			  </table>
+	  	</div>
+	  	</div>
 	</div>
 	<script type="text/javascript">
 	var js_files_and_folders_base64 = [
@@ -722,6 +752,22 @@ $lang_id = $default_language;
 		item_name_base64 = js_files_and_folders_base64[selected_item_type][selected_item_id];
 		location.href='dirLIST_files/download.php?folder=<?PHP echo $_GET['folder']; ?>&item_name='+item_name_base64;
 	}	
+
+	function share_folder()
+	{
+		item_name_base64 = js_files_and_folders_base64[selected_item_type][selected_item_id];
+		
+		window.open('filemanagement/share_form.php?folder=<?PHP echo base64_decode($_GET['folder']); ?>&item_name='+item_name_base64, null, 'scrollbars = 0, status = 1, height = 500, width = 470, resizable = 1, location = 0');
+
+	}
+
+	function archive()
+	{
+		item_name = js_files_and_folders[selected_item_type][selected_item_id];
+		item_name_base64 = js_files_and_folders_base64[selected_item_type][selected_item_id];
+		if(confirm("********<?PHP echo $local_text['warning']; ?>!********\n\n<?PHP echo $local_text['no_go_back']; ?>\n\n"+' Are you sure you wan to Archive '+item_name+' ` ?')) window.location = 'filemanagement/archive.php?folder=<?PHP echo $_GET['folder']; ?>&item_name='+item_name_base64;
+	}
+
 
 	</script>
 

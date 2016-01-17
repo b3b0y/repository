@@ -54,6 +54,16 @@
 				{
 					mysql_query("UPDATE fr_user SET status = 'online' , last_login_date  = '".date ("y/m/d g:i:s")."' WHERE username = '".$uname."'");
 					
+					$result1 = mysql_query("SELECT * FROM fr_user_permissions WHERE user_id = '".$row['id']."'");
+					$row1 = mysql_fetch_array($result1);
+
+					$_SESSION['upload'] = $row1['upload'];
+					$_SESSION['download'] = $row1['download'];
+					$_SESSION['create_folders'] = $row1['create_folders'];
+					$_SESSION['rename'] = $row1['rename_F'];
+					$_SESSION['delete'] = $row1['delete_F'];
+
+
 					$_SESSION['logged_in'] = TRUE;	
 					if($row['UserLvl'] >= 3 ) //check if User level is 5
 					{

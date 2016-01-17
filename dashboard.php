@@ -4,7 +4,7 @@
 
 	if(!isset($_SESSION['login'])) 
 	{
-	      header("Location: ../login.php");
+	      header("Location: login.php");
 	} 
 
 ?>
@@ -53,7 +53,7 @@
 		
 </head>
 
-<body>
+<body >
 	
 		<!-- start: Header -->
 	<?php include('php/header.php'); ?>
