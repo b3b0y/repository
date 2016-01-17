@@ -7,9 +7,16 @@ require("config.php");
 
 $_GET['item_name'] = base64_encode(rawurldecode(base64_decode($_GET['item_name']))); //this is messy i know, will fix it up
 
-	
-	$file_path = '../'.$dir_to_browse.base64_decode($_GET['folder']);
-    $file_path .= (empty($_GET['folder'])) ? base64_decode($_GET['item_name']) : '/'.base64_decode($_GET['item_name']);
+		if(!empty($_GET['folder']))
+		{
+			$file_path = '../'.$dir_to_browse;	
+		}
+		else
+		{
+			$file_path = '../'.$dir_to_browse.base64_decode($_GET['folder']);
+		}	
+			$file_path .= (empty($_GET['folder'])) ? base64_decode($_GET['item_name']) : '/'.base64_decode($_GET['item_name']);
+
 	
 //Security feature to prevent downloading of files above $dir_to_browse
 if(count(explode('../', base64_decode($_GET['item_name']))) > count(explode('../',$dir_to_browse)))

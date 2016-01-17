@@ -81,11 +81,12 @@
 	//Any upload error is displayed here
 	switch(base64_decode($_GET['err']))
 	{
-		case "upload_banned": echo display_error_message("<b>Upload failed, banned file type</b>")."<br/>";break;
-		case "upload_error": echo display_error_message("<b>Upload failed, an unknown error occured</b>")."<br />";break;
-		case "size": echo display_error_message("<b>File size exceeded limit. Max allowed is ".max_upload_size()."B</b>")."<br />";break;
+		case "archive_file_error": echo display_error_message("<div class='box-content alerts'> <div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert'>×</button><strong>Archived failed, cannot archive file!</div></div>")."<br />";break;
+		case "archive_error": echo display_error_message("<div class='box-content alerts'> <div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert'>×</button><strong>Archived failed, cannot archive this folder!</div></div>")."<br />";break;
+		case "upload_banned": echo display_error_message("<div class='box-content alerts'> <div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert'>×</button><strong>Upload failed, banned file type</div></div>")."<br />";break;
+		case "upload_error": echo display_error_message("<div class='box-content alerts'> <div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert'>×</button><strong>Upload failed, an unknown error occured</div></div>")."<br />";break;
+		case "size": echo display_error_message("<div class='box-content alerts'> <div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert'>×</button><strong>File size exceeded limit. Max allowed is ".max_upload_size()."B</b></div></div>")."<br />";break;
 		case "nofile": echo display_error_message("<div class='box-content alerts'> <div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert'>×</button><strong>Please select a file to upload!</div></div>")."<br />";break;
-	
 
 	}
 	//Any upload error is displayed here -done

@@ -21,6 +21,11 @@
 				$path = $row1['SubPath']."/".$FolderName;
 				
 				mysql_query("INSERT INTO fr_stud_subject(user_id,subject,url,subject_id,status) VALUES('".$_SESSION['user_id']."','".$row1['Subject']."','".$path."','".$row1['id']."','DISAPPROVED')");
+				
+				$link = 'subjectmanagement.php?subject=approve';
+				$message = $row['FName'].' '.$row['LName']. ' enrolled '.$row1['Subject'];			
+				
+				mysql_query("INSERT INTO fr_notification(user_id,link,message,status) VALUES('".$row1['user_id']."','".$link."','".$message."','unread')");
 			}
 		}
 	}

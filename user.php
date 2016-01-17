@@ -3,7 +3,7 @@
 		require("php/config.php");
 	if(!isset($_SESSION['login'])) 
 	{
-	      header("Location: ../login.php");
+	      header("Location: login.php");
 	} 
 
 ?>

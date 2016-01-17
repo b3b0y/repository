@@ -3,7 +3,7 @@
 	include_once("php/config.php");
 	if(!isset($_SESSION['login'])) 
 	{
-	      header("Location: ../login.php");
+	      header("Location: login.php");
 	} 
 
 
@@ -92,19 +92,25 @@
 							<h2><i class="halflings-icon hand-top"></i><span class="break"></span>Accounts</h2>
 						</div>
 						<div class="box-content">
-							
-							<a href="subjectmanagement.php?subject=mysubject" class="quick-button span2">
-								<i class="icon-book"></i>
-								<p>My subject</p>
-							</a>
-							<a href="subjectmanagement.php?subject=subject" class="quick-button span2">
-								<i class="icon-book"></i>
-								<p>Subject</p>
-							</a>
-							<a href="subjectmanagement.php?subject=faculty" class="quick-button span2">
-								<i class="icon-book"></i>
-								<p>Faculty Subject</p>
-							</a>
+						<?php
+							if($_SESSION['UserLvl'] >= 4)
+							{
+						?>
+								<a href="subjectmanagement.php?subject=mysubject" class="quick-button span2">
+									<i class="icon-book"></i>
+									<p>My subject</p>
+								</a>
+								<a href="subjectmanagement.php?subject=subject" class="quick-button span2">
+									<i class="icon-book"></i>
+									<p>Subject</p>
+								</a>
+								<a href="subjectmanagement.php?subject=faculty" class="quick-button span2">
+									<i class="icon-book"></i>
+									<p>Faculty Subject</p>
+								</a>
+						<?php
+							}
+						?>
 							<a href="subjectmanagement.php?subject=student" class="quick-button span2">
 								<i class="icon-book"></i>
 								<p>Student Subject</p>
@@ -301,6 +307,12 @@
 						}
 						else if(isset($_GET['subject']) && $_GET['subject'] == 'approve')
 						{
+
+							if(isset($_GET['id']) && !empty($_GET['id']))
+							{
+								mysql_query("UPDATE fr_notification SET status = 'read' WHERE id = '".$_GET['id']."'");
+							}
+
 							$result = mysql_query("SELECT stud.ControlNo,stud.FName,stud.LName,sub.Subject,studsub.subject_id,fr_subject.Description FROM fr_ins_subject as sub,fr_stud as stud,fr_stud_subject as studsub , fr_subject WHERE fr_subject.SubCode = sub.Subject AND studsub.subject_id = sub.id AND studsub.user_id = stud.user_id AND sub.user_id = '".$_SESSION['user_id']."' AND studsub.status='DISAPPROVED'") or die('Error: '.mysql_error());
 											
 						 	if(mysql_num_rows($result) > 0)

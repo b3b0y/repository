@@ -292,7 +292,7 @@ if(isset($_SESSION['view_mode_session']))
 								$temp .= "/".$folders_in_url[$j];
 							}
 							$temp = substr($temp, 1);
-							echo '<li> <a href="'.$this_file_name.'?folder='.base64_encode($temp).'">'.$folders_in_url[$i].'</a><i class="icon-angle-right"> </i></li>';
+							echo '<li> <a href="'.$this_file_name.'?folder='.base64_encode($temp).'">'.$folders_in_url[$i].'<i class="icon-angle-right"> </i></a></li>';
 						}
 					}
 
@@ -320,7 +320,7 @@ if(isset($_SESSION['view_mode_session']))
 								 	}
 								 ?>
 								 <li>
-									<a class="dropmenu" href="#"><font color="black"> <i class="icon-folder-close-alt"></i> Subject </font></a>
+									<a class="dropmenu" href="#"><font color="black"> <i class="icon-folder-close-alt"></i> Subject <i class="icon-angle-right"> </i></font></a>
 									<ul>
 									<?php
 										if($_SESSION['UserLvl'] == 1)
@@ -358,7 +358,7 @@ if(isset($_SESSION['view_mode_session']))
 								 	{
 								?>
 									<li>
-										<a class="dropmenu" href="#"><font color="black"><i class="icon-folder-close-alt"></i>Shared</font></a>
+										<a class="dropmenu" href="#"><font color="black"><i class="icon-folder-close-alt"></i>Shared <i class="icon-angle-right"> </i></font></a>
 										<ul>
 									  	<?php 
 											
@@ -375,12 +375,12 @@ if(isset($_SESSION['view_mode_session']))
 								<?php
 									}
 							
-									$result = mysql_query("SELECT * FROM  fr_achive WHERE user_id = '".$_SESSION['user_id']."' ") or die('Error share: '. mysql_error());
+									$result = mysql_query("SELECT * FROM  fr_archive WHERE user_id = '".$_SESSION['user_id']."' ") or die('Error share: '. mysql_error());
 								 	if(mysql_num_rows($result) > 0)
 								 	{
 							 	?>	
 									<li>
-										<a class="dropmenu" href="#"><font color="black"> <i class="icon-folder-close-alt"></i> Archived </font></a>
+										<a class="dropmenu" href="#"><font color="black"> <i class="icon-folder-close-alt"></i> Archived <i class="icon-angle-right"> </i></font></a>
 										<ul>
 										<?php
 												while ($row = mysql_fetch_array($result)) 
@@ -416,7 +416,7 @@ if(isset($_SESSION['view_mode_session']))
 		</div><!--/#content.span10-->
 	</div><!--/fluid-row-->
 	
-	<div class="modal fade" id="modal-register" tabindex="-1" role="dialog" aria-labelledby="modal-register-label" aria-hidden="true">
+	<div class="modal fade" id="modal-register" role="dialog" aria-labelledby="modal-register-label" aria-hidden="true">
     	<div class="modal-dialog">
     		<div class="modal-content">
     			<div class="modal-header">
@@ -434,15 +434,15 @@ if(isset($_SESSION['view_mode_session']))
 				  	</div>
 				</div>
     			<div class="modal-footer">
+    				<button type="submit" name="submit" class="btn btn-primary">Save changes</a> </button>
 					<a href="#" class="btn" data-dismiss="modal">Close</a>
-					<button type="submit" name="submit" class="btn btn-primary">Save changes</a> </button>
 				</div>
     			</form> 
     		</div>
     	</div>
     </div>
 
-    <div class="modal fade" id="modal-register2" tabindex="-1" role="dialog" aria-labelledby="modal-register-label" aria-hidden="true">
+    <div class="modal fade" id="modal-register2" role="dialog" aria-labelledby="modal-register-label" aria-hidden="true">
     	<div class="modal-dialog">
     		<div class="modal-content">
     			<div class="modal-header">
@@ -463,7 +463,7 @@ if(isset($_SESSION['view_mode_session']))
 							</div>
 			    			<div class="modal-footer">
 								<a href="#" class="btn" data-dismiss="modal">Close</a>
-								 <input class="btn btn-primary" name="submit" type="submit" id="submit" value="upload" />
+								 <input class="btn btn-primary" name="submit" type="submit" id="submit" value="<?php echo $local_text['upload']; ?>" />
 							</div>
 		    			</form> 
 				<?PHP 

@@ -7,6 +7,7 @@ if(!$_SESSION['logged_in'])
 
 if(empty($_GET['item_name']) && empty($_POST['new_name']))
 	die('Access Denied');
+
 include("../../php/config.php");
 require('../config.php');
 require('../functions.php');
@@ -19,8 +20,18 @@ if($_POST['Submit'] == 'Rename')
 {
 	if($listing_mode == 0) //http rename
 	{
-		$old_name = '../../'.$dir_to_browse.'/'.base64_decode($_GET['folder']).'/'.base64_decode($_GET['item_name']);
-		$new_name = '../../'.$dir_to_browse.'/'.base64_decode($_GET['folder']).'/'.$_POST['new_name'];
+		
+		if(!empty($_GET['folder']))
+		{
+			$old_name = '../../'.$dir_to_browse.'/'.base64_decode($_GET['item_name']);
+			$new_name = '../../'.$dir_to_browse.'/'.$_POST['new_name'];
+		}
+		else
+		{
+			$old_name = '../../'.$dir_to_browse.'/'.base64_decode($_GET['folder']).'/'.base64_decode($_GET['item_name']);
+			$new_name = '../../'.$dir_to_browse.'/'.base64_decode($_GET['folder']).'/'.$_POST['new_name'];
+		}	
+	 		
 		
 		if(rename($old_name, $new_name))
 			$rename_action = TRUE;

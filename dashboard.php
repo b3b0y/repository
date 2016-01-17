@@ -82,21 +82,27 @@
 						<div class="box-header">
 							<h2><i class="halflings-icon hand-top"></i><span class="break"></span>Dashboard</h2>
 						</div>
-						<div class="box-content">
-							
-							<a href="user.php" class="quick-button span2">
-								<i class="icon-group"></i>
-								<p>Users</p>
-								<?php 
-									$result = mysql_query("SELECT * FROM fr_user");
+						<div class="box-content">	
+						<?php 
+							if($_SESSION['UserLvl'] >= 4)
+							{
+						?>
+								<a href="user.php" class="quick-button span2">
+									<i class="icon-group"></i>
+									<p>Users</p>
+									<?php 
+										$result = mysql_query("SELECT * FROM fr_user");
 
-								?>
-								<span class="notification blue"><?php echo mysql_num_rows($result); ?></span>
-							</a>
-							<a href="termmanagement.php" class="quick-button span2">
-								<i class="icon-calendar"></i>
-								<p>Semester</p>
-							</a>
+									?>
+									<span class="notification blue"><?php echo mysql_num_rows($result); ?></span>
+								</a>
+								<a href="termmanagement.php" class="quick-button span2">
+									<i class="icon-calendar"></i>
+									<p>Semester</p>
+								</a>
+						<?php								
+							}
+						?>
 							<a href="subjectmanagement.php" class="quick-button span2">
 								<i class="icon-book"></i>
 								<p>Subjects</p>

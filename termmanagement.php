@@ -3,7 +3,7 @@
 	include_once("php/config.php");
 	if(!isset($_SESSION['login'])) 
 	{
-	      header("Location: ../login.php");
+	      header("Location: login.php");
 	} 
 
 	if(isset($_POST['sy']) && $_POST['sy'] == 'Generate S.Y.')

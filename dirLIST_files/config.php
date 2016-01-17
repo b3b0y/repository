@@ -34,6 +34,7 @@ $listing_mode = 0;
 			$_SESSION['create_folders'] = $row1['create_folders'];
 			$_SESSION['rename'] = $row1['rename_F'];
 			$_SESSION['delete'] = $row1['delete_F'];
+			
 		}
 	}
 	else if(isset($_GET['subf'])) 
@@ -93,7 +94,7 @@ $listing_mode = 0;
 	}
 	else if(isset($_GET['archive'])) 
 	{
-		$result1 = mysql_query("SELECT * FROM  fr_achive  WHERE id = '".$_GET['archive']."'")or die(mysql_error());
+		$result1 = mysql_query("SELECT * FROM  fr_archive  WHERE id = '".$_GET['archive']."'")or die(mysql_error());
 		if(mysql_num_rows($result1) > 0)
 		{
 			$row = mysql_fetch_array($result1);

@@ -8,22 +8,39 @@
 			<div class="nav-no-collapse header-nav">
 				<ul class="nav pull-right">
 					<li class="dropdown">
-						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-								<i class="icon-envelope"></i>
-							<span class="label label-important"> 3 </span>
-						</a>
+						<?php
+							$result = mysql_query("SELECT * FROM fr_notification WHERE user_id = '".$_SESSION['user_id']."' AND status = 'unread'");
+							$cnt =  mysql_num_rows($result);
+						?>
+								<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+										<i class="icon-envelope"></i>
+								<?php
+									if($cnt != 0)
+									{
+								?>
+										<span class="label label-important"> <?php echo $cnt; ?> </span>
+								<?php
+									}
+								?>
+								</a>
 						<ul class="dropdown-menu notifications">
 								<li class="dropdown-menu-title">
- 									<span>You have 11 notifications</span>
+ 									<span>You have <?php echo $cnt; ?> notifications</span>
 									<a href="#refresh"><i class="icon-repeat"></i></a>
-								</li>	
-                            	<li>
-                                    <a href="#">
-										<span class="icon blue"><i class="icon-user"></i></span>
-										<span class="message">New user registration</span>
-										<span class="time">1 min</span> 
-                                    </a>
-                                </li>
+								</li>
+								<?php
+									while ($row = mysql_fetch_array($result)) 
+									{
+								?>	
+		                            	<li>
+		                                    <a href="<?php echo $row['link']; ?>&&id=<?php echo $row['id']; ?>">
+												<span class="icon blue"><i class="icon-user"></i></span>
+												<span class="message"><?php echo $row['message']; ?></span>
+		                                    </a>
+		                                </li>
+                                <?php
+                                	}
+                                ?>
 							</ul>
 					</li>
 					<!-- start: User Dropdown -->
