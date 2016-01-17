@@ -56,6 +56,13 @@ $listing_mode = 0;
 		 	if(!empty($_GET['folder']))
 			 	$dir_to_browse .= $url_folder."/";
 		}
+		else
+		{
+			$_SESSION['dir_to_browse'] = "";
+		 	$url_folder = base64_decode(trim($_GET['folder']));
+		 	if(!empty($_GET['folder']))
+			 	 $dir_to_browse .= $url_folder."/";
+		}
 	}
 
 

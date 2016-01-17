@@ -11,8 +11,17 @@ require('../functions.php');
 
 if($listing_mode == 0) //http deletion
 {
-	$item_path = '../../'.$dir_to_browse.base64_decode($_GET['folder']);
-	$item_path .= (empty($_GET['folder'])) ? base64_decode($_GET['item_name']) : '/'.base64_decode($_GET['item_name']);
+	if(!empty($_GET['folder']))
+	{
+		$item_path = '../../'.$dir_to_browse;
+	}
+	else
+	{
+		$item_path = '../../'.$dir_to_browse.base64_decode($_GET['folder']);
+	}	
+	 	$item_path .= (empty($_GET['folder'])) ? base64_decode($_GET['item_name']) : base64_decode($_GET['item_name']);
+	
+
 	
 	if(is_dir($item_path.'/'))
 		delete_directory($item_path.'/', 0);
@@ -21,6 +30,7 @@ if($listing_mode == 0) //http deletion
 		
 	header("Location: ../../index.php?folder=".$_GET['folder']);
 	exit;
+
 
 }
 elseif($listing_mode == 1) //ftp deletion

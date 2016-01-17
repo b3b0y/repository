@@ -13,12 +13,33 @@
 		
 	     </tr>
 	</table>
-
-
+        
 	<?PHP 
 	//File uploading -done
 	} 
-?>		
+?>	
+	<div class="row-fluid">	
+		<div class="box-content">
+			<div class="box defualt span12">
+				<a class="quick-button-small span2  btn-link-1 launch-modal" href="#" data-modal-id="modal-register2">
+				 	<i class="glyphicons-icon upload"></i>
+				 	<p>Upload</p>
+				 </a>
+				 <a class="quick-button-small span2  btn-link-1 launch-modal" href="#" data-modal-id="modal-register">
+				 	<i class="glyphicons-icon folder_new"></i>
+				 	<p>New folder</p>
+				 </a>
+
+				<?PHP if($view_mode_user_selectable == 1) { ?>
+				<a class="quick-button-small span2" href="dirLIST_files/change_view.php?folder=<?PHP echo $_GET['folder']; ?>"><?PHP echo ($view_mode == 0) ? '<i class="glyphicons-icon show_thumbnails_with_lines"></i>' : '<i class="glyphicons-icon show_big_thumbnails"></i>'; ?>
+						<p>Thumbnail</p>
+	        	</a>
+				<?PHP } ?>
+			<div class="clearfix"></div>
+		</div>
+		</div>	
+	</div><!--/row-->
+          	
 	<!-- Output basic HTML code -done -->
 	<?PHP
 
@@ -202,11 +223,6 @@
 	    	<td width="<?PHP echo ($view_mode == 0) ? '414':$width_of_files_column; ?>" class="top_row"><a class="sort" href="dirLIST_files/sort.php?by=name&folder=<?PHP echo $_GET['folder']; ?>"><?PHP echo $local_text['name']; ?></a></td>
 	    	<td width="<?PHP echo ($view_mode == 0) ? '128':$width_of_sizes_column; ?>" class="top_row"><a class="sort" href="dirLIST_files/sort.php?by=size&folder=<?PHP echo $_GET['folder']; ?>"><?PHP echo $local_text['size']; ?></a></td>
 	    	<td width="<?PHP echo ($view_mode == 0) ? '128':$width_of_dates_column; ?>" class="top_row"><a class="sort" href="dirLIST_files/sort.php?by=date&folder=<?PHP echo $_GET['folder']; ?>"><?PHP echo $local_text['date_uploaded']; ?></a></td>
-	 		 <?PHP if($view_mode_user_selectable == 1) { ?>
-	            
-            <td align="center" class=""><a href="dirLIST_files/change_view.php?folder=<?PHP echo $_GET['folder']; ?>"><?PHP echo ($view_mode == 0) ? '<i class="glyphicons-icon show_thumbnails_with_lines">' : '<i class="glyphicons-icon show_big_thumbnails"></i>'; ?></a></td>
-           
-			<?PHP } ?>
 	 </tr>
 	</table>
 	<?PHP 

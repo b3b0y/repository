@@ -18,13 +18,14 @@ if (!empty($_SESSION['dir_to_browse']))
 	$dir_to_browse =  $_SESSION['dir_to_browse'];
 	$url_folder = base64_decode(trim($_GET['folder']));
  	if(!empty($_GET['folder']))
-	  	$dir_to_browse .= $url_folder."/";
+	 echo 	$dir_to_browse .= $url_folder."/";
 }
 else
 {
+	$_SESSION['dir_to_browse'] = "";
  	$url_folder = base64_decode(trim($_GET['folder']));
  	if(!empty($_GET['folder']))
-	 echo	 $dir_to_browse .= $url_folder."/";
+	 	 $dir_to_browse .= $url_folder."/";
 }
 
 //Load time
@@ -64,7 +65,6 @@ $lang_id = $default_language;
 	<link id="base-style-responsive" href="css/style-responsive.css" rel="stylesheet">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext' rel='stylesheet' type='text/css'>
 	<!-- end: CSS -->
-	
 
 	<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
@@ -353,7 +353,7 @@ $lang_id = $default_language;
 									 		while ($row = mysql_fetch_array($result)) 
 									 		{								 			
 								 ?>
-								 				<tr> <td> <a href="index.php?subf=<?php echo $row['id']; ?>&&folder=<?php echo base64_encode(basename($row['Subject'])); ?>"><i class="halflings-icon folder-open"></i> <?php echo $row['Subject']; ?></a> </td> </tr>
+								 				<tr> <td> <a href="index.php?subf=<?php echo $row['id']; ?>"><i class="halflings-icon folder-open"></i> <?php echo $row['Subject']; ?></a> </td> </tr>
 								 <?php
 								 			}
 								 		}									
@@ -385,8 +385,9 @@ $lang_id = $default_language;
 					
 					<div class="box span9">
 						<div class="box-header">
-							<h2><i class="halflings-icon list"></i><span class="break"></span>Buttons</h2>
+							<h2><i class="halflings-icon list"></i><span class="break"></span>File manager</h2>
 						</div>
+						
 						<div class="box-content files">
 							 <?php require('dirlist.php'); ?>
 						</div>
@@ -399,6 +400,61 @@ $lang_id = $default_language;
 		</div><!--/#content.span10-->
 	</div><!--/fluid-row-->
 	
+	<div class="modal fade" id="modal-register" tabindex="-1" role="dialog" aria-labelledby="modal-register-label" aria-hidden="true">
+    	<div class="modal-dialog">
+    		<div class="modal-content">
+    			<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">×</button>
+					<h3>New folder</h3>
+				</div>
+				<form role="form" action="php/process_newfolder.php" method="post" class="registration-form">
+    			<div class="modal-body"> 
+            		<div class="control-group">
+						<label class="control-label" for="focusedInput">Folder name</label>
+						<div class="controls">
+						  <input name="file" placeholder="new folder" class="input-xlarge focused" id="focusedInput" type="text" value="" required><font style="color:red;" > *</font>
+						  <input name="folder" type="hidden" id="folder" value="<?PHP echo $_GET['folder']; ?>" />
+						</div>
+				  	</div>
+				</div>
+    			<div class="modal-footer">
+					<a href="#" class="btn" data-dismiss="modal">Close</a>
+					<button type="submit" name="submit" class="btn btn-primary">Save changes</a> </button>
+				</div>
+    			</form> 
+    		</div>
+    	</div>
+    </div>
+
+    <div class="modal fade" id="modal-register2" tabindex="-1" role="dialog" aria-labelledby="modal-register-label" aria-hidden="true">
+    	<div class="modal-dialog">
+    		<div class="modal-content">
+    			<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">×</button>
+					<h3>New folder</h3>
+				</div>
+				<form role="form" action="php/process_newfolder.php" method="post" class="registration-form">
+    			<div class="modal-body"> 
+            		<div class="control-group">
+						<label class="control-label" for="focusedInput">Folder name</label>
+						<div class="controls">
+						  <input name="file" placeholder="new folder" class="input-xlarge focused" id="focusedInput" type="text" value="" required><font style="color:red;" > *</font>
+						  <input name="folder" type="hidden" id="folder" value="<?PHP echo $_GET['folder']; ?>" />
+						</div>
+				  	</div>
+				</div>
+    			<div class="modal-footer">
+					<a href="#" class="btn" data-dismiss="modal">Close</a>
+					<button type="submit" name="submit" class="btn btn-primary">Save changes</a> </button>
+				</div>
+    			</form> 
+    		</div>
+    	</div>
+    </div>
+
+
+	<div class="clearfix"></div>
+
 	<footer>
 
 		<p>
@@ -409,9 +465,12 @@ $lang_id = $default_language;
 	</footer>
 
 	<!-- start: JavaScript-->
+		<script src="assets/js/jquery-1.11.1.min.js"></script>
+		<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/js/jquery.backstretch.min.js"></script>
+        <script src="assets/js/scripts.js"></script>
 
-		<script src="js/jquery-1.9.1.min.js"></script>
-	
+
 		<script src="js/jquery-migrate-1.0.0.min.js"></script>
 	
 		<script src="js/jquery-ui-1.10.0.custom.min.js"></script>
@@ -466,6 +525,7 @@ $lang_id = $default_language;
 
 		<script src="js/custom.js"></script>
 	<!-- end: JavaScript-->
+
 
 	<style type="text/css">
 
@@ -554,54 +614,61 @@ $lang_id = $default_language;
 		    	</ul>
 	      	</td>
 	    </tr>
-	    <tr>
-	    	 <td align="" class="file_bg2" onclick="set_deadline();" style="cursor:pointer">
-	    	 <ul>
-	    		<li>
-	    			<img src="dirLIST_files/edit_files/folderopened.png" width="20px" height="20px">
-	    		</li>
-		    	<li>
-		    		Set Deadline
-		    	</li>
-	    	</ul>
-	      	</td>
-	    </tr>
-	    <tr>
-	    	 <td align="" class="file_bg2" onclick="share_folder();" style="cursor:pointer">
-	    	 <ul>
-	    		<li>
-	    			<img src="dirLIST_files/edit_files/folderopened.png" width="20px" height="20px">
-	    		</li>
-		    	<li>
-		    		share
-		    	</li>
-	    	</ul>
-	      	</td>
-	    </tr>
-	    <tr>
-	    	<td align="" class="file_bg2" onclick="archive();" style="cursor:pointer">
-		    	<ul>
+    <?php 
+	    if($_SESSION['UserLvl'] >= 3)
+	    {
+    ?>
+		    <tr>
+		    	 <td align="" class="file_bg2" onclick="set_deadline();" style="cursor:pointer">
+		    	 <ul>
 		    		<li>
-		    			<img src="dirLIST_files/edit_files/rar.png" width="20px" height="20px">
+		    			<img src="dirLIST_files/edit_files/folderopened.png" width="20px" height="20px">
 		    		</li>
 			    	<li>
-			    		Archive folder
+			    		Set Deadline
 			    	</li>
 		    	</ul>
-	      	</td>
-	    </tr>
-	    <tr>
-	    	<td align="" class="file_bg2" onclick="backup();" style="cursor:pointer">
-		    	<ul>
+		      	</td>
+		    </tr>
+		    <tr>
+		    	 <td align="" class="file_bg2" onclick="share_folder();" style="cursor:pointer">
+		    	 <ul>
 		    		<li>
-		    			<img src="dirLIST_files/edit_files/backup.jpg" width="20px" height="20px">
+		    			<img src="dirLIST_files/edit_files/folderopened.png" width="20px" height="20px">
 		    		</li>
 			    	<li>
-			    		Backup folder
+			    		share
 			    	</li>
 		    	</ul>
-	      	</td>
-	    </tr>
+		      	</td>
+		    </tr>
+		    <tr>
+		    	<td align="" class="file_bg2" onclick="archive();" style="cursor:pointer">
+			    	<ul>
+			    		<li>
+			    			<img src="dirLIST_files/edit_files/rar.png" width="20px" height="20px">
+			    		</li>
+				    	<li>
+				    		Archive folder
+				    	</li>
+			    	</ul>
+		      	</td>
+		    </tr>
+		    <tr>
+		    	<td align="" class="file_bg2" onclick="backup();" style="cursor:pointer">
+			    	<ul>
+			    		<li>
+			    			<img src="dirLIST_files/edit_files/backup.jpg" width="20px" height="20px">
+			    		</li>
+				    	<li>
+				    		Backup folder
+				    	</li>
+			    	</ul>
+		      	</td>
+		    </tr>
+	<?php 
+	    }
+	?>
 	  </table>
 	</div>
 	<script type="text/javascript">
