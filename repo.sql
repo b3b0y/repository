@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 17, 2016 at 06:43 PM
+-- Generation Time: Jan 18, 2016 at 01:58 AM
 -- Server version: 5.0.51
 -- PHP Version: 5.2.6
 
@@ -22,10 +22,10 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fr_achive`
+-- Table structure for table `fr_archive`
 --
 
-CREATE TABLE IF NOT EXISTS `fr_achive` (
+CREATE TABLE IF NOT EXISTS `fr_archive` (
   `id` int(11) NOT NULL auto_increment,
   `user_id` int(11) NOT NULL,
   `url` varchar(3000) NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `fr_achive` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `fr_achive`
+-- Dumping data for table `fr_archive`
 --
 
 
@@ -61,6 +61,28 @@ INSERT INTO `fr_course` (`id`, `CCode`, `CDesc`) VALUES
 (2, 'BSCS', 'Bachelor of Science in Computer Science'),
 (3, 'ACT', 'Associate in Computer Technology'),
 (4, 'BSCOE', 'Bachelor of Science in Computer Engineering');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fr_deadline`
+--
+
+CREATE TABLE IF NOT EXISTS `fr_deadline` (
+  `id` int(11) NOT NULL auto_increment,
+  `folder_id` varchar(200) NOT NULL,
+  `date_deadline` date NOT NULL,
+  `time_deadline` time NOT NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `folder_id` (`folder_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `fr_deadline`
+--
+
+INSERT INTO `fr_deadline` (`id`, `folder_id`, `date_deadline`, `time_deadline`) VALUES
+(1, '1', '2016-01-18', '09:50:36');
 
 -- --------------------------------------------------------
 
@@ -101,10 +123,35 @@ CREATE TABLE IF NOT EXISTS `fr_ins_subject` (
 --
 
 INSERT INTO `fr_ins_subject` (`id`, `user_id`, `Subject`, `SubPath`, `Date_Created`, `Time_Created`) VALUES
-(1, 2, 'IT7', './Data/Dean/dean, dean/2016-2017/1st Semester/IT7', '2018-01-16', '02:06:36'),
-(2, 2, 'IT4', './Data/Dean/dean, dean/2016-2017/1st Semester/IT4', '2018-01-16', '02:06:36'),
-(3, 4, 'IT8', './Data/Student/BSIT/student-1/2016-2017/1st Semester/IT8', '2018-01-16', '02:29:14'),
-(4, 4, 'English 4', './Data/Student/BSIT/student-1/2016-2017/1st Semester/English 4', '2018-01-16', '02:31:47');
+(1, 4, 'IT8', './Data/Instructor/instructor, instructor/2016-2017/1st Semester/IT8', '2018-01-16', '05:37:36'),
+(2, 4, 'English 4', './Data/Instructor/instructor, instructor/2016-2017/1st Semester/English 4', '2018-01-16', '05:37:36'),
+(3, 2, 'IT7', './Data/Dean/dean, dean/2016-2017/1st Semester/IT7', '2018-01-16', '05:38:43'),
+(4, 2, 'IT4', './Data/Dean/dean, dean/2016-2017/1st Semester/IT4', '2018-01-16', '05:38:43');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fr_notification`
+--
+
+CREATE TABLE IF NOT EXISTS `fr_notification` (
+  `id` int(11) NOT NULL auto_increment,
+  `user_id` int(11) NOT NULL,
+  `link` varchar(1000) NOT NULL,
+  `message` varchar(1000) NOT NULL,
+  `status` enum('unread','read') NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `fr_notification`
+--
+
+INSERT INTO `fr_notification` (`id`, `user_id`, `link`, `message`, `status`) VALUES
+(1, 4, 'subjectmanagement.php?subject=approve', 'student student enrolled IT8', 'read'),
+(2, 4, 'subjectmanagement.php?subject=approve', 'student student enrolled English 4', 'read'),
+(3, 2, 'subjectmanagement.php?subject=approve', 'student student enrolled IT7', 'read'),
+(4, 2, 'subjectmanagement.php?subject=approve', 'student student enrolled IT4', 'read');
 
 -- --------------------------------------------------------
 
@@ -157,7 +204,7 @@ INSERT INTO `fr_semester` (`SemID`, `Semester`, `SYID`) VALUES
 
 CREATE TABLE IF NOT EXISTS `fr_share_folder` (
   `id` int(11) NOT NULL auto_increment,
-  `owner_id` int(11) NOT NULL,
+  `folder_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `url` varchar(100) NOT NULL,
   `shared_name` varchar(100) NOT NULL,
@@ -166,12 +213,14 @@ CREATE TABLE IF NOT EXISTS `fr_share_folder` (
   `date_shared` date NOT NULL,
   `time_shared` time NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `fr_share_folder`
 --
 
+INSERT INTO `fr_share_folder` (`id`, `folder_id`, `user_id`, `url`, `shared_name`, `download`, `upload`, `date_shared`, `time_shared`) VALUES
+(1, 1, 3, './Data/Instructor/instructor, instructor/2016-2017/1st Semester/IT8/Activity', 'IT8_Activity', 1, 0, '2016-01-18', '08:58:46');
 
 -- --------------------------------------------------------
 
@@ -240,12 +289,17 @@ CREATE TABLE IF NOT EXISTS `fr_stud_subject` (
   `Time_Created` time NOT NULL,
   `status` enum('APPROVED','DISAPPROVED') NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `fr_stud_subject`
 --
 
+INSERT INTO `fr_stud_subject` (`id`, `user_id`, `subject`, `url`, `subject_id`, `Date_Created`, `Time_Created`, `status`) VALUES
+(1, 3, 'IT8', './Data/Instructor/instructor, instructor/2016-2017/1st Semester/IT8/1-student-IT8', 1, '2016-01-18', '05:41:32', 'APPROVED'),
+(2, 3, 'English 4', './Data/Instructor/instructor, instructor/2016-2017/1st Semester/English 4/1-student-English 4', 2, '2016-01-18', '05:41:32', 'APPROVED'),
+(3, 3, 'IT7', './Data/Dean/dean, dean/2016-2017/1st Semester/IT7/1-student-IT7', 3, '2016-01-18', '05:39:26', 'APPROVED'),
+(4, 3, 'IT4', './Data/Dean/dean, dean/2016-2017/1st Semester/IT4/1-student-IT4', 4, '2016-01-18', '05:40:44', 'APPROVED');
 
 -- --------------------------------------------------------
 
@@ -315,10 +369,10 @@ CREATE TABLE IF NOT EXISTS `fr_user` (
 --
 
 INSERT INTO `fr_user` (`id`, `username`, `password`, `UserLvl`, `status`, `last_login_date`, `last_logout_date`, `activate`) VALUES
-(1, 'admin', 'admin', 5, 'online', '2016-01-18 01:44:30', '0000-00-00 00:00:00', 1),
-(2, 'dean', '12345', 4, 'offline', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1),
-(3, 'student', '12345', 1, 'online', '2016-01-18 02:13:30', '2016-01-18 02:13:24', 1),
-(4, 'instructor', '12345', 3, 'offline', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1);
+(1, 'admin', 'admin', 5, 'offline', '2016-01-18 04:39:34', '2016-01-18 04:54:42', 1),
+(2, 'dean', '12345', 4, 'offline', '2016-01-18 05:29:04', '2016-01-18 05:40:56', 1),
+(3, 'student', '12345', 1, 'online', '2016-01-18 09:23:46', '2016-01-18 02:13:24', 1),
+(4, 'instructor', '12345', 3, 'online', '2016-01-18 05:41:11', '2016-01-18 05:28:59', 1);
 
 -- --------------------------------------------------------
 

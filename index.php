@@ -353,7 +353,7 @@ if(isset($_SESSION['view_mode_session']))
 									</ul>	
 								</li>
 								<?php
-									$result = mysql_query("SELECT * FROM  fr_share_folder WHERE user_id = '".$_SESSION['user_id']."' ") or die('Error share: '. mysql_error());
+									$result = mysql_query("SELECT * FROM fr_share_folder WHERE user_id = '".$_SESSION['user_id']."' ") or die('Error share: '. mysql_error());
 								 	if(mysql_num_rows($result) > 0)
 								 	{
 								?>
@@ -361,12 +361,19 @@ if(isset($_SESSION['view_mode_session']))
 										<a class="dropmenu" href="#"><font color="black"><i class="icon-folder-close-alt"></i>Shared <i class="icon-angle-right"> </i></font></a>
 										<ul>
 									  	<?php 
-											
 												while ($row = mysql_fetch_array($result)) 
-										 		{								 			
+										 		{	
+										 			$result4 = mysql_query("SELECT * FROM  fr_deadline  WHERE  folder_id = '".$row['id']."'");
+													if(mysql_num_rows($result4) > 0)
+													{
+														$row4 = mysql_fetch_array($result4);
+														if(date("".$row4['date_deadline']. ' ' . $row4['time_deadline']."") > date("Y-m-d h:i:s") )
+														{							 			
 										?>
-											 		<li><a class="submenu" href="index.php?share=<?php echo  $row['id']; ?>"><font color="black"> <i class="icon-file-alt"></i><?php echo basename($row['shared_name']); ?></font></a> </li>
+											 				<li><a class="submenu" href="index.php?share=<?php echo  $row['id']; ?>"><font color="black"> <i class="icon-file-alt"></i><?php echo basename($row['shared_name']); ?></font></a> </li>
 										<?php
+														}
+													}	
 										 		}
 
 									  	?>
@@ -755,6 +762,14 @@ if(isset($_SESSION['view_mode_session']))
 		item_name_base64 = js_files_and_folders_base64[selected_item_type][selected_item_id];
 		
 		window.open('filemanagement/share_form.php?folder=<?PHP echo base64_decode($_GET['folder']); ?>&item_name='+item_name_base64, null, 'scrollbars = 0, status = 1, height = 500, width = 470, resizable = 1, location = 0');
+
+	}
+
+	function set_deadline()
+	{
+		item_name_base64 = js_files_and_folders_base64[selected_item_type][selected_item_id];
+		
+		window.open('filemanagement/subject_deadline.php?folder=<?PHP echo base64_decode($_GET['folder']); ?>&item_name='+item_name_base64, null, 'scrollbars = 0, status = 1, height = 370, width = 470, resizable = 1, location = 0');
 
 	}
 

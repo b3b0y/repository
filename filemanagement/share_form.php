@@ -43,7 +43,7 @@ if($_POST['Submit'] == 'Submit')
             }
             else
             {
-                mysql_query("INSERT INTO fr_share_folder(owner_id,user_id,url,shared_name,download,upload,date_shared,time_shared) VALUES('".$_SESSION['user_id']."','".$row3['user_id']."','".$url."','".$mainfolder.'_'.$folder."','".$_POST['download']."','".$_POST['upload']."','".$date."','".$time."')") or die ("Error: ". mysql_error());
+                mysql_query("INSERT INTO fr_share_folder(folder_id,user_id,url,shared_name,download,upload,date_shared,time_shared) VALUES('".$row['id']."','".$row3['user_id']."','".$url."','".$mainfolder.'_'.$folder."','".$_POST['download']."','".$_POST['upload']."','".$date."','".$time."')") or die ("Error: ". mysql_error());
             }
         }
          $rename_action = TRUE;   
