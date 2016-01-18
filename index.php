@@ -364,7 +364,7 @@ if(isset($_SESSION['view_mode_session']))
 								 	{
 										while ($row = mysql_fetch_array($result)) 
 								 		{	
-								 			$result4 = mysql_query("SELECT * FROM  fr_deadline  WHERE  folder_id = '".$row['id']."' AND statust = 'open'");
+								 			$result4 = mysql_query("SELECT * FROM  fr_deadline  WHERE  folder_id = '".$row['id']."' AND status = 'open'");
 											if(mysql_num_rows($result4) > 0)
 											{
 

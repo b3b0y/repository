@@ -229,7 +229,7 @@ function icons($files, $view_mode)
 	$specific_icons[0] = array('.asp', '.aspx', '.css', '.dll', '.doc', '.docx', '.exe', '.ini', '.js', '.log', '.pdf', '.php', '.ppt', '.pptx', '.psd', '.rar', '.txt', '.rtf', '.xls', '.xlsx', '.zip');	
 	$specific_icons[1] = array('.php','.js','.zip','.dll','.pdf','.ppt','.psd', '.rar','.xls');
 	$images =array('.jpg','.jpeg','.gif','.png','.tiff','.bmp');
-	$videos = array('.avi','.mpg','.mpeg','.wmv','.asf','.divx','.3gp', '.ram', '.mkv');
+	$videos = array('.avi','.mpg','.mpeg','.wmv','.asf','.divx','.3gp', '.ram', '.mkv', '.flv');
 	$videos_qt = array('.mov', '.qt', '.mp4');
 	$audio = array('.mp3', '.wav','.wma','.aac','.aif', '.asx','.mid','.midi');
 	$real = array('.ram', '.ra', '.rm');
@@ -238,6 +238,7 @@ function icons($files, $view_mode)
 	$compressed = array('.ace','.tar', '.gz');
 	$text[1] = array('.doc','.docx','.wpd','.rtf');
 	$text_plain[1] = array('.txt', '.log','.ini', '.css');
+	$sql = array('.sql');
 	
 	foreach($files as $key => $val)
 	{
@@ -248,6 +249,8 @@ function icons($files, $view_mode)
 			$files_icons[$key] = substr($file_ext, 1).$icon_ext;
 		elseif(in_array($file_ext, $images))
 			$files_icons[$key] = 'image'.$icon_ext;
+		elseif(in_array($file_ext, $sql))
+			$files_icons[$key] = 'sql'.$icon_ext;
 		elseif(in_array($file_ext, $videos))
 			$files_icons[$key] = 'video'.$icon_ext;
 		elseif(in_array($file_ext, $videos_qt))

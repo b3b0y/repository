@@ -179,7 +179,7 @@ $speed = 512; //Value in KB/s (KiloBytes per second). An example value: 128 (do 
 
 //File uploading (HTTP only, FTP currently not supported). ***ENABLE THIS FEATURE AT YOUR OWN RISK***. Please refer to the readme file (dirLIST_files/README.txt). For the maximum file upload size, please also refer to the readme file.
 $file_uploads = 1; //default = 1;
-$banned_file_types = array('.php', '.php3', '.php4', '.php5', '.htaccess', '.htpasswd', '.asp', '.aspx'); //add any other extensions you want banned (in lower-case)
+$banned_file_types = array(); //add any other extensions you want banned (in lower-case)
 $display_banned_files = 1; //Enable this to display a list of the file types banned on the main page. 0:Disable 1:Enable
 
 //Files and/or folders to exclude from listing. dirLIST related files and folders are automatically excluded.

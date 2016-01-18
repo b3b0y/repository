@@ -250,8 +250,8 @@ CREATE TABLE `fr_user` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
-INSERT INTO fr_user VALUES("1","admin","admin","5","offline","2016-01-19 12:49:17","2016-01-19 03:24:30","1");
-INSERT INTO fr_user VALUES("2","dean","12345","4","online","2016-01-19 05:10:05","2016-01-19 05:09:46","1");
+INSERT INTO fr_user VALUES("1","admin","admin","5","online","2016-01-19 07:19:09","2016-01-19 03:24:30","1");
+INSERT INTO fr_user VALUES("2","dean","12345","4","offline","2016-01-19 05:10:05","2016-01-19 07:19:03","1");
 INSERT INTO fr_user VALUES("3","student","12345","1","online","2016-01-19 04:36:27","2016-01-19 04:36:22","1");
 INSERT INTO fr_user VALUES("4","instructor","12345","3","offline","2016-01-19 03:24:37","2016-01-19 05:08:46","1");
 

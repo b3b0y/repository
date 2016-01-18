@@ -25,8 +25,14 @@ if($_SESSION['UserLvl'] < 4)
     define("DB_PASSWORD", $dbpass);
     define("DB_NAME", $dbname);
     define("DB_HOST", $dbhost);
-    define("OUTPUT_DIR", '../Data/');
+    define("OUTPUT_DIR", '../Data/Database_backup/');
     define("TABLES", '*');
+
+    if(!file_exists('../Data/Database_backup'))
+    {
+        mkdir('../Data/Database_backup/');
+    }
+
 
     /**
      * Instantiate Backup_Database and perform backup
@@ -194,5 +200,5 @@ if($_SESSION['UserLvl'] < 4)
         }
     }
 
-    header('Location: ../dashboard.php');
+    echo "<script> alert('Database is successfully backup'); window.location.href='../index.php?folder=RGF0YWJhc2VfYmFja3Vw'; </script>";
 ?>
