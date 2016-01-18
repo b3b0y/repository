@@ -26,16 +26,15 @@ $rename_action = FALSE;
 
         $folder_id = $row['id'];
 
-
-        $rename_action = TRUE;
         $result = mysql_query("SELECT * FROM  fr_share_folder  WHERE folder_id = '".$folder_id."'");
         if(mysql_num_rows($result) > 0 )
         {
             $row2 = mysql_fetch_array($result);
-
+            mysql_query("UPDATE fr_share_folder SET status =  'set' WHERE id = '".$row2['id']."'");
             mysql_query("INSERT INTO fr_deadline(folder_id,date_deadline,time_deadline) VALUES('".$row2['id']."','".$_POST['date']."','".$_POST['time']."')");
         }  
 
+          $rename_action = TRUE;
     }
 
 ?>

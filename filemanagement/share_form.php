@@ -39,11 +39,12 @@ if($_POST['Submit'] == 'Submit')
             $result2 = mysql_query("SELECT * FROM fr_share_folder WHERE shared_name = '".$mainfolder.'_'.$folder."' AND user_id = '".$row3['user_id']."'");
             if(mysql_num_rows($result2) > 0)
             {
-                mysql_query("UPDATE fr_share_folder SET download =  '".$_POST['download']."', upload =  '".$_POST['upload']."'");
+                $row2 = mysql_fetch_array($result2);
+                mysql_query("UPDATE fr_share_folder SET download =  '".$_POST['download']."', upload =  '".$_POST['upload']."' WHERE id = '".$row2['id']."'");
             }
             else
             {
-                mysql_query("INSERT INTO fr_share_folder(folder_id,user_id,url,shared_name,download,upload,date_shared,time_shared) VALUES('".$row['id']."','".$row3['user_id']."','".$url."','".$mainfolder.'_'.$folder."','".$_POST['download']."','".$_POST['upload']."','".$date."','".$time."')") or die ("Error: ". mysql_error());
+                mysql_query("INSERT INTO fr_share_folder(folder_id,user_id,url,shared_name,download,upload,date_shared,time_shared,status) VALUES('".$row['id']."','".$row3['user_id']."','".$url."','".$mainfolder.'_'.$folder."','".$_POST['download']."','".$_POST['upload']."','".$date."','".$time."','unset')") or die ("Error: ". mysql_error());
             }
         }
          $rename_action = TRUE;   

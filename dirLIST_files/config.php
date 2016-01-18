@@ -15,6 +15,11 @@ $listing_mode = 0;
 			$dir_to_browse = $row['url']."/";
 		}
 	}
+
+	if(isset($_GET['notid']) && !empty($_GET['notid']))
+	{
+		mysql_query("UPDATE fr_notification SET status = 'read' WHERE id = '".$_GET['notid']."'");
+	}
 	
 	
 	if(isset($_GET['id']))
@@ -77,6 +82,7 @@ $listing_mode = 0;
 	}
 	else if(isset($_GET['share'])) 
 	{
+
 		$result1 = mysql_query("SELECT * FROM  fr_share_folder  WHERE id = '".$_GET['share']."'")or die(mysql_error());
 		if(mysql_num_rows($result1) > 0)
 		{

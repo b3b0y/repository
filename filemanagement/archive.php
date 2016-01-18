@@ -36,33 +36,18 @@ else
         $source = $item_path."/";
         $destination = '.'.$row['url'].'/Archive'.'/'.$item_name.'/';
 
+        $date = date ("y/m/d");
+   
+        $new = $row['url'].'/Archive'.'/'.$item_name;
+        
+        if(mysql_query("SELECT * FROM fr_path WHERE name != '".$item_name."'"))
+        {
+            mysql_query("INSERT INTO fr_archive(user_id,url,name,date) VALUES('".$_SESSION['user_id']."','".$new."','".$item_name."','".$date."') ") or die('error: '. mysql_error());
+        }
+           
+        rcopy($source ,$destination);
 
-
-            $date = date ("y/m/d");
-       
-            $new = $row['url'].'/Archive'.'/'.$item_name;
-            
-            if(mysql_query("SELECT * FROM fr_path WHERE name != '".$item_name."'"))
-            {
-                mysql_query("INSERT INTO fr_archive(user_id,url,name,date) VALUES('".$_SESSION['user_id']."','".$new."','".$item_name."','".$date."') ") or die('error: '. mysql_error());
-            }
-               rcopy($source , $destination );
-
-
-                // Function to Copy folders and files       
-                function rcopy($src, $dst) {
-                    if (is_dir ( $src )) {
-                        if(!file_exists($dst))
-                            mkdir ( $dst );
-                        $files = scandir ( $src );
-                        foreach ( $files as $file )
-                            if ($file != "." && $file != "..")
-                                rcopy ( "$src/$file", "$dst/$file" );
-                    } else if (file_exists ( $src ))
-                        copy ( $src, $dst );
-                }
-
-                delete_directory($item_path.'/', 0);
+        delete_directory($item_path.'/', 0);
 
 
         header("Location: ../index.php?folder=".$_GET['folder']);
@@ -73,6 +58,21 @@ else
         header("Location: ../index.php?folder=".$_POST['folder']."&err=".base64_encode("archive_file_error"));
         exit;
     }
+
+}
+
+
+  // Function to Copy folders and files       
+function rcopy($src, $dst) {
+    if (is_dir ( $src )) {
+        if(!file_exists($dst))
+            mkdir ( $dst );
+        $files = scandir ( $src );
+        foreach ( $files as $file )
+            if ($file != "." && $file != "..")
+                rcopy ( "$src/$file", "$dst/$file" );
+    } else if (file_exists ( $src ))
+        copy ( $src, $dst );
 }
 
 ?>

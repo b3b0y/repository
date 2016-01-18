@@ -308,9 +308,9 @@
 						else if(isset($_GET['subject']) && $_GET['subject'] == 'approve')
 						{
 
-							if(isset($_GET['id']) && !empty($_GET['id']))
+							if(isset($_GET['notid']) && !empty($_GET['notid']))
 							{
-								mysql_query("UPDATE fr_notification SET status = 'read' WHERE id = '".$_GET['id']."'");
+								mysql_query("UPDATE fr_notification SET status = 'read' WHERE id = '".$_GET['notid']."'");
 							}
 
 							$result = mysql_query("SELECT stud.ControlNo,stud.FName,stud.LName,sub.Subject,studsub.subject_id,fr_subject.Description FROM fr_ins_subject as sub,fr_stud as stud,fr_stud_subject as studsub , fr_subject WHERE fr_subject.SubCode = sub.Subject AND studsub.subject_id = sub.id AND studsub.user_id = stud.user_id AND sub.user_id = '".$_SESSION['user_id']."' AND studsub.status='DISAPPROVED'") or die('Error: '.mysql_error());

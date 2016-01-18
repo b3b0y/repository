@@ -33,8 +33,14 @@
 									{
 								?>	
 		                            	<li>
-		                                    <a href="<?php echo $row['link']; ?>&&id=<?php echo $row['id']; ?>">
-												<span class="icon blue"><i class="icon-user"></i></span>
+		                                    <a href="<?php echo $row['link']; ?>&&notid=<?php echo $row['id']; ?>">
+		                                    	<span class="avatar"><img src="img/avatar.jpg" alt="Avatar"></span>
+		                                    	<span class="header">
+													<span class="from">
+												     </span>
+													<span class="time">
+												    </span>
+												</span>
 												<span class="message"><?php echo $row['message']; ?></span>
 		                                    </a>
 		                                </li>

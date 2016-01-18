@@ -25,7 +25,9 @@
 				$link = 'subjectmanagement.php?subject=approve';
 				$message = $row['FName'].' '.$row['LName']. ' enrolled '.$row1['Subject'];			
 				
-				mysql_query("INSERT INTO fr_notification(user_id,link,message,status) VALUES('".$row1['user_id']."','".$link."','".$message."','unread')");
+				$date = date ("y/m/d H:i:s");
+
+				mysql_query("INSERT INTO fr_notification(user_id,link,message,status,Date) VALUES('".$row1['user_id']."','".$link."','".$message."','unread','".$date."')");
 			}
 		}
 	}

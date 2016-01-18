@@ -352,36 +352,72 @@ if(isset($_SESSION['view_mode_session']))
 									 ?>
 									</ul>	
 								</li>
-								<?php
-									$result = mysql_query("SELECT * FROM fr_share_folder WHERE user_id = '".$_SESSION['user_id']."' ") or die('Error share: '. mysql_error());
-								 	if(mysql_num_rows($result) > 0)
-								 	{
-								?>
 									<li>
 										<a class="dropmenu" href="#"><font color="black"><i class="icon-folder-close-alt"></i>Shared <i class="icon-angle-right"> </i></font></a>
 										<ul>
-									  	<?php 
-												while ($row = mysql_fetch_array($result)) 
-										 		{	
-										 			$result4 = mysql_query("SELECT * FROM  fr_deadline  WHERE  folder_id = '".$row['id']."'");
-													if(mysql_num_rows($result4) > 0)
-													{
-														$row4 = mysql_fetch_array($result4);
-														if(date("".$row4['date_deadline']. ' ' . $row4['time_deadline']."") > date("Y-m-d h:i:s") )
-														{							 			
-										?>
-											 				<li><a class="submenu" href="index.php?share=<?php echo  $row['id']; ?>"><font color="black"> <i class="icon-file-alt"></i><?php echo basename($row['shared_name']); ?></font></a> </li>
-										<?php
-														}
-													}	
-										 		}
+								<?php
+									$bol = true;
+									$result = mysql_query("SELECT * FROM fr_share_folder WHERE user_id = '".$_SESSION['user_id']."' AND status = 'set'") or die('Error share: '. mysql_error());
+								 	if(mysql_num_rows($result) > 0)
+								 	{
+								 		
+										while ($row = mysql_fetch_array($result)) 
+								 		{	
+								 			$result4 = mysql_query("SELECT * FROM  fr_deadline  WHERE  folder_id = '".$row['id']."'");
+											if(mysql_num_rows($result4) > 0)
+											{
 
-									  	?>
+												$row4 = mysql_fetch_array($result4);
+												$date = date_create($row4['time_deadline'].' '.$row4['date_deadline']);										
+
+												$oldtime = strtotime($row4['time_deadline']." ".$row4['date_deadline']);
+
+												if($oldtime > time())
+												{		
+													/*
+													if($bol == true)
+													{
+														$datetime1 = strtotime(date_format($date, 'Y-m-d H:i:s A'));
+														$datetime2 = strtotime(date("Y-m-d H:i:s A"));
+														$interval  = abs($datetime2 - $datetime1);
+														$minutes   = round($interval / 60);
+
+														if($minutes <= 60)
+														{
+														 	$message = $row['shared_name'].' is only have '.$minutes.' minutes left before the deadline ends'; 
+														 	$link = 'index.php?share='.$row['id'];
+														 	mysql_query("INSERT INTO fr_notification(user_id,link,message,status,Date) VALUES('".$row['user_id']."','".$link."','".$message."','unread','".date ("y/m/d H:i:s")."')");											
+														}
+														$bol = false;
+													}
+												*/
+								?>					
+									 				<li><a class="submenu" href="index.php?share=<?php echo  $row['id']; ?>"><font color="black"> <i class="icon-file-alt"></i><?php echo basename($row['shared_name']); ?></font></a> </li>
+								<?php
+												}
+												else
+												{
+													//mysql_query("DELETE FROM fr_share_folder WHERE id = '".$row4['folder_id']."'");
+													mysql_query("DELETE FROM fr_deadline WHERE id = '".$row4['id']."'");	 	
+												}
+											}	
+								 		}
+									}
+									else
+									{
+										$result = mysql_query("SELECT * FROM fr_share_folder WHERE user_id = '".$_SESSION['user_id']."' AND status = 'unset'") or die('Error share: '. mysql_error());
+										while ($row = mysql_fetch_array($result)) 
+								 		{			
+								?>
+									 		<li><a class="submenu" href="index.php?share=<?php echo  $row['id']; ?>"><font color="black"> <i class="icon-file-alt"></i><?php echo basename($row['shared_name']); ?></font></a> </li>
+								<?php
+								 		}
+
+									}
+								?>
 										</ul>	
 									</li>
 								<?php
-									}
-							
 									$result = mysql_query("SELECT * FROM  fr_archive WHERE user_id = '".$_SESSION['user_id']."' ") or die('Error share: '. mysql_error());
 								 	if(mysql_num_rows($result) > 0)
 								 	{
