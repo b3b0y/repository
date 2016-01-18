@@ -45,6 +45,17 @@ if($_POST['Submit'] == 'Submit')
             else
             {
                 mysql_query("INSERT INTO fr_share_folder(folder_id,user_id,url,shared_name,download,upload,date_shared,time_shared,status) VALUES('".$row['id']."','".$row3['user_id']."','".$url."','".$mainfolder.'_'.$folder."','".$_POST['download']."','".$_POST['upload']."','".$date."','".$time."','unset')") or die ("Error: ". mysql_error());
+            
+                $result5 = mysql_query("SELECT * FROM fr_share_folder WHERE shared_name = '".$mainfolder.'_'.$folder."' AND user_id = '".$row3['user_id']."'");
+                $row5 = mysql_fetch_array($result5);
+
+                $link = 'index.php?share='.$row5['id'];
+
+                $message = 'New folder shared '.$row5['shared_name'];          
+                
+                $date = date ("y/m/d H:i:s");
+
+                mysql_query("INSERT INTO fr_notification(user_id,link,message,status,Date) VALUES('".$row3['user_id']."','".$link."','".$message."','unread','".$date."')");
             }
         }
          $rename_action = TRUE;   

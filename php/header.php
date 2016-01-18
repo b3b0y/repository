@@ -2,7 +2,7 @@
 	<div class="navbar-inner">
 		<div class="container-fluid">
 
-			<a class="brand" href="index.php"><span>CICTE WLC WEB-BASE FILE REPOSITORY</span></a>
+			<a class="brand" href=""><span>CICTE WLC WEB-BASE FILE REPOSITORY</span></a>
 							
 			<!-- start: Header Menu -->
 			<div class="nav-no-collapse header-nav">

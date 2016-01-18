@@ -21,11 +21,13 @@ if (!empty($_SESSION['dir_to_browse']))
 }
 else
 {
-	$_SESSION['dir_to_browse'] = "";
+	
  	$url_folder = base64_decode(trim($_GET['folder']));
  	if(!empty($_GET['folder']))
 	 	 $dir_to_browse .= $url_folder."/";
 }
+
+
 
 //Load time
 if($load_time == 1)
@@ -360,10 +362,9 @@ if(isset($_SESSION['view_mode_session']))
 									$result = mysql_query("SELECT * FROM fr_share_folder WHERE user_id = '".$_SESSION['user_id']."' AND status = 'set'") or die('Error share: '. mysql_error());
 								 	if(mysql_num_rows($result) > 0)
 								 	{
-								 		
 										while ($row = mysql_fetch_array($result)) 
 								 		{	
-								 			$result4 = mysql_query("SELECT * FROM  fr_deadline  WHERE  folder_id = '".$row['id']."'");
+								 			$result4 = mysql_query("SELECT * FROM  fr_deadline  WHERE  folder_id = '".$row['id']."' AND statust = 'open'");
 											if(mysql_num_rows($result4) > 0)
 											{
 
@@ -398,7 +399,7 @@ if(isset($_SESSION['view_mode_session']))
 												else
 												{
 													//mysql_query("DELETE FROM fr_share_folder WHERE id = '".$row4['folder_id']."'");
-													mysql_query("DELETE FROM fr_deadline WHERE id = '".$row4['id']."'");	 	
+													mysql_query("UPDATE fr_deadline SET status = 'closed' WHERE id = '".$row4['id']."'");	 	
 												}
 											}	
 								 		}
@@ -693,7 +694,7 @@ if(isset($_SESSION['view_mode_session']))
 					    	 <td align="" class="file_bg2" onclick="set_deadline();" style="cursor:pointer">
 					    	 <ul>
 					    		<li>
-					    			<img src="dirLIST_files/edit_files/folderopened.png" width="20px" height="20px">
+					    			<img src="dirLIST_files/edit_files/calendar.png" width="20px" height="20px">
 					    		</li>
 						    	<li>
 						    		Set Deadline
@@ -705,7 +706,7 @@ if(isset($_SESSION['view_mode_session']))
 					    	 <td align="" class="file_bg2" onclick="share_folder();" style="cursor:pointer">
 					    	 <ul>
 					    		<li>
-					    			<img src="dirLIST_files/edit_files/folderopened.png" width="20px" height="20px">
+					    			<img src="dirLIST_files/edit_files/share.ico" width="20px" height="20px">
 					    		</li>
 						    	<li>
 						    		share
@@ -724,18 +725,6 @@ if(isset($_SESSION['view_mode_session']))
 					    		</li>
 						    	<li>
 						    		Archive folder
-						    	</li>
-					    	</ul>
-				      	</td>
-				    </tr>
-				    <tr>
-				    	<td align="" class="file_bg2" onclick="backup();" style="cursor:pointer">
-					    	<ul>
-					    		<li>
-					    			<img src="dirLIST_files/edit_files/backup.jpg" width="20px" height="20px">
-					    		</li>
-						    	<li>
-						    		Backup folder
 						    	</li>
 					    	</ul>
 				      	</td>

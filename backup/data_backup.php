@@ -1,11 +1,22 @@
-<?php
-	
+<?php date_default_timezone_set("Asia/Hong_kong");
+	session_start();
 
-	$file_path = "./Data";
 
-	$file_name = str_replace(array('+', " "), array('_','_'), basename($file_path));
+	if($_SESSION['UserLvl'] < 4)
+	{
+	        header("Location: ../index.php");
+	} 
+    else
+    {  
+
+    
+	$file_path = "../Data";
+
+	if(is_dir($file_path))
+	{
+		$file_name = str_replace(array('+', " "), array('_','_'), basename($file_path));
 		$the_folder = $file_path;
-		$zip_file_name = $file_name.'.zip';
+		$zip_file_name = 'CICTE-Repository-Backup-'.date("Ymd-His", time()).'.zip';
 
 
 		$download_file= true;
@@ -65,6 +76,12 @@
 			elseif(is_file($zip_file_name))
 				unlink($zip_file_name);
 			exit;
-		}	
+		}
+	}
+
+	
+		  header('Location: ../dashboard.php');
+	}
+
 
 ?>

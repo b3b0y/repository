@@ -87,7 +87,9 @@
 		case "upload_error": echo display_error_message("<div class='box-content alerts'> <div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert'>×</button><strong>Upload failed, an unknown error occured</div></div>")."<br />";break;
 		case "size": echo display_error_message("<div class='box-content alerts'> <div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert'>×</button><strong>File size exceeded limit. Max allowed is ".max_upload_size()."B</b></div></div>")."<br />";break;
 		case "nofile": echo display_error_message("<div class='box-content alerts'> <div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert'>×</button><strong>Please select a file to upload!</div></div>")."<br />";break;
+		case 'link' : echo display_error_message("<div class='box-content alerts'> <div class='alert alert-error'> <b>Error:</b> Folder specified does not exist. This could be because you manually entered the folder name in the URL or you don't have permission to access this folder</div></div>"); break;
 
+	
 	}
 	//Any upload error is displayed here -done
 

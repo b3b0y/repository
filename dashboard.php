@@ -15,7 +15,7 @@
 	
 	<!-- start: Meta -->
 	<meta charset="utf-8">
-	<title>Bootstrap Metro Dashboard by Dennis Ji for ARM demo</title>
+	<title>WLC Web-Base File Repository</title>
 	<meta name="description" content="Bootstrap Metro Dashboard">
 	<meta name="author" content="Dennis Ji">
 	<meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
@@ -111,6 +111,21 @@
 								<i class="icon-table"></i>
 								<p>Reports</p>
 							</a>
+						<?php 
+							if($_SESSION['UserLvl'] >= 4)
+							{
+						?>
+								<a onclick="return confirm('Are you sure you want to backup your Files and Database?')" href="backup/data_backup.php" class="quick-button span2">
+									<i class="icon-hdd"></i>
+									<p>Backup files</p>
+								</a>
+								<a onclick="return confirm('Are you sure you want to backup your Files and Database?')" href="backup/db_backup.php" class="quick-button span2">
+									<i class="icon-hdd"></i>
+									<p>Backup Database</p>
+								</a>
+						<?php								
+							}
+						?>
 							<div class="clearfix"></div>
 						</div>	
 					</div><!--/span-->
