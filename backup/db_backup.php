@@ -1,204 +1,37 @@
-<?php date_default_timezone_set("Asia/Hong_kong");
-        session_start();
+<?php 
+//  http://buffernow.com/backup-and-restore-class-mysql-database-using-php-script/
+
+require_once('backup_restore.class.php');
 include_once("../php/config.php");
 
-if($_SESSION['UserLvl'] < 4)
-{
-        header("Location: ../index.php");
-} 
-   
 
-    /**
-     * This file contains the Backup_Database class wich performs
-     * a partial or complete backup of any given MySQL database
-     * @author Daniel López Azaña <http://www.azanweb.com-->
-     * @version 1.0
-     */
+if(isset($_REQUEST['backup'])){
+    $newImport = new backup_restore($dbhost,$dbname,$dbuser,$dbpass);
+    
+    $fileName = $dbname . "_" . date("Y-m-d_H-i-s") . ".sql";    
+    // Header description Taken from http://stackoverflow.com/a/10766725
+    header("Content-disposition: attachment; filename=".$fileName);
+    header("Content-Type: application/force-download");
+    //header("Content-Transfer-Encoding: application/zip;\n");
+    header("Pragma: no-cache");
+    header("Cache-Control: must-revalidate, post-check=0, pre-check=0, public");
+    header("Expires: 0");
 
-    // Report all errors
-    error_reporting(E_ALL);
+    //call of backup function
+    echo $newImport -> backup(); die();
+    
+}
 
-    /**
-     * Define database parameters here
-     */
-    define("DB_USER", $dbuser);
-    define("DB_PASSWORD", $dbpass);
-    define("DB_NAME", $dbname);
-    define("DB_HOST", $dbhost);
-    define("OUTPUT_DIR", '../Data/Database_backup/');
-    define("TABLES", '*');
-
-    if(!file_exists('../Data/Database_backup'))
-    {
-        mkdir('../Data/Database_backup/');
+if(isset($_REQUEST['restore'])){
+    $newImport = new backup_restore($dbhost,$dbname,$dbuser,$dbpass);
+    $filetype = $_FILES['rfile']['type'];
+    $filename = $_FILES['rfile']['tmp_name'];
+    $error = ($_FILES['rfile']['tmp_name'] == 0)? false:true ;
+    if ($filetype == "application/octetstream" && !$error) {
+        //call of restore function
+        $message = $newImport -> restore ($filename);
+        echo $message;
     }
+}
 
-
-    /**
-     * Instantiate Backup_Database and perform backup
-     */
-    $backupDatabase = new Backup_Database(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-    $status = $backupDatabase->backupTables(TABLES, OUTPUT_DIR) ? 'OK' : 'KO';
-
-    /**
-     * The Backup_Database class
-     */
-    class Backup_Database {
-        /**
-         * Host where database is located
-         */
-        var $host = '';
-
-        /**
-         * Username used to connect to database
-         */
-        var $username = '';
-
-        /**
-         * Password used to connect to database
-         */
-        var $passwd = '';
-
-        /**
-         * Database to backup
-         */
-        var $dbName = '';
-
-        /**
-         * Database charset
-         */
-        var $charset = '';
-
-        /**
-         * Constructor initializes database
-         */
-        function Backup_Database($host, $username, $passwd, $dbName, $charset = 'utf8')
-        {
-            $this->host     = $host;
-            $this->username = $username;
-            $this->passwd   = $passwd;
-            $this->dbName   = $dbName;
-            $this->charset  = $charset;
-
-            $this->initializeDatabase();
-        }
-
-        protected function initializeDatabase()
-        {
-            $conn = mysql_connect($this->host, $this->username, $this->passwd);
-            mysql_select_db($this->dbName, $conn);
-            if (! mysql_set_charset ($this->charset, $conn))
-            {
-                mysql_query('SET NAMES '.$this->charset);
-            }
-        }
-
-        /**
-         * Backup the whole database or just some tables
-         * Use '*' for whole database or 'table1 table2 table3...'
-         * @param string $tables
-         */
-        public function backupTables($tables = '*', $outputDir = '.')
-        {
-            try
-            {
-                /**
-                * Tables to export
-                */
-                if($tables == '*')
-                {
-                    $tables = array();
-                    $result = mysql_query('SHOW TABLES');
-                    while($row = mysql_fetch_row($result))
-                    {
-                        $tables[] = $row[0];
-                    }
-                }
-                else
-                {
-                    $tables = is_array($tables) ? $tables : explode(',',$tables);
-                }
-
-                $sql = 'CREATE DATABASE IF NOT EXISTS '.$this->dbName.";\n\n";
-                $sql .= 'USE '.$this->dbName.";\n\n";
-
-                /**
-                * Iterate tables
-                */
-                foreach($tables as $table)
-                {
-
-                    $result = mysql_query('SELECT * FROM '.$table);
-                    $numFields = mysql_num_fields($result);
-
-                    $sql .= 'DROP TABLE IF EXISTS '.$table.';';
-                    $row2 = mysql_fetch_row(mysql_query('SHOW CREATE TABLE '.$table));
-                    $sql.= "\n\n".$row2[1].";\n\n";
-
-                    for ($i = 0; $i < $numFields; $i++) 
-                    {
-                        while($row = mysql_fetch_row($result))
-                        {
-                            $sql .= 'INSERT INTO '.$table.' VALUES(';
-                            for($j=0; $j<$numFields; $j++) 
-                            {
-                                $row[$j] = addslashes($row[$j]);
-                                $row[$j] = ereg_replace("\n","\\n",$row[$j]);
-                                if (isset($row[$j]))
-                                {
-                                    $sql .= '"'.$row[$j].'"' ;
-                                }
-                                else
-                                {
-                                    $sql.= '""';
-                                }
-
-                                if ($j < ($numFields-1))
-                                {
-                                    $sql .= ',';
-                                }
-                            }
-
-                            $sql.= ");\n";
-                        }
-                    }
-
-                    $sql.="\n\n\n";
-
-                }
-            }
-            catch (Exception $e)
-            {
-                var_dump($e->getMessage());
-                return false;
-            }
-
-            return $this->saveFile($sql, $outputDir);
-        }
-
-        /**
-         * Save SQL to file
-         * @param string $sql
-         */
-        protected function saveFile(&$sql, $outputDir = '.')
-        {
-            if (!$sql) return false;
-
-            try
-            {
-                $handle = fopen($outputDir.'database-cicte-backup-'.date("Ymd-His", time()).'.sql','w+');
-                fwrite($handle, $sql);
-                fclose($handle);
-            }
-            catch (Exception $e)
-            {
-                var_dump($e->getMessage());
-                return false;
-            }
-
-            return true;
-        }
-    }
-
-    echo "<script> alert('Database is successfully backup'); window.location.href='../index.php?folder='; </script>";
 ?>

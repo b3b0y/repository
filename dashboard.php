@@ -7,6 +7,9 @@
 	      header("Location: login.php");
 	} 
 
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -119,7 +122,9 @@
 									<i class="icon-hdd"></i>
 									<p>Backup files</p>
 								</a>
-								<a onclick="return confirm('Are you sure you want to backup your Files and Database?')" href="backup/db_backup.php" class="quick-button span2">
+								<!--<a onclick="return confirm('Are you sure you want to backup your Files and Database?')" href="backup/db_backup.php" class="quick-button span2">
+									-->
+									 <a class="quick-button span2  btn-link-1 launch-modal" href="#" data-modal-id="modal-register">
 									<i class="icon-hdd"></i>
 									<p>Backup Database</p>
 								</a>
@@ -136,19 +141,35 @@
 			</div><!--/#content.span10-->
 		</div><!--/fluid-row-->
 	</div>
-	<div class="modal hide fade" id="myModal">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h3>Settings</h3>
-		</div>
-		<div class="modal-body">
-			<p>Here settings can be configured...</p>
-		</div>
-		<div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Close</a>
-			<a href="#" class="btn btn-primary">Save changes</a>
-		</div>
-	</div>
+	 <div class="modal fade" id="modal-register" role="dialog" aria-labelledby="modal-register-label" aria-hidden="true">
+    	<div class="modal-dialog">
+    		<div class="modal-content">
+    			<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">×</button>
+					<h3>Upload file</h3>
+				</div>
+				<form action="backup/db_backup.php" method="post" enctype="multipart/form-data" name="upload_form" id="upload_form">
+	    			<div class="modal-body"> 
+	            		<div class="control-group">
+					         <label>Database to Restore from: </label>
+					         <input type="file" name="rfile" />  
+					         <input class="btn btn-primary" name="restore" type="submit" id="submit" value="Restore" />
+					  	</div>
+					  	<div class="control-group">
+					  	</div>
+					  	<div class="control-group">
+					          <label>Backup Database: </label>
+					       	<input onclick="return confirm('Are you sure you want to backup your Database?');" class="btn btn-primary" name="backup" type="submit" id="submit" value="Backup" />
+					  	</div>
+					</div>
+	    			<div class="modal-footer">
+						<a href="#" class="btn" data-dismiss="modal">Close</a>
+					</div>
+    			</form> 
+				
+    		</div>
+    	</div>
+    </div>
 	
 	<div class="clearfix"></div>
 	
@@ -164,6 +185,8 @@
 	<!-- start: JavaScript-->
 
 		<script src="js/jquery-1.9.1.min.js"></script>
+        <script src="assets/js/jquery.backstretch.min.js"></script>
+        <script src="assets/js/scripts.js"></script>
 	
 		<script src="js/jquery-migrate-1.0.0.min.js"></script>
 	
