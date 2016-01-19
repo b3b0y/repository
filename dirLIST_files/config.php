@@ -107,6 +107,8 @@ $listing_mode = 0;
 		{
 			$row = mysql_fetch_array($result1);
 
+			$_SESSION['shared_folder_id'] = $row['folder_id'];
+
 			$_SESSION['download'] = $row['download'];
 			$_SESSION['upload'] = $row['upload'];
 			$_SESSION['rename'] = 0;

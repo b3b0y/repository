@@ -5,6 +5,7 @@ require('config.php');
 require('functions.php');
 session_start();
 
+
 if($file_uploads !=  1)
 {
 	header("Location: ../index.php");
@@ -63,6 +64,24 @@ if($_POST['submit'] == $local_text['upload'])
 	
 	if(move_uploaded_file($_FILES['file']['tmp_name'], $new_path))
 	{
+		if(isset($_SESSION['shared_folder_id']) && $_SESSION['shared_folder_id'] != "")
+		{
+			$result = mysql_query("SELECT * FROM fr_ins_subject  WHERE id = '".$_SESSION['shared_folder_id']."'");
+			$row = mysql_fetch_array($result);
+
+			$result2 = mysql_query("SELECT * FROM  fr_stud WHERE user_id = '".$_SESSION['user_id']."'");
+			$row2 = mysql_fetch_array($result2);
+
+			$link = './index.php?folder=MjAxNi0yMDE3LzFzdCBTZW1lc3Rlci9JVDgvQWN0aXZpdHk=';
+			$message = $row2['FName'].' '.$row2['LName']. ' upload a file '.$file_name. ' in '. $row['Subject'];				
+			
+			$date = date ("y/m/d H:i:s");
+
+			mysql_query("INSERT INTO fr_notification(user_id,link,message,status,Date) VALUES('".$row['user_id']."','".$link."','".$message."','unread','".$date."')");
+
+		}
+
+
 		header("Location: ../index.php?folder=".$_POST['folder']);
 		exit;
 	}	

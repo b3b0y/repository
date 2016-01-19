@@ -60,6 +60,24 @@ if(is_file($file_path))
 
 	$file_name = str_replace(array('+', " "), array('_','_'), basename($file_path));
 
+
+	if(isset($_SESSION['shared_folder_id']) && $_SESSION['shared_folder_id'] != "")
+	{
+		$result = mysql_query("SELECT * FROM fr_ins_subject  WHERE id = '".$_SESSION['shared_folder_id']."'");
+		$row = mysql_fetch_array($result);
+
+		$result2 = mysql_query("SELECT * FROM  fr_stud WHERE user_id = '".$_SESSION['user_id']."'");
+		$row2 = mysql_fetch_array($result2);
+
+		$link = './index.php?folder=MjAxNi0yMDE3LzFzdCBTZW1lc3Rlci9JVDgvQWN0aXZpdHk=';
+		$message = $row2['FName'].' '.$row2['LName']. ' download a file '.$file_name. ' from '. $row['Subject'];				
+		
+		$date = date ("y/m/d H:i:s");
+
+		mysql_query("INSERT INTO fr_notification(user_id,link,message,status,Date) VALUES('".$row['user_id']."','".$link."','".$message."','unread','".$date."')");
+
+	}
+
 	header('Cache-control: private');
 	header('Content-Type: application/octet-stream'); 
 	header('Content-Length: '.filesize($file_path));
@@ -83,6 +101,20 @@ else
 		$file_name = str_replace(array('+', " "), array('_','_'), basename($file_path));
 		$the_folder = $file_path;
 		$zip_file_name = $file_name.'.zip';
+
+
+		$result = mysql_query("SELECT * FROM fr_ins_subject  WHERE id = '".$_SESSION['shared_folder_id']."'");
+		$row = mysql_fetch_array($result);
+
+		$result2 = mysql_query("SELECT * FROM  fr_stud WHERE user_id = '".$_SESSION['user_id']."'");
+		$row2 = mysql_fetch_array($result2);
+
+		$link = './index.php?folder=MjAxNi0yMDE3LzFzdCBTZW1lc3Rlci9JVDgvQWN0aXZpdHk=';
+		$message = $row2['FName'].' '.$row2['LName']. ' download a file '.$file_name. ' from '. $row['Subject'];				
+		
+		$date = date ("y/m/d H:i:s");
+
+		mysql_query("INSERT INTO fr_notification(user_id,link,message,status,Date) VALUES('".$row['user_id']."','".$link."','".$message."','unread','".$date."')");
 
 
 		$download_file= true;
