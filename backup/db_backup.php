@@ -200,5 +200,5 @@ if($_SESSION['UserLvl'] < 4)
         }
     }
 
-    echo "<script> alert('Database is successfully backup'); window.location.href='../index.php?folder=RGF0YWJhc2VfYmFja3Vw'; </script>";
+    echo "<script> alert('Database is successfully backup'); window.location.href='../index.php?folder='; </script>";
 ?>

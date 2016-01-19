@@ -195,6 +195,8 @@
 							  <tr>
 							  	    <th>Semester</th>
               						<th>School Year</th>
+              						<th>Status</th>
+              						<th>Action</th>
 							  </tr>
 						  </thead>   
 						  <tbody>
@@ -210,6 +212,8 @@
 								 		<tr>
 											<td><?php echo $row['Semester']; ?></td>
               								<td><?php echo $row['SYstart'].'-'.$row['SYend']; ?></td>
+              								<td><?php echo  $row['status'] == 'Active' ? '<span class="btn btn-mini btn-success">Active</span>' : '<span class="btn btn-mini btn-danger">Deactivate</span>' ; ?> </td>
+              								<td><?php echo  $row['status'] == 'Active' ? '<a href="termmanagement.php?sem=true&&activate='.$row['SemID'].'"><button class="btn btn-mini btn-danger">Deactivate</button></a>' : '<a href="termmanagement.php?sem=true&&activate='.$row['SemID'].'"><button class="btn btn-mini btn-success">Active</button></a>' ; ?> </td>
 										</tr>  
 								<?php
 										}
