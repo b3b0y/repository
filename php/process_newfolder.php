@@ -25,14 +25,12 @@ require('../dirLIST_files/functions.php');
 
 	$same_file_counter = 1;
 	
-	while(is_file($new_path))
+	while(is_dir($new_path))
 	{
-		$file_ext_comp = strrchr($file_name, '.');
-		$file_name_comp = substr($file_name, 0, -strlen($file_ext_comp));
-		$new_path = '../'.$dir_to_browse.$folder.$file_name_comp.'['.$same_file_counter.']'.$file_ext_comp;																																										
+		 $new_path = '../'.$dir_to_browse.$folder.$file_name.'['.$same_file_counter.']';																																										
 		$same_file_counter++;
 	}
-	
+
 	if(mkdir($new_path, 0700))
 	{
 		header("Location: ../index.php?folder=".$_POST['folder']);
@@ -49,5 +47,4 @@ else
 	header("Location: ../index.php?folder=".$_POST['folder']."&err=".base64_encode("upload_error"));
 	exit;
 }
-?>
 ?>

@@ -5,6 +5,7 @@ error_reporting(0);
 if(!$_SESSION['logged_in'])
 	die('Access Denied');
 
+
 if(empty($_GET['item_name']) && empty($_POST['new_name']))
 	die('Access Denied');
 
@@ -18,38 +19,45 @@ $rename_action = FALSE;
 
 if($_POST['Submit'] == 'Rename')
 {
-	if($listing_mode == 0) //http rename
+	if(base64_decode($_GET['item_name']) == 'Archive')
 	{
-		
-		if(!empty($_GET['folder']))
-		{
-			$old_name = '../../'.$dir_to_browse.'/'.base64_decode($_GET['item_name']);
-			$new_name = '../../'.$dir_to_browse.'/'.$_POST['new_name'];
-		}
-		else
-		{
-			$old_name = '../../'.$dir_to_browse.'/'.base64_decode($_GET['folder']).'/'.base64_decode($_GET['item_name']);
-			$new_name = '../../'.$dir_to_browse.'/'.base64_decode($_GET['folder']).'/'.$_POST['new_name'];
-		}	
-	 		
-		
-		if(rename($old_name, $new_name))
-			$rename_action = TRUE;
-		else
-			die('Could not rename file/folder. Permission denied');
+		die('Could not rename Archive. Permission denied');
 	}
-	elseif($listing_mode == 1) //ftp rename
+	else
 	{
-		$ftp_stream = ftp_connect($ftp_host) or die(display_error_message("<b>Could not connect to FTP host</b>"));
-		ftp_login($ftp_stream, $ftp_username, $ftp_password) or die(display_error_message("<b>Could not login to FTP host</b>"));
+		if($listing_mode == 0) //http rename
+		{
+			
+			if(!empty($_GET['folder']))
+			{
+				$old_name = '../../'.$dir_to_browse.'/'.base64_decode($_GET['item_name']);
+				$new_name = '../../'.$dir_to_browse.'/'.$_POST['new_name'];
+			}
+			else
+			{
+				$old_name = '../../'.$dir_to_browse.'/'.base64_decode($_GET['folder']).'/'.base64_decode($_GET['item_name']);
+				$new_name = '../../'.$dir_to_browse.'/'.base64_decode($_GET['folder']).'/'.$_POST['new_name'];
+			}	
+		 		
+			
+			if(rename($old_name, $new_name))
+				$rename_action = TRUE;
+			else
+				die('Could not rename file/folder. Permission denied');
+		}
+		elseif($listing_mode == 1) //ftp rename
+		{
+			$ftp_stream = ftp_connect($ftp_host) or die(display_error_message("<b>Could not connect to FTP host</b>"));
+			ftp_login($ftp_stream, $ftp_username, $ftp_password) or die(display_error_message("<b>Could not login to FTP host</b>"));
 
-		$old_name = $dir_to_browse.base64_decode($_GET['folder']).'/'.base64_decode($_GET['item_name']);
-		$new_name = $dir_to_browse.base64_decode($_GET['folder']).'/'.$_POST['new_name'];
-		
-		if(@ftp_rename($ftp_stream, $old_name, $new_name))
-			$rename_action = TRUE;
-		else
-			die('Could not rename file/folder. Permission denied');
+			$old_name = $dir_to_browse.base64_decode($_GET['folder']).'/'.base64_decode($_GET['item_name']);
+			$new_name = $dir_to_browse.base64_decode($_GET['folder']).'/'.$_POST['new_name'];
+			
+			if(@ftp_rename($ftp_stream, $old_name, $new_name))
+				$rename_action = TRUE;
+			else
+				die('Could not rename file/folder. Permission denied');
+		}
 	}
 }
 ?>
