@@ -1,11 +1,14 @@
 <?php 
 //  http://buffernow.com/backup-and-restore-class-mysql-database-using-php-script/
-
-require_once('backup_restore.class.php');
 include_once("../php/config.php");
 
 
-if(isset($_REQUEST['backup'])){
+require_once('backup_restore.class.php');
+
+
+
+if(isset($_REQUEST['backup']))
+{
     $newImport = new backup_restore($dbhost,$dbname,$dbuser,$dbpass);
     
     $fileName = $dbname . "_" . date("Y-m-d_H-i-s") . ".sql";    
@@ -22,7 +25,8 @@ if(isset($_REQUEST['backup'])){
     
 }
 
-if(isset($_REQUEST['restore'])){
+if(isset($_REQUEST['restore']))
+{
     $newImport = new backup_restore($dbhost,$dbname,$dbuser,$dbpass);
     $filetype = $_FILES['rfile']['type'];
     $filename = $_FILES['rfile']['tmp_name'];
@@ -32,6 +36,8 @@ if(isset($_REQUEST['restore'])){
         $message = $newImport -> restore ($filename);
         echo $message;
     }
+
+    header('Location: ../dashboard.php');
 }
 
 ?>
