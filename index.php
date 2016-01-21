@@ -7,11 +7,13 @@ require("dirLIST_files/functions.php");
 error_reporting(0);
 set_time_limit(0);
 
+
 if(!isset($_SESSION['login'])) 
 {
         header("Location: login.php");
 } 
 
+/*
 if (!empty($_SESSION['dir_to_browse'])) 
 {
 	$dir_to_browse =  $_SESSION['dir_to_browse'];
@@ -26,7 +28,7 @@ else
  	if(!empty($_GET['folder']))
 	 	 $dir_to_browse .= $url_folder."/";
 }
-
+*/
 
 
 //Load time
@@ -281,7 +283,7 @@ if(isset($_SESSION['view_mode_session']))
 					
 					$this_file_name = basename($_SERVER['PHP_SELF']);
 					$this_file_size = filesize($this_file_name);
-					echo '<li> <i class="icon-home"></i> <a href="'.$this_file_name.'">'.basename($_SESSION['dir_to_browse']).'</a><i class="icon-angle-right"> </i> </li>';
+					echo '<li> <i class="icon-home"></i> <a href="'.$this_file_name.'">Home</a><i class="icon-angle-right"> </i> </li>';
 					if(!empty($url_folder))
 					{
 						$folders_in_url = explode("/", $url_folder);
@@ -418,27 +420,7 @@ if(isset($_SESSION['view_mode_session']))
 								?>
 										</ul>	
 									</li>
-								<?php
-									$result = mysql_query("SELECT * FROM  fr_archive WHERE user_id = '".$_SESSION['user_id']."' ") or die('Error share: '. mysql_error());
-								 	if(mysql_num_rows($result) > 0)
-								 	{
-							 	?>	
-									<li>
-										<a class="dropmenu" href="#"><font color="black"> <i class="icon-folder-close-alt"></i> Archived <i class="icon-angle-right"> </i></font></a>
-										<ul>
-										<?php
-												while ($row = mysql_fetch_array($result)) 
-											 	{								 			
-										?>
-											 		<li><a class="submenu" href="index.php?archive=<?php echo  $row['id']; ?>" > <i class="icon-file-alt"></i><?php echo $row['name']; ?></a></li>
-										<?php
-											 	}
-									  	?>
-										</ul>	
-									</li>
-								<?php
-									}
-								?>
+								
 							</ul>	
 						</div>
 					</div><!--/span-->
@@ -460,6 +442,8 @@ if(isset($_SESSION['view_mode_session']))
 		</div><!--/#content.span10-->
 	</div><!--/fluid-row-->
 	
+
+
 	<div class="modal fade" id="modal-register" role="dialog" aria-labelledby="modal-register-label" aria-hidden="true">
     	<div class="modal-dialog">
     		<div class="modal-content">
@@ -478,7 +462,7 @@ if(isset($_SESSION['view_mode_session']))
 				  	</div>
 				</div>
     			<div class="modal-footer">
-    				<button type="submit" name="submit" class="btn btn-primary">Save changes</a> </button>
+    				<button type="submit" name="submit" class="btn btn-primary">Save folder </button>
 					<a href="#" class="btn" data-dismiss="modal">Close</a>
 				</div>
     			</form> 
@@ -486,7 +470,7 @@ if(isset($_SESSION['view_mode_session']))
     	</div>
     </div>
 
-    <div class="modal fade" id="modal-register2" role="dialog" aria-labelledby="modal-register-label" aria-hidden="true">
+    <div class="modal fade" id="modal-register2" role="dialog" aria-labelledby="modal-register-label2" aria-hidden="true">
     	<div class="modal-dialog">
     		<div class="modal-content">
     			<div class="modal-header">
@@ -502,7 +486,7 @@ if(isset($_SESSION['view_mode_session']))
 			    			<div class="modal-body"> 
 			            		<div class="control-group">
 							        <input name="file" type="file" id="file" size="40" />
-							        <input name="folder" type="hidden" id="folder" value="<?PHP echo $_GET['folder']; ?>" /><?PHP echo $local_text['filesize_limit']; ?>: <?PHP echo max_upload_size(); ?>B
+							        <input name="folder" type="hidden" id="folder" value="<?PHP echo $_GET['folder']; ?>" required/><?PHP echo $local_text['filesize_limit']; ?>: <?PHP echo max_upload_size(); ?>B
 							  	</div>
 							</div>
 			    			<div class="modal-footer">
@@ -716,20 +700,45 @@ if(isset($_SESSION['view_mode_session']))
 					    </tr>
 				<?php
 					}
+					if(basename(base64_decode(trim($_GET['folder']))) != "Archive")
+					{
+						 $_SESSION['folder1'] = $_GET['folder1'];
+						 if(empty($_GET['folder']))
+						 {
 				?>
-					    <tr>
-				    	<td align="" class="file_bg2" onclick="archive();" style="cursor:pointer">
+								<tr>
+							    	<td align="" class="file_bg2" onclick="archive();" style="cursor:pointer">
+								    	<ul>
+								    		<li>
+								    			<img src="dirLIST_files/edit_files/rar.png" width="20px" height="20px">
+								    		</li>
+									    	<li>
+									    		Archive folder
+									    	</li>
+								    	</ul>
+							      	</td>
+							    </tr>
+				<?php
+						}
+					}
+					else
+					{
+					
+				?>
+				    <tr>
+				    	<td align="" class="file_bg2" onclick="restore();" style="cursor:pointer">
 					    	<ul>
 					    		<li>
-					    			<img src="dirLIST_files/edit_files/rar.png" width="20px" height="20px">
+					    			<img src="dirLIST_files/edit_files/restore.png" width="20px" height="20px">
 					    		</li>
 						    	<li>
-						    		Archive folder
+						    		Restore Archive
 						    	</li>
 					    	</ul>
 				      	</td>
 				    </tr>
 			<?php 
+					}
 			    }
 			?>
 			  </table>
@@ -802,7 +811,14 @@ if(isset($_SESSION['view_mode_session']))
 	{
 		item_name = js_files_and_folders[selected_item_type][selected_item_id];
 		item_name_base64 = js_files_and_folders_base64[selected_item_type][selected_item_id];
-		if(confirm("********<?PHP echo $local_text['warning']; ?>!********\n\n<?PHP echo $local_text['no_go_back']; ?>\n\n"+' Are you sure you wan to Archive '+item_name+' ` ?')) window.location = 'filemanagement/archive.php?folder=<?PHP echo $_GET['folder']; ?>&item_name='+item_name_base64;
+		if(confirm("********<?PHP echo $local_text['warning']; ?>!********\n\n<?PHP echo $local_text['no_go_back']; ?>\n\n"+' Are you sure you wan to Archive ` '+item_name+' ` ?')) window.location = 'filemanagement/archive.php?folder=<?PHP echo $_GET['folder']; ?>&item_name='+item_name_base64;
+	}
+
+	function restore()
+	{
+		item_name = js_files_and_folders[selected_item_type][selected_item_id];
+		item_name_base64 = js_files_and_folders_base64[selected_item_type][selected_item_id];
+		if(confirm("********<?PHP echo $local_text['warning']; ?>!********\n\n<?PHP echo $local_text['no_go_back']; ?>\n\n"+' Are you sure you wan to Restore ` '+item_name+' ` ?')) window.location = 'filemanagement/restore.php?folder=<?PHP echo $_GET['folder']; ?>&item_name='+item_name_base64;
 	}
 
 

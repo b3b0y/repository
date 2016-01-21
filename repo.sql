@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 19, 2016 at 05:12 AM
+-- Generation Time: Jan 21, 2016 at 04:50 PM
 -- Server version: 5.0.51
 -- PHP Version: 5.2.6
 
@@ -28,16 +28,22 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 CREATE TABLE IF NOT EXISTS `fr_archive` (
   `id` int(11) NOT NULL auto_increment,
   `user_id` int(11) NOT NULL,
-  `url` varchar(3000) NOT NULL,
+  `old_url` varchar(3000) NOT NULL,
+  `current_url` varchar(1000) NOT NULL,
   `name` varchar(100) NOT NULL,
   `date` date NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `fr_archive`
 --
 
+INSERT INTO `fr_archive` (`id`, `user_id`, `old_url`, `current_url`, `name`, `date`) VALUES
+(1, 2, './Data/Dean/dean, dean/a', './Data/Dean/dean, dean/Archive/a', 'a', '2016-01-21'),
+(2, 2, './Data/Dean/dean, dean/xx/vv', './Data/Dean/dean, dean/Archive/vv', 'vv', '2016-01-21'),
+(3, 2, './Data/Dean/dean, dean/a', './Data/Dean/dean, dean/Archive/a', 'a', '2016-01-21'),
+(4, 2, './Data/Dean/dean, dean/a', './Data/Dean/dean, dean/Archive/a', 'a', '2016-01-21');
 
 -- --------------------------------------------------------
 
@@ -144,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `fr_notification` (
   `status` enum('unread','read') NOT NULL,
   `Date` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `fr_notification`
@@ -153,7 +159,9 @@ CREATE TABLE IF NOT EXISTS `fr_notification` (
 INSERT INTO `fr_notification` (`id`, `user_id`, `link`, `message`, `status`, `Date`) VALUES
 (1, 3, 'index.php?share=1', 'IT8_Activityis set a Deadline on 2016-02-01 14:30:00', 'read', '2016-01-19 04:50:30'),
 (2, 4, './index.php?folder=MjAxNi0yMDE3LzFzdCBTZW1lc3Rlci9JVDgvQWN0aXZpdHk=', 'student student download a file aa.png in IT8', 'read', '2016-01-19 08:20:41'),
-(3, 4, './index.php?folder=MjAxNi0yMDE3LzFzdCBTZW1lc3Rlci9JVDgvQWN0aXZpdHk=', 'student student upload a file 12204141_1229265283765926_1458044435_o.jpg in IT8', 'read', '2016-01-19 08:23:36');
+(3, 4, './index.php?folder=MjAxNi0yMDE3LzFzdCBTZW1lc3Rlci9JVDgvQWN0aXZpdHk=', 'student student upload a file 12204141_1229265283765926_1458044435_o.jpg in IT8', 'read', '2016-01-19 08:23:36'),
+(4, 0, './index.php?folder=MjAxNi0yMDE3LzFzdCBTZW1lc3Rlci9JVDgvQWN0aXZpdHk=', '  download a file a from ', 'unread', '2016-01-21 22:57:02'),
+(5, 0, './index.php?folder=MjAxNi0yMDE3LzFzdCBTZW1lc3Rlci9JVDgvQWN0aXZpdHk=', '  download a file a from ', 'unread', '2016-01-21 22:57:05');
 
 -- --------------------------------------------------------
 
@@ -268,14 +276,18 @@ CREATE TABLE IF NOT EXISTS `fr_stud` (
   `size` int(11) NOT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `ControlNo` (`ControlNo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `fr_stud`
 --
 
 INSERT INTO `fr_stud` (`id`, `user_id`, `ControlNo`, `FName`, `LName`, `Mname`, `Course`, `Year`, `size`) VALUES
-(1, 3, 1, 'student', 'student', '', 'BSIT', '4th Year', 0);
+(1, 3, 1, 'student', 'student', '', 'BSIT', '4th Year', 0),
+(2, 5, 552, 'Leo', 'Marapoc', '', 'BSIT', '4th Year', 0),
+(3, 6, 445, 'Sheila', 'Mancera', '', 'BSIT', '4th Year', 0),
+(4, 7, 443, 'Romalyn', 'Bertudazo', '', 'BSIT', '4th Year', 0),
+(5, 8, 123, 'Trina', 'Larazzabal', '', 'BSBA', '3rd Year', 0);
 
 -- --------------------------------------------------------
 
@@ -368,17 +380,21 @@ CREATE TABLE IF NOT EXISTS `fr_user` (
   `last_logout_date` datetime NOT NULL,
   `activate` int(11) NOT NULL default '1',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `fr_user`
 --
 
 INSERT INTO `fr_user` (`id`, `username`, `password`, `UserLvl`, `status`, `last_login_date`, `last_logout_date`, `activate`) VALUES
-(1, 'admin', 'admin', 5, 'online', '2016-01-19 09:18:39', '2016-01-19 08:09:24', 1),
-(2, 'dean', '12345', 4, 'offline', '2016-01-19 09:18:24', '2016-01-19 09:18:33', 1),
+(1, 'admin', 'admin', 5, 'offline', '2016-01-21 10:19:03', '2016-01-21 10:43:27', 1),
+(2, 'dean', '12345', 4, 'offline', '2016-01-21 10:56:53', '2016-01-22 12:49:39', 1),
 (3, 'student', '12345', 1, 'online', '2016-01-19 07:57:46', '2016-01-19 04:36:22', 1),
-(4, 'instructor', '12345', 3, 'offline', '2016-01-19 09:17:46', '2016-01-19 09:18:18', 1);
+(4, 'instructor', '12345', 3, 'online', '2016-01-22 12:49:44', '2016-01-19 09:18:18', 1),
+(5, '552', '123', 1, 'pending', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1),
+(6, '445', '123', 1, 'pending', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1),
+(7, '443', '123', 1, 'pending', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1),
+(8, '123', '123', 1, 'pending', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1);
 
 -- --------------------------------------------------------
 

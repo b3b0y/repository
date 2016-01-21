@@ -4,7 +4,7 @@ include_once("../php/config.php");
 require('../dirLIST_files/config.php');
 require('../dirLIST_files/functions.php');
 
-$item_name = base64_decode($_GET['item_name']);
+ $item_name = base64_decode($_GET['item_name']);
    
 if($item_name == 'Archive')
 {
@@ -21,39 +21,37 @@ else
     {
         $item_path = '../'.$dir_to_browse.base64_decode($_GET['folder']);
     }   
-        $item_path .= (empty($_GET['folder'])) ? $item_name : $item_name;
+         $item_path .= (empty($_GET['folder'])) ? $item_name : $item_name;
         
         
         
 
     if(is_dir($item_path))
     {
-          $result = mysql_query("SELECT * FROM fr_path WHERE user_id = '".$_SESSION['user_id']."'");
+          $result = mysql_query("SELECT * FROM fr_archive WHERE name = '".$item_name."'");
           $row = mysql_fetch_array($result);
-
-          if(!is_dir('.'.$row['url'].'/Archive'))
+        
+          /*
+          if(!is_dir('.'.$row['old_url']))
           {
-            mkdir('.'.$row['url'].'/Archive');
+            mkdir('.'.$row['old_url']);
           }
+        */
 
         $source = $item_path."/";
-        $destination = '.'.$row['url'].'/Archive'.'/'.$item_name.'/';
+        $destination = '.'.$row['old_url'].'/';
 
-        $date = date ("y/m/d");
-   
-        $old_path = (empty($_GET['folder'])) ? $dir_to_browse.$item_name : $dir_to_browse.$item_name;
-        $new_path = $row['url'].'/Archive'.'/'.$item_name;
-       
-        mysql_query("INSERT INTO fr_archive(user_id,old_url,current_url,name,date) VALUES('".$_SESSION['user_id']."','".$old_path."','".$new_path."','".$item_name."','".$date."') ") or die('error: '. mysql_error());
+        
 
-         
         rcopy($source ,$destination);
 
         delete_directory($item_path.'/', 0);
 
 
+        mysql_query("DELETE FROM fr_archive WHERE id = '".$row['id']."'");
 
-        echo "<script> alert('Successfully save in Archive folder'); window.location.href='../index.php?folder=".$_GET['folder']."'</script>";
+        echo "<script> alert('Successfully Restored from Archive'); window.location.href='../index.php?folder=".$_GET['folder']."'</script>";
+    
     
     }
     else

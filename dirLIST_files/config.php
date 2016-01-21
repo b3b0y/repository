@@ -142,8 +142,8 @@ $listing_mode = 0;
 			$_SESSION['delete'] = $row1['delete_F'];
 
 
-			$_SESSION['dir_to_browse'] = $row['url']."/";
-			$dir_to_browse = $row['url']."/";
+			$_SESSION['dir_to_browse'] = $row['current_url']."/";
+			$dir_to_browse = $row['current_url']."/";
 		}
 		else
 		{

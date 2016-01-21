@@ -118,13 +118,9 @@
 							if($_SESSION['UserLvl'] >= 4)
 							{
 						?>
-								<a onclick="return confirm('Are you sure you want to backup your Files and Database?')" href="backup/data_backup.php" class="quick-button span2">
-									<i class="icon-hdd"></i>
-									<p>Backup files</p>
-								</a>
 								<!--<a onclick="return confirm('Are you sure you want to backup your Files and Database?')" href="backup/db_backup.php" class="quick-button span2">
 									-->
-									 <a class="quick-button span2  btn-link-1 launch-modal" href="#" data-modal-id="modal-register">
+									<a class="quick-button span2  btn-link-1 launch-modal" href="#" data-modal-id="modal-register">
 									<i class="icon-hdd"></i>
 									<p>Backup Database</p>
 								</a>
@@ -148,18 +144,25 @@
 					<button type="button" class="close" data-dismiss="modal">×</button>
 					<h3>Upload file</h3>
 				</div>
-				<form action="backup/db_backup.php" method="post" enctype="multipart/form-data" name="upload_form" id="upload_form">
 	    			<div class="modal-body"> 
 	            		<div class="control-group">
-					         <label>Database to Restore from: </label>
-					         <input type="file" name="rfile" />  
-					         <input class="btn btn-primary" name="restore" type="submit" id="submit" value="Restore" />
+		            		<form action="backup/db_backup.php" method="post" enctype="multipart/form-data" name="upload_form" id="upload_form">
+						         <label>Database to Restore from: </label>
+						         <input type="file" name="rfile" required/>  
+						         <input onclick="return confirm('Are you sure you want to Restore your Database?');" class="btn btn-primary" name="restore" type="submit" id="submit" value="Restore" />
+						  	</form>
 					  	</div>
 					  	<div class="control-group">
 					  	</div>
 					  	<div class="control-group">
+					  	<form action="backup/db_backup.php" method="post" enctype="multipart/form-data" name="upload_form" id="upload_form">
 					          <label>Backup Database: </label>
-					       	<input onclick="return confirm('Are you sure you want to backup your Database?');" class="btn btn-primary" name="backup" type="submit" id="submit" value="Backup" />
+					       	<input onclick="return confirm('Are you sure you want to backup your Database?');" class="btn btn-primary" name="backup" type="submit" id="submit" value="Backup Database" />
+					  	</form>
+					  	</div>
+					  	<div class="control-group">
+					          <label>Backup Data: </label>
+					       		<a onclick="return confirm('Are you sure you want to backup your Files and Database?')" href="backup/data_backup.php"><button class="btn btn-primary"> Backup Data</button> </a>		
 					  	</div>
 					</div>
 	    			<div class="modal-footer">
