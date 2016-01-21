@@ -41,6 +41,36 @@
 		echo '<script> window.location.href="termmanagement.php?sem=true"; </script>';
 	}
 
+
+	if(isset($_GET['activate']) && $_GET['sem'] == 'true')
+	{
+		$result = mysql_query("SELECT * FROM fr_semester WHERE sem_status = 'Active'");
+		if(mysql_num_rows($result) > 0)
+		{
+			echo '<script> alert("Sorry Can`t Activate"); window.location.href="termmanagement.php?sem=true"; </script>';
+		}
+		else
+		{
+			$result = mysql_query("SELECT * FROM fr_semester WHERE SemID = '".$_GET['activate']."' AND sem_status = 'Inactive'");
+			if(mysql_num_rows($result) > 0)
+			{
+				mysql_query("UPDATE fr_semester SET sem_status = 'Active' WHERE SemID = '".$_GET['activate']."'");
+			}
+			echo '<script> window.location.href="termmanagement.php?sem=true"; </script>';
+		}
+	}
+
+	if(isset($_GET['deactivate']) && $_GET['sem'] == 'true')
+	{
+
+		$result = mysql_query("SELECT * FROM fr_semester WHERE SemID = '".$_GET['deactivate']."' AND sem_status = 'Active'");
+		if(mysql_num_rows($result) > 0)
+		{
+			mysql_query("UPDATE fr_semester SET sem_status = 'Inactive' WHERE SemID = '".$_GET['deactivate']."'");
+		}
+		echo '<script> window.location.href="termmanagement.php?sem=true"; </script>';
+	}
+
 ?>
 
 
@@ -50,7 +80,7 @@
 	
 	<!-- start: Meta -->
 	<meta charset="utf-8">
-	<title>Bootstrap Metro Dashboard by Dennis Ji for ARM demo</title>
+	<title>WLC Web-Base File Repository</title>
 	<meta name="description" content="Bootstrap Metro Dashboard">
 	<meta name="author" content="Dennis Ji">
 	<meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
@@ -212,8 +242,8 @@
 								 		<tr>
 											<td><?php echo $row['Semester']; ?></td>
               								<td><?php echo $row['SYstart'].'-'.$row['SYend']; ?></td>
-              								<td><?php echo  $row['status'] == 'Active' ? '<span class="btn btn-mini btn-success">Active</span>' : '<span class="btn btn-mini btn-danger">Deactivate</span>' ; ?> </td>
-              								<td><?php echo  $row['status'] == 'Active' ? '<a href="termmanagement.php?sem=true&&activate='.$row['SemID'].'"><button class="btn btn-mini btn-danger">Deactivate</button></a>' : '<a href="termmanagement.php?sem=true&&activate='.$row['SemID'].'"><button class="btn btn-mini btn-success">Active</button></a>' ; ?> </td>
+              								<td><?php echo  $row['sem_status'] == 'Active' ? '<span class="btn btn-mini btn-success">Active</span>' : '<span class="btn btn-mini btn-danger">Inactive</span>' ; ?> </td>
+              								<td><?php echo  $row['sem_status'] == 'Active' ? '<a href="termmanagement.php?sem=true&&deactivate='.$row['SemID'].'"><button class="btn btn-mini btn-danger">Deactivate</button></a>' : '<a href="termmanagement.php?sem=true&&activate='.$row['SemID'].'"><button class="btn btn-mini btn-success">Activate</button></a>' ; ?> </td>
 										</tr>  
 								<?php
 										}

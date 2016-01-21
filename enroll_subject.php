@@ -15,7 +15,7 @@
 	
 	<!-- start: Meta -->
 	<meta charset="utf-8">
-	<title>Bootstrap Metro Dashboard by Dennis Ji for ARM demo</title>
+	<title>WLC Web-Base File Repository</title>
 	<meta name="description" content="Bootstrap Metro Dashboard">
 	<meta name="author" content="Dennis Ji">
 	<meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
@@ -104,23 +104,33 @@
 									  </thead>   
 									  <tbody>
 								  		<?php
-								  				 $result = mysql_query("SELECT inst.FirstN,inst.LastN,sub.*,fr_subject.Description FROM fr_ins_subject as sub,fr_staff as inst,fr_subject WHERE inst.user_id = sub.user_id AND fr_subject.SubCode = sub.Subject AND NOT EXISTS(SELECT * FROM  fr_stud_subject WHERE fr_stud_subject.subject_id = sub.id AND fr_stud_subject.user_id = '".$_SESSION['user_id']."')") or die("Error:". mysql_error()); 
-										 		while ($row = mysql_fetch_array($result)) 
-										 		{								 			
-										 ?>
-										 		<tr>
-										 			<td><input type="checkbox" name="subject[]" value="<?php echo $row['id']; ?>"></td>
-											        <td><?php echo $row['FirstN']." ".$row['LastN']; ?></td>       
-											        <td><?php echo $row['Subject']; ?></td>
-											        <td><?php echo $row['Description']; ?></td>
-												</tr>  
-										<?php
+								  				$result = mysql_query("SELECT inst.FirstN,inst.LastN,sub.*,fr_subject.Description FROM fr_ins_subject as sub,fr_staff as inst,fr_subject , fr_semester as sem WHERE fr_subject.SemID = sem.SemID AND sem.sem_status = 'Active' AND inst.user_id = sub.user_id AND fr_subject.SubCode = sub.Subject AND NOT EXISTS(SELECT * FROM  fr_stud_subject WHERE fr_stud_subject.subject_id = sub.id AND fr_stud_subject.user_id = '".$_SESSION['user_id']."')") or die("Error:". mysql_error()); 
+										 		if($count = mysql_num_rows($result) > 0)
+										 		{
+											 		while ($row = mysql_fetch_array($result)) 
+											 		{								 			
+											 ?>
+											 		<tr>
+											 			<td><input type="checkbox" name="subject[]" value="<?php echo $row['id']; ?>"></td>
+												        <td><?php echo $row['FirstN']." ".$row['LastN']; ?></td>       
+												        <td><?php echo $row['Subject']; ?></td>
+												        <td><?php echo $row['Description']; ?></td>
+													</tr>  
+											<?php
+													}
 												}
 										?>
 									  </tbody>
 								  </table> 
 								  	<div class="form-actions">
-									  <button type="submit" class="btn btn-primary" onclick="clicked(event)">Enroll subject</button>
+										<?php 
+											if($count != 0)
+											{
+										?>  
+									  		<button type="submit" class="btn btn-primary" onclick="clicked(event)">Enroll subject</button>
+										<?php
+											}
+										?>
 									</div> 
 								</div>
 							</form>

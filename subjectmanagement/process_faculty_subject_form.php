@@ -20,20 +20,11 @@
     if(!file_exists(".".$path."/".$_POST['sy'][$i])) 
     {
         mkdir(".".$path."/".$_POST['sy'][$i], 0700, true);
-       /* if(mkdir(".".$path."/".$_POST['sy'][$i], 0700, true))
-        {
-
-          //mysql_query("INSERT INTO fr_path (url,user_id) VALUES('".$path."/".$_POST['sy'][$i]."','".$_POST['sy'][$i]."','".$row2['pathID']."')");
-        }*/
     } 
    
     if(!file_exists(".".$path."/".$_POST['sy'][$i]."/".$_POST['sem'][$i])) 
     {
         mkdir(".".$path."/".$_POST['sy'][$i]."/".$_POST['sem'][$i], 0700, true);
-        /*if(mkdir(".".$path."/".$_POST['sy'][$i]."/".$_POST['sem'][$i], 0700, true))
-        {
-           //mysql_query("INSERT INTO fr_path (pathName,Folder_Name,Parent_F) VALUES('".$path."/".$_POST['sy'][$i]."/".$_POST['sem'][$i]."','".$_POST['sem'][$i]."','".$rowpathid['pathID']."')");
-        } */ 
     }
 
    $path .= "/".$_POST['sy'][$i]."/".$_POST['sem'][$i]."/".$_POST['subject'][$i];

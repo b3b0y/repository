@@ -50,7 +50,7 @@
 							  </thead>   
 							  <tbody>
 							  	<?php
-									$result = mysql_query("SELECT fr_subject.*,sem.*,sy.* FROM fr_subject , fr_semester as sem , fr_sy as  sy WHERE sem.SYID = sy.SYID AND fr_subject.SemID = sem.SemID AND NOT EXISTS (SELECT * FROM fr_ins_subject WHERE fr_subject.SubCode =  fr_ins_subject.Subject AND fr_ins_subject.user_id = '".$_POST['inst']."') AND status ='NOT ASSIGNED'");
+									$result = mysql_query("SELECT fr_subject.*,sem.*,sy.* FROM fr_subject , fr_semester as sem , fr_sy as  sy WHERE sem.SYID = sy.SYID AND fr_subject.SemID = sem.SemID AND sem.sem_status = 'Active' AND NOT EXISTS (SELECT * FROM fr_ins_subject WHERE fr_subject.SubCode =  fr_ins_subject.Subject AND fr_ins_subject.user_id = '".$_POST['inst']."') AND status ='NOT ASSIGNED'") or die ('Error: '.mysql_error());
 									
 								 	if(mysql_num_rows($result) > 0)
 								 	{

@@ -15,7 +15,7 @@
 	
 	<!-- start: Meta -->
 	<meta charset="utf-8">
-	<title>Bootstrap Metro Dashboard by Dennis Ji for ARM demo</title>
+	<title>WLC Web-Base File Repository</title>
 	<meta name="description" content="Bootstrap Metro Dashboard">
 	<meta name="author" content="Dennis Ji">
 	<meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
@@ -204,6 +204,7 @@
 							  <tr>    
 								<th>Name</th>
 								<th>Username</th>
+								<th>Password</th>
 								<th>Course/Year</th>
 								<th>Last Login</th>
 								<th>Last Log-Out</th>
@@ -224,6 +225,7 @@
 								 		<tr>
 											<td><?php echo $row['FName'].' &nbsp'.$row['LName'] ; ?></td>
 											<td><?php echo $row['username']; ?></td>
+											<td><?php echo $row['password']; ?></td>
 											<td><?php echo $row['Course'].' - '.$row['Year']; ?></td>
 											<td><?php echo $row['last_login_date']; ?></td>
 											<td><?php echo $row['last_logout_date']; ?></td>

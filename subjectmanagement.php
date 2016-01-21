@@ -17,7 +17,7 @@
 	
 	<!-- start: Meta -->
 	<meta charset="utf-8">
-	<title>Bootstrap Metro Dashboard by Dennis Ji for ARM demo</title>
+	<title>WLC Web-Base File Repository</title>
 	<meta name="description" content="Bootstrap Metro Dashboard">
 	<meta name="author" content="Dennis Ji">
 	<meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
@@ -82,7 +82,7 @@
 					</li>
 					<li><a href="dashboard.php">Dashboard</a></li>
 					<i class="icon-angle-right"></i>
-					<li><a href="">Term Management</a></li>
+					<li><a href="">Subject Management</a></li>
 				</ul>
 
 				<div class="row-fluid">	

@@ -1,8 +1,26 @@
+<?php 
+	//Open FTP connection -done
+	$folder_exists = true;
+	//Check if directory exists
+	if($listing_mode == 0)
+		$folder_exists = (!is_dir($dir_to_browse)) ? false : true; //HTTP
+	elseif($listing_mode == 1 && PHP_VERSION >= 5)
+		$folder_exists = (!is_dir('ftp://'.$ftp_username.':'.$ftp_password.'@'.$ftp_host.$dir_to_browse)) ? false : true; //FTP
 
+	if($folder_exists == false)
+	{
+		echo display_error_message("<div class='box-content alerts'> <div class='alert alert-error'><strong> Folder specified does not exist. This could be because you manually entered the folder name in the URL or you don't have permission to access this folder! Please Contact your Administrator</div></div>");
+
+	}
+	//Chcek if directory exists -done
+	if($folder_exists == true)
+	{
+?>
 	<div class="row-fluid">	
 		<div class="box-content">
 			<div class="box defualt span12">
 				<?php 
+				
 					if($_SESSION['upload'] == 1)
 					{
 				?>
@@ -28,7 +46,9 @@
 				<a class="quick-button-small span2" href="dirLIST_files/change_view.php?folder=<?PHP echo $_GET['folder']; ?>"><?PHP echo ($view_mode == 0) ? '<i class="icon-th-list"></i>' : '<i class="icon-th-large"></i>'; ?>
 						<p>Thumbnail</p>
 	        	</a>
-				<?PHP } ?>
+				<?PHP 
+					} 
+				?>
 			<div class="clearfix"></div>
 		</div>
 		</div>	
@@ -36,6 +56,7 @@
           	
 	<!-- Output basic HTML code -done -->
 	<?PHP
+	}
 
 	//Open FTP connection
 	if($listing_mode == 1)
@@ -44,20 +65,7 @@
 		@ftp_login($ftp_stream, $ftp_username, $ftp_password) or die(display_error_message("<b>Could not login to FTP host</b>"));
 	}
 
-	//Open FTP connection -done
-	$folder_exists = true;
-	//Check if directory exists
-	if($listing_mode == 0)
-		$folder_exists = (!is_dir($dir_to_browse)) ? false : true; //HTTP
-	elseif($listing_mode == 1 && PHP_VERSION >= 5)
-		$folder_exists = (!is_dir('ftp://'.$ftp_username.':'.$ftp_password.'@'.$ftp_host.$dir_to_browse)) ? false : true; //FTP
-
-	if($folder_exists == false)
-	{
-		echo display_error_message("<b>Error:</b> Folder specified does not exist. This could be because you manually entered the folder name in the URL or you don't have permission to access this folder");
-		exit;
-	}
-	//Chcek if directory exists -done
+	
 
 	//This is a VERY important security feature. It prevents people from browsing directories above $dir_to_browse and any excluded folders. Edit this part at your own risk
 	if(count(explode("../",$folder)) > 1 || in_array(basename($url_folder), $exclude))
