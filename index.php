@@ -406,17 +406,17 @@ if(isset($_SESSION['view_mode_session']))
 											}	
 								 		}
 									}
-									else
-									{
-										$result = mysql_query("SELECT * FROM fr_share_folder WHERE user_id = '".$_SESSION['user_id']."' AND status = 'unset'") or die('Error share: '. mysql_error());
-										while ($row = mysql_fetch_array($result)) 
-								 		{			
+									
+									$result = mysql_query("SELECT * FROM fr_share_folder WHERE user_id = '".$_SESSION['user_id']."' AND status = 'unset'") or die('Error share: '. mysql_error());
+									while ($row = mysql_fetch_array($result)) 
+								 	{			
+								 			$result1 = mysql_query("SELECT * FROM fr_ins_subject WHERE id = '".$row['folder_id']."'");
+								 			$row1 = mysql_fetch_array($result1);
 								?>
-									 		<li><a class="submenu" href="index.php?share=<?php echo  $row['id']; ?>"><font color="black"> <i class="icon-file-alt"></i><?php echo basename($row['shared_name']); ?></font></a> </li>
+									 		<li><a class="submenu" href="index.php?share=<?php echo  $row['id']; ?>&&folder2=<?php echo base64_encode($row1['Subject']); ?>"><font color="black"> <i class="icon-file-alt"></i><?php echo basename($row['shared_name']); ?></font></a> </li>
 								<?php
-								 		}
+								 	}
 
-									}
 								?>
 										</ul>	
 									</li>
@@ -487,6 +487,7 @@ if(isset($_SESSION['view_mode_session']))
 			            		<div class="control-group">
 							        <input name="file" type="file" id="file" size="40" />
 							        <input name="folder" type="hidden" id="folder" value="<?PHP echo $_GET['folder']; ?>" required/><?PHP echo $local_text['filesize_limit']; ?>: <?PHP echo max_upload_size(); ?>B
+							  		
 							  	</div>
 							</div>
 			    			<div class="modal-footer">

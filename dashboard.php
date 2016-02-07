@@ -110,7 +110,7 @@
 								<i class="icon-book"></i>
 								<p>Subjects</p>
 							</a>
-							<a class="quick-button span2">
+							<a href="reports.php"  class="quick-button span2">
 								<i class="icon-table"></i>
 								<p>Reports</p>
 							</a>
@@ -122,7 +122,7 @@
 									-->
 									<a class="quick-button span2  btn-link-1 launch-modal" href="#" data-modal-id="modal-register">
 									<i class="icon-hdd"></i>
-									<p>Backup Database</p>
+									<p>Backup</p>
 								</a>
 						<?php								
 							}

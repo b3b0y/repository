@@ -51,19 +51,31 @@
 					</li>
 					<!-- start: User Dropdown -->
 					<?php 
-						$result1 = mysql_query("SELECT * FROM fr_user WHERE id = '".$_SESSION['user_id']."'");
-						$row1 = mysql_fetch_array($result1);
+						if($_SESSION['UserLvl'] == 1)
+						{
+							$result1 = mysql_query("SELECT * FROM fr_stud WHERE user_id = '".$_SESSION['user_id']."'");
+							$row1 = mysql_fetch_array($result1);
+
+							$name = $row1['FName'];
+						}
+						else  if($_SESSION['UserLvl'] >= 3)
+						{
+							$result1 = mysql_query("SELECT * FROM fr_staff WHERE user_id = '".$_SESSION['user_id']."'");
+							$row1 = mysql_fetch_array($result1);
+
+							$name = $row1['FirstN'];
+						}	
 					?>
 					<li class="dropdown">
 						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-							<i class="halflings-icon white user"></i> <?php echo $row1['username']; ?>
+							<i class="halflings-icon white user"></i> <?php echo $name; ?>
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
 							<li class="dropdown-menu-title">
 									<span>Account Settings</span>
 							</li>
-							<li><a href="#"><i class="halflings-icon user"></i> Profile</a></li>
+							<!--<li><a href="#"><i class="halflings-icon user"></i> Profile</a></li>-->
 							<li><a href="php/logout.php"><i class="halflings-icon off"></i> Logout</a></li>
 						</ul>
 					</li>

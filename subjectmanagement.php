@@ -56,6 +56,11 @@
 		{
 		    if(!confirm('Are you sure you want to "DISAPPROVE" these subject?'))e.preventDefault();
 		}
+
+		function clicked2(e)
+		{
+		    if(!confirm('Are you sure you want to "APPROVE" these subject?'))e.preventDefault();
+		}
 	</script>
 		
 </head>
@@ -119,6 +124,10 @@
 								<i class="icon-book"></i>
 								<p>Approve Subject</p>
 							</a>
+							<a href="subjectmanagement.php?subject=deadline" class="quick-button span2">
+								<i class="icon-book"></i>
+								<p>Deadline </p>
+							</a>
 							<div class="clearfix"></div>
 						</div>	
 					</div><!--/span-->
@@ -172,18 +181,17 @@
 							</div>
 							<div class="box-content buttons">
 								<button class="btn btn-large btn-success btn-setting">ADD SUBJECT</button>
-								<button class="btn btn-large btn-success">Edit Selected</button>
-								<button class="btn btn-large btn-success">Delete Selected</button>
 							</div>
 							<div class="box-content">
 								<table class="table table-striped table-bordered bootstrap-datatable datatable">
 								  <thead>
 									  <tr>
-									  	<th>#</th>
+									  	<th>Subject ID</th>
 									  	<th>Subject Code</th>
 							            <th>Description</th>
 							            <th>Semester / S.Y.</th>
 							            <th>Status</th>
+							            <th>Action</th>
 									  </tr>
 								  </thead>   
 								  <tbody>
@@ -202,6 +210,7 @@
 									              	<td><?php echo $row['Description']; ?></td>
 									               	<td><?php echo $row['Semester']." / ".$row['SYstart'].'-'.$row['SYend']; ?></td>
 									              	<td><?php echo $row['status']; ?></td>
+									              	<td><a href="subjectmanagement.php?subject=edit&&id=<?php echo $row['subID']; ?>"><button><i class="halflings-icon edit"></i></button></a><a onclick="return confirm('Are you sure you want to delete?');" href="php/delete.php?delete=subject&&id=<?php echo $row['subID']; ?>"><button><i class="halflings-icon trash"></i></button></a></td>
 												</tr>  
 										<?php
 												}
@@ -221,17 +230,16 @@
 							</div>
 							<div class="box-content buttons">
 								<a href="subjectmanagement.php?faculty=add"><button class="btn btn-large btn-success">ADD SUBJECT</button></a>
-								<button class="btn btn-large btn-success">Edit Selected</button>
-								<button class="btn btn-large btn-success">Delete Selected</button>
 							</div>
 							<div class="box-content">
 								<table class="table table-striped table-bordered bootstrap-datatable datatable">
 								  <thead>
 									  <tr>
-									  	<th >#</th>
+									  	<th >ID</th>
 						                <th >Instructor</th>      
 						                <th >Subject Code</th>
 						                <th>Description</th>
+						                <!--<th>Action</th>-->
 									  </tr>
 								  </thead>   
 								  <tbody>
@@ -248,6 +256,8 @@
 									              	<td><?php echo $row['FirstN']." ".$row['LastN']; ?></td>       
 									              	<td><?php echo $row['Subject']; ?></td>
 									              	<td><?php echo $row['Description']; ?></td>
+													<!--<td><a onclick="return confirm('Are you sure you want to delete?');" href="php/delete.php?delete=faculty&&id=<?php echo $row['id']; ?>"><button><i class="halflings-icon trash"></i></button></a></td>
+													-->
 												</tr>  
 										<?php
 												}
@@ -277,6 +287,7 @@
 							              	<th>ID Number</th>
 							              	<th>Student</th>      
 							              	<th>Description</th>
+							              	<th>Action</th>
 									  </tr>
 								  </thead>   
 								  <tbody>
@@ -295,6 +306,7 @@
 										            <td><?php echo $row['ControlNo']?></td>  
 										            <td><?php echo $row['FName']." ".$row['LName']; ?></td>       
 										            <td><?php echo $row['Description']; ?></td>
+													<td><a onclick="return confirm('Are you sure you want to Drop?');" href="php/delete.php?delete=drop&&subject_id=<?php echo $row['subject_id']; ?>"><button><i class="halflings-icon trash"></i> Drop</button></a></td>
 												</tr>  
 										<?php
 												}
@@ -313,7 +325,7 @@
 								mysql_query("UPDATE fr_notification SET status = 'read' WHERE id = '".$_GET['notid']."'");
 							}
 
-							$result = mysql_query("SELECT stud.ControlNo,stud.FName,stud.LName,sub.Subject,studsub.subject_id,fr_subject.Description FROM fr_ins_subject as sub,fr_stud as stud,fr_stud_subject as studsub , fr_subject WHERE fr_subject.SubCode = sub.Subject AND studsub.subject_id = sub.id AND studsub.user_id = stud.user_id AND sub.user_id = '".$_SESSION['user_id']."' AND studsub.status='DISAPPROVED'") or die('Error: '.mysql_error());
+							$result = mysql_query("SELECT stud.user_id,stud.ControlNo,stud.FName,stud.LName,sub.Subject,studsub.subject_id,fr_subject.Description FROM fr_ins_subject as sub,fr_stud as stud,fr_stud_subject as studsub , fr_subject WHERE fr_subject.SubCode = sub.Subject AND studsub.subject_id = sub.id AND studsub.user_id = stud.user_id AND sub.user_id = '".$_SESSION['user_id']."' AND studsub.status='DISAPPROVED'") or die('Error: '.mysql_error());
 											
 						 	if(mysql_num_rows($result) > 0)
 						 	{
@@ -339,7 +351,7 @@
 										 		{								 			
 										 ?>
 										 		<tr>
-										 			<td><input type="checkbox" name="subject[]" value="<?php echo $row['subject_id']; ?>"></td>
+										 			<td><input type="checkbox" name="subject[]" value="<?php echo $row['subject_id']; ?>"><input type="hidden" name="user_id[]" value="<?php echo $row['user_id']; ?>"> </td>
 												  	<td><?php echo $row['Subject']; ?></td>
 												  	<td><?php echo $row['ControlNo']?></td>  
 												  	<td><?php echo $row['FName']." ".$row['LName']; ?></td>       
@@ -351,7 +363,7 @@
 									  </tbody>
 								  </table>
 							  		<div class="form-actions">
-									  	<input name="approve" type="submit" value="APPROVE" class="btn btn-primary">
+									  	<input onclick="clicked2(event)" name="approve" type="submit" value="APPROVE" class="btn btn-primary">
 										<input onclick="clicked(event)" name="disapprove" type="submit" value="DISAPPROVE"  class="btn btn-primary">
 									</div>   
 								</div>
@@ -365,10 +377,54 @@
 									<strong>No Records found!
 								</div>
 
+					
 					<?php
 					        }
 						}
 
+						else if(isset($_GET['subject']) && $_GET['subject'] == 'deadline')
+						{
+					?>
+							<div class="box-header" data-original-title>
+								<h2><i class="halflings-icon calendar"></i><span class="break"></span>Deadline</h2>
+							</div>
+							<div class="box-content">
+								<table class="table table-striped table-bordered bootstrap-datatable datatable">
+								  <thead>
+									  <tr>
+									  	<th>Subject</th>
+							            <th>Date</th>
+							            <th>Time</th>
+							            <th>Status</th>
+									  </tr>
+								  </thead>   
+								  <tbody>
+								  	<?php
+								  		
+											$result = mysql_query("SELECT dead.*,ins.* FROM fr_deadline as dead , fr_ins_subject as ins WHERE dead.folder_id = ins.id AND user_id = '".$_SESSION['user_id']."'")or die("Error:". mysql_error());            
+											
+										 	if(mysql_num_rows($result) > 0)
+										 	{
+										 		while ($row = mysql_fetch_array($result)) 
+										 		{								 			
+										 ?>
+										 		<tr>
+													<td><?php echo $row['Subject']; ?></td>
+									              	<td><?php echo $row['date_deadline']; ?></td>
+									               	<td><?php echo $row['time_deadline']; ?></td>
+									              	<td><?php echo $row['status']; ?></td>
+												</tr>  
+										<?php
+												}
+											}
+										?>
+										
+								  </tbody>
+							  </table>  
+							</div>
+
+						<?php
+						}
 						else if(isset($_GET['user']) && $_GET['user'] == 'faculty')
 						{
 							require('Forms/faculty_form.php');
@@ -380,6 +436,14 @@
 						else if(isset($_GET['faculty']) && $_GET['faculty'] == 'add')
 						{
 							require('subjectmanagement/faculty_subject_form.php');
+						}
+						else if(isset($_GET['subject']) && $_GET['subject'] == 'edit')
+						{
+							require('subjectmanagement/edit_subject_form.php');
+						}
+						else if(isset($_GET['faculty']) && $_GET['faculty'] == 'edit')
+						{
+							require('subjectmanagement/edit_faculty_form.php');
 						}
 					?>
 				</div><!--/span-->

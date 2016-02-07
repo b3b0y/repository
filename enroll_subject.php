@@ -138,6 +138,11 @@
 							}
 							else if(isset($_GET['subject']) && $_GET['subject'] == 'subject')
 							{
+
+								if(isset($_GET['notid']) && !empty($_GET['notid']))
+								{
+									mysql_query("UPDATE fr_notification SET status = 'read' WHERE id = '".$_GET['notid']."'");
+								}
 						?>
 								<div class="box-content">
 									<table class="table table-striped table-bordered bootstrap-datatable datatable">

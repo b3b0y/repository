@@ -22,7 +22,7 @@ $listing_mode = 0;
 	}
 	
 	
-	if(isset($_GET['id']))
+	if(isset($_GET['id']) && $_GET['id'] != "")
 	{
 		$result1 = mysql_query("SELECT * FROM fr_path  WHERE id = '".$_GET['id']."' AND user_id = '".$_SESSION['user_id']."'")or die(mysql_error());
 		if(mysql_num_rows($result1) > 0)
@@ -39,7 +39,10 @@ $listing_mode = 0;
 			$_SESSION['create_folders'] = $row1['create_folders'];
 			$_SESSION['rename'] = $row1['rename_F'];
 			$_SESSION['delete'] = $row1['delete_F'];
-			
+
+			unset($_SESSION['share']);
+			unset($_SESSION['folder2']);
+			unset($_SESSION['shared_folder_id']);		
 		}
 		else
 		{
@@ -48,7 +51,7 @@ $listing_mode = 0;
 			
 		}
 	}
-	else if(isset($_GET['subf'])) 
+	else if(isset($_GET['subf']) && $_GET['subf'] != "") 
 	{
 		$result1 = mysql_query("SELECT * FROM fr_ins_subject  WHERE id = '".$_GET['subf']."' AND user_id = '".$_SESSION['user_id']."'")or die(mysql_error());
 		if(mysql_num_rows($result1) > 0)
@@ -65,6 +68,10 @@ $listing_mode = 0;
 			$_SESSION['create_folders'] = $row1['create_folders'];
 			$_SESSION['rename'] = $row1['rename_F'];
 			$_SESSION['delete'] = $row1['delete_F'];
+
+			unset($_SESSION['share']);
+			unset($_SESSION['folder2']);
+			unset($_SESSION['shared_folder_id']);
 		}
 		else
 		{
@@ -74,7 +81,7 @@ $listing_mode = 0;
 		}
 
 	}
-	else if(isset($_GET['studsub'])) 
+	else if(isset($_GET['studsub']) && $_GET['studsub'] != "") 
 	{
 		$result1 = mysql_query("SELECT * FROM fr_stud_subject  WHERE subject_id = '".$_GET['studsub']."' AND user_id = '".$_SESSION['user_id']."'")or die(mysql_error());
 		if(mysql_num_rows($result1) > 0)
@@ -91,6 +98,10 @@ $listing_mode = 0;
 			$_SESSION['create_folders'] = $row1['create_folders'];
 			$_SESSION['rename'] = $row1['rename_F'];
 			$_SESSION['delete'] = $row1['delete_F'];
+
+			unset($_SESSION['share']);
+			unset($_SESSION['folder2']);
+			unset($_SESSION['shared_folder_id']);;
 		}
 		else
 		{
@@ -99,7 +110,7 @@ $listing_mode = 0;
 			
 		}
 	}
-	else if(isset($_GET['share'])) 
+	else if(isset($_GET['share']) && $_GET['share'] != "") 
 	{
 
 		$result1 = mysql_query("SELECT * FROM  fr_share_folder  WHERE id = '".$_GET['share']."' AND user_id = '".$_SESSION['user_id']."'")or die(mysql_error());
@@ -108,6 +119,9 @@ $listing_mode = 0;
 			$row = mysql_fetch_array($result1);
 
 			$_SESSION['shared_folder_id'] = $row['folder_id'];
+
+			$_SESSION['share'] = $_GET['share'];
+			$_SESSION['folder2'] = $_GET['folder2'];
 
 			$_SESSION['download'] = $row['download'];
 			$_SESSION['upload'] = $row['upload'];
@@ -125,7 +139,7 @@ $listing_mode = 0;
 			
 		}
 	}
-	else if(isset($_GET['archive'])) 
+	else if(isset($_GET['archive']) && $_GET['archive'] != "") 
 	{
 		$result1 = mysql_query("SELECT * FROM  fr_archive  WHERE id = '".$_GET['archive']."' AND user_id = '".$_SESSION['user_id']."'")or die(mysql_error());
 		if(mysql_num_rows($result1) > 0)
@@ -144,6 +158,10 @@ $listing_mode = 0;
 
 			$_SESSION['dir_to_browse'] = $row['current_url']."/";
 			$dir_to_browse = $row['current_url']."/";
+
+			unset($_SESSION['share']);
+			unset($_SESSION['folder2']);
+			unset($_SESSION['shared_folder_id']);
 		}
 		else
 		{

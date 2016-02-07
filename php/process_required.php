@@ -41,11 +41,12 @@
 
 					if(!file_exists("../Data/".$row2['Position']."/".$row['Course'])) 
 					{
-					     if(mkdir("../Data/".$row2['Position']."/".$row['Course'], 0700, true))
-					    {
-					    	mysql_query("INSERT INTO fr_path (url,user_id) VALUES('".$path."','".$row['user_id']."')");
-					    	mkdir ('.'.$path, 0700);
-					    }
+					    mkdir("../Data/".$row2['Position']."/".$row['Course'], 0700, true);
+					}
+					else
+					{
+						mysql_query("INSERT INTO fr_path (url,user_id) VALUES('".$path."','".$row['user_id']."')");
+					    mkdir ('.'.$path, 0700);
 					}
 				//update login status
 				mysql_query("UPDATE fr_user SET status = 'offline' , username = '".$_POST['uname']."' , password = '".$_POST['Npass']."' WHERE username = '".$_SESSION['user']."'");

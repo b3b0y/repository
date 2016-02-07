@@ -17,8 +17,14 @@
 			{
 				$row1 = mysql_fetch_array($result1);
 
-				$FolderName = $row['ControlNo']."-".$row['LName']."-".$row1['Subject'];
-				$path = $row1['SubPath']."/".$FolderName;
+				if(!file_exists(".".$row1['SubPath']."/Student"))
+				{
+					mkdir (".".$row1['SubPath']."/Student");
+				}
+
+				$Student = $row1['SubPath']."/Student";
+				$FolderName = $row['ControlNo']."-".$row['LName'];
+				$path = $Student.'/'.$FolderName;
 				
 				mysql_query("INSERT INTO fr_stud_subject(user_id,subject,url,subject_id,status) VALUES('".$_SESSION['user_id']."','".$row1['Subject']."','".$path."','".$row1['id']."','DISAPPROVED')");
 				

@@ -20,13 +20,14 @@ $rename_action = FALSE;
     {
              
         $mainfolder = $_POST['mainfolder'];
+        $folder = basename(base64_decode($_POST['folder']));
 
         $result = mysql_query("SELECT * FROM  fr_ins_subject WHERE Subject = '".$mainfolder."' ");
         $row = mysql_fetch_array($result);
 
         $folder_id = $row['id'];
 
-        $result = mysql_query("SELECT * FROM  fr_share_folder  WHERE folder_id = '".$folder_id."'");
+        $result = mysql_query("SELECT * FROM  fr_share_folder  WHERE shared_name = '".$mainfolder.'_'.$folder."'");
         if(mysql_num_rows($result) > 0 )
         {
 
@@ -35,13 +36,13 @@ $rename_action = FALSE;
             mysql_query("INSERT INTO fr_deadline(folder_id,date_deadline,time_deadline,status) VALUES('".$row2['id']."','".$_POST['date']."','".$_POST['time']."','open')");    
         }  
 
-            $result2 = mysql_query("SELECT * FROM  fr_share_folder  WHERE folder_id = '".$folder_id."'");
+            $result2 = mysql_query("SELECT * FROM  fr_share_folder  WHERE shared_name = '".$mainfolder.'_'.$folder."'");
             while ($row3 = mysql_fetch_array($result2))
             {
              
              $link = 'index.php?share='.$row3['id'];
 
-              $message = $row3['shared_name'].'is set a Deadline on '.$_POST['date'].' '.$_POST['time'];          
+              $message = $row3['shared_name'].' is set a Deadline on '.$_POST['date'].' '.$_POST['time'];          
                   
               $date = date ("y/m/d H:i:s");
 
