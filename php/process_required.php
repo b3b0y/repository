@@ -34,20 +34,20 @@
 				//Create Folder
 				$path  = './Data/'.$row2['Position']."/".$row['Course'].'/'.$row['LName'].'-'.$row['ControlNo']."";
 				
-				if(!file_exists("../Data/Student")) 
+				if(!file_exists("../Data/".$row2['Position'])) 
 				{
-				  mkdir("../Data/Student", 0700, true);
+				  mkdir("../Data/".$row2['Position'], 0700, true);
 				}
 
-					if(!file_exists("../Data/".$row2['Position']."/".$row['Course'])) 
-					{
-					    mkdir("../Data/".$row2['Position']."/".$row['Course'], 0700, true);
-					}
-					else
-					{
-						mysql_query("INSERT INTO fr_path (url,user_id) VALUES('".$path."','".$row['user_id']."')");
-					    mkdir ('.'.$path, 0700);
-					}
+				if(!file_exists("../Data/".$row2['Position']."/".$row['Course'])) 
+				{
+				    mkdir("../Data/".$row2['Position']."/".$row['Course'], 0700, true);
+				}
+					
+
+				mysql_query("INSERT INTO fr_path (url,user_id) VALUES('".$path."','".$row['user_id']."')");
+			    mkdir ('.'.$path, 0700);
+					
 				//update login status
 				mysql_query("UPDATE fr_user SET status = 'offline' , username = '".$_POST['uname']."' , password = '".$_POST['Npass']."' WHERE username = '".$_SESSION['user']."'");
 

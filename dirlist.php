@@ -241,7 +241,7 @@
 		
 		foreach($folders_sorted as $key => $val)//This part is for the folders
 		{
-			$cells_thumbs[] = '<td class=" folder_bg table_border" width="128" height="140" align="center" valign="middle"><a href="'.$this_file_name.'?folder='.base64_encode($folders['link'][$key]).'"><img width="128" height="140" border="0" src="dirLIST_files/icons_large/folder.png"></a></td>'."\n";
+			$cells_thumbs[] = '<td class=" folder_bg table_border" width="100" height="100" align="center" valign="middle"><a href="'.$this_file_name.'?folder='.base64_encode($folders['link'][$key]).'"><img width="100" height="100" border="0" src="dirLIST_files/icons_large/folder.png"></a></td>'."\n";
 			
 			$cell_name = '';
 			

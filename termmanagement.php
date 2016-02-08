@@ -35,10 +35,19 @@
 		  
 		} 
  	 }
+
  	if(isset($_POST['semester']) &&  $_POST['semester'] == 'Save changes')
 	{
-	    mysql_query("INSERT INTO  fr_semester(Semester,SYID) VALUES('".$_POST['sem']."','".$_POST['sy']."')") or die("Error Semester:". mysql_error());
-		echo '<script> window.location.href="termmanagement.php?sem=true"; </script>';
+		$result = mysql_query("SELECT * FROM fr_semester WHERE Semester = '".$_POST['sem']."' AND SYID = '".$_POST['sy']."'");
+		if(mysql_num_rows($result) != 0)
+		{
+			echo '<script> alert("Sorry you cant Add this Semester"); window.location.href="termmanagement.php?sem=true"; </script>';
+		}
+		else
+		{
+			mysql_query("INSERT INTO  fr_semester(Semester,SYID) VALUES('".$_POST['sem']."','".$_POST['sy']."')") or die("Error Semester:". mysql_error());
+			echo '<script> window.location.href="termmanagement.php?sem=true"; </script>';
+		}
 	}
 
 

@@ -139,16 +139,11 @@
 						  </thead>   
 						  <tbody>
 						  	<?php
-						  			if($_SESSION['Ulvl'] == "5")
+						  			if($_SESSION['Ulvl'] >= 3)
 									{
-
 										$result = mysql_query("SELECT fr_user.*,position.*,fr_staff.* FROM fr_user,position,fr_staff WHERE fr_user.UserLvl > 1 AND fr_user.UserLvl = position.UserLvl AND fr_user.id = fr_staff.user_id ") or die ("Admin :". mysql_error());
 									}
-									else if($_SESSION['Ulvl'] == "4")
-									{
-										$result = mysql_query("SELECT fr_user.*,position.*,fr_staff.* FROM fr_user,position,fr_staff WHERE fr_user.UserLvl < 4 AND fr_user.UserLvl = position.UserLvl AND fr_user.id = fr_staff.user_id ") or die ("DEAN :". mysql_error());
 
-									}
 									else if($_SESSION['Ulvl'] == "3")
 									{
 										$result = mysql_query("SELECT fr_user.*,position.*,fr_staff.* FROM fr_user,position,fr_staff WHERE fr_user.UserLvl < 3 AND fr_user.UserLvl = position.UserLvl AND fr_user.id = fr_staff.user_id ") or die ("Instructor :". mysql_error());
@@ -233,16 +228,8 @@
 										</tr>  
 								<?php
 										}
-								?>
-									
-								<?php	
-									}	
-									else
-									{
-										echo "<tr> <td colspan='6'><center> File Records  Empty!</center> </td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>";
 									}
 								?>
-							
 						  </tbody>
 					  </table>  
 					</div>

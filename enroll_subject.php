@@ -87,54 +87,102 @@
 							if(isset($_GET['subject']) && $_GET['subject'] == 'enroll')
 							{
 						?>
-							<form method="post" action="subjectmanagement/process_enroll_subject.php">
+							<div class="box-content">
+								<table class="table table-striped table-bordered bootstrap-datatable datatable">
+								  <thead>
+									  <tr>
+									  	<th >ID</th>
+						                <th >Instructor</th>      
+						                <th>Action</th>
+									  </tr>
+								  </thead>   
+								  <tbody>
+								  	<?php
+
+								  		$result = mysql_query("SELECT * FROM fr_staff as sta , fr_user as user  WHERE user.id = sta.user_id AND user.UserLvl <= 4");
+								  			
+									 	if(mysql_num_rows($result) > 0)
+									 	{
+									 		while ($row = mysql_fetch_array($result)) 
+									 		{								 			
+									 ?>
+									 		<tr>
+									 			<td><?php echo $row['id']; ?></td> 
+								              	<td><?php echo $row['FirstN']." ".$row['LastN']; ?></td>       
+												<td><a href="enroll_subject.php?enroll=subject&&user_id=<?php echo $row['id']; ?>"><button>View</button></a></td>
+										    </tr>  
+									<?php
+											}
+										}
+										?>
+									
+								  </tbody>
+							  </table>  
+							</div>
+						<?php
+							}
+							else if(isset($_GET['enroll']) && $_GET['enroll'] == 'subject')
+							{
+						?>
+							<div class="box-content">
+								<a href="enroll_subject.php?subject=enroll"><button>Back</button></a>
+							</div>
 								<div class="box-header" data-original-title>
-									<h2><i class="halflings-icon calendar"></i><span class="break"></span>Enroll Subject</h2>
+									<?php 
+										$result = mysql_query("SELECT * FROM fr_staff WHERE user_id = '".$_GET['user_id']."'");
+										$row = mysql_fetch_array($result);
+
+									?>
+									<h2><i class="halflings-icon calendar"></i><span class="break"></span><b><?php echo $row['FirstN']." ".$row['LastN']; ?></b></h2>
 								</div>
-								
-								<div class="box-content">
-									<table class="table table-striped table-bordered bootstrap-datatable datatable">
-									  <thead>
-										  <tr>
-										  	<th></th>
-							                <th >Instructor</th>      
-							                <th >Subject Code</th>
-							                <th >Description</th>
-										  </tr>
-									  </thead>   
-									  <tbody>
-								  		<?php
-								  				$result = mysql_query("SELECT inst.FirstN,inst.LastN,sub.*,fr_subject.Description FROM fr_ins_subject as sub,fr_staff as inst,fr_subject , fr_semester as sem WHERE fr_subject.SemID = sem.SemID AND sem.sem_status = 'Active' AND inst.user_id = sub.user_id AND fr_subject.SubCode = sub.Subject AND NOT EXISTS(SELECT * FROM  fr_stud_subject WHERE fr_stud_subject.subject_id = sub.id AND fr_stud_subject.user_id = '".$_SESSION['user_id']."')") or die("Error:". mysql_error()); 
-										 		if($count = mysql_num_rows($result) > 0)
-										 		{
+								<form method="post" action="subjectmanagement/process_enroll_subject.php">
+									<div class="box-content">
+										<table class="table table-striped table-bordered bootstrap-datatable datatable">
+										  <thead>
+											  <tr>
+											  	<th></th>
+											  	<th>Subject code</th>
+												<th>Description</th>
+												<th>Semester</th>
+												<th>S.Y.</th>
+											  </tr>
+										  </thead>   
+										  <tbody>
+										  	<?php
+
+										  		$result = mysql_query("SELECT isub.id,isub.Subject,sub.Description,sy.*,sem.* FROM fr_ins_subject as isub,fr_subject as sub , fr_semester as sem , fr_sy as sy WHERE sem.SYID = sy.SYID AND  sem.SemID = sub.SemID AND sub.SubCode = isub.Subject AND sem.sem_status = 'Active' AND isub.user_id = '".$_GET['user_id']."' AND NOT EXISTS(SELECT * FROM  fr_stud_subject WHERE fr_stud_subject.subject_id = isub.id AND fr_stud_subject.user_id = '".$_SESSION['user_id']."')") or die("Error:". mysql_error()); 					
+											 	if($count = mysql_num_rows($result) > 0)
+											 	{
 											 		while ($row = mysql_fetch_array($result)) 
-											 		{								 			
+											 		{			
+											 		$C++;					 			
 											 ?>
-											 		<tr>
+											 		<tr>    
 											 			<td><input type="checkbox" name="subject[]" value="<?php echo $row['id']; ?>"></td>
-												        <td><?php echo $row['FirstN']." ".$row['LastN']; ?></td>       
-												        <td><?php echo $row['Subject']; ?></td>
-												        <td><?php echo $row['Description']; ?></td>
+										              	<td><?php echo $row['Subject']; ?></td>
+										              	<td><?php echo $row['Description']; ?></td>
+										              	<td><?php echo $row['Semester']; ?></td>
+										              	<td><?php echo $row['SYstart'].'-'.$row['SYend']; ?></td>
 													</tr>  
 											<?php
 													}
 												}
-										?>
-									  </tbody>
-								  </table> 
-								  	<div class="form-actions">
-										<?php 
-											if($count != 0)
-											{
-										?>  
-									  		<button type="submit" class="btn btn-primary" onclick="clicked(event)">Enroll subject</button>
-										<?php
-											}
-										?>
-									</div> 
-								</div>
-							</form>
-						<?php 
+											?>
+										  </tbody>
+									  </table> 
+									  <div class="form-actions">
+											<?php 
+												if($count != 0)
+												{
+											?>  
+										  		<button type="submit" class="btn btn-primary" onclick="clicked(event)">Enroll subject</button>
+											<?php
+												}
+											?>
+										</div>  
+									</div>
+								</form>
+						<?php
 							}
 							else if(isset($_GET['subject']) && $_GET['subject'] == 'subject')
 							{
@@ -273,3 +321,59 @@
 	
 </body>
 </html>
+
+<?php
+
+/*
+						?>
+							<form method="post" action="subjectmanagement/process_enroll_subject.php">
+								<div class="box-header" data-original-title>
+									<h2><i class="halflings-icon calendar"></i><span class="break"></span>Enroll Subject</h2>
+								</div>
+								
+								<div class="box-content">
+									<table class="table table-striped table-bordered bootstrap-datatable datatable">
+									  <thead>
+										  <tr>
+										  	<th></th>
+							                <th >Instructor</th>      
+							                <th >Subject Code</th>
+							                <th >Description</th>
+										  </tr>
+									  </thead>   
+									  <tbody>
+								  		<?php
+								  				$result = mysql_query("SELECT inst.FirstN,inst.LastN,sub.*,fr_subject.Description FROM fr_ins_subject as sub,fr_staff as inst,fr_subject , fr_semester as sem WHERE fr_subject.SemID = sem.SemID AND sem.sem_status = 'Active' AND inst.user_id = sub.user_id AND fr_subject.SubCode = sub.Subject AND NOT EXISTS(SELECT * FROM  fr_stud_subject WHERE fr_stud_subject.subject_id = sub.id AND fr_stud_subject.user_id = '".$_SESSION['user_id']."')") or die("Error:". mysql_error()); 
+										 		if($count = mysql_num_rows($result) > 0)
+										 		{
+											 		while ($row = mysql_fetch_array($result)) 
+											 		{								 			
+											 ?>
+											 		<tr>
+											 			<td><input type="checkbox" name="subject[]" value="<?php echo $row['id']; ?>"></td>
+												        <td><?php echo $row['FirstN']." ".$row['LastN']; ?></td>       
+												        <td><?php echo $row['Subject']; ?></td>
+												        <td><?php echo $row['Description']; ?></td>
+													</tr>  
+											<?php
+													}
+												}
+										?>
+									  </tbody>
+								  </table> 
+								  	<div class="form-actions">
+										<?php 
+											if($count != 0)
+											{
+										?>  
+									  		<button type="submit" class="btn btn-primary" onclick="clicked(event)">Enroll subject</button>
+										<?php
+											}
+										?>
+									</div> 
+								</div>
+							</form>
+						<?php 
+						*/
+
+?>

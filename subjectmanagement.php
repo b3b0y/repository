@@ -98,13 +98,18 @@
 						</div>
 						<div class="box-content">
 						<?php
-							if($_SESSION['UserLvl'] >= 4)
+							if($_SESSION['UserLvl'] >= 3)
 							{
 						?>
 								<a href="subjectmanagement.php?subject=mysubject" class="quick-button span2">
 									<i class="icon-book"></i>
 									<p>My subject</p>
 								</a>
+						<?php 
+							}
+							if($_SESSION['UserLvl'] >= 4)
+							{
+						?>
 								<a href="subjectmanagement.php?subject=subject" class="quick-button span2">
 									<i class="icon-book"></i>
 									<p>Subject</p>
@@ -237,13 +242,29 @@
 									  <tr>
 									  	<th >ID</th>
 						                <th >Instructor</th>      
-						                <th >Subject Code</th>
-						                <th>Description</th>
-						                <!--<th>Action</th>-->
+						                <th>Action</th>
 									  </tr>
 								  </thead>   
 								  <tbody>
 								  	<?php
+
+								  		$result = mysql_query("SELECT * FROM fr_staff as sta , fr_user as user  WHERE user.id = sta.user_id AND user.UserLvl <= 4");
+								  			
+									 	if(mysql_num_rows($result) > 0)
+									 	{
+									 		while ($row = mysql_fetch_array($result)) 
+									 		{								 			
+									 ?>
+									 		<tr>
+									 			<td><?php echo $row['id']; ?></td> 
+								              	<td><?php echo $row['FirstN']." ".$row['LastN']; ?></td>       
+												<td><a href="subjectmanagement.php?subject=persubjstaff&&user_id=<?php echo $row['id']; ?>"><button>View</button></a></td>
+										    </tr>  
+									<?php
+											}
+										}
+
+								  		/*
 											$result = mysql_query("SELECT inst.*,sub.id,sub.Subject,fr_subject.* FROM fr_ins_subject as sub,fr_staff as inst,fr_subject WHERE inst.user_id = sub.user_id AND fr_subject.SubCode = sub.Subject") or die("Error:".mysql_error());
 											
 										 	if(mysql_num_rows($result) > 0)
@@ -262,6 +283,7 @@
 										<?php
 												}
 											}
+											*/
 										?>
 									
 								  </tbody>
@@ -283,16 +305,42 @@
 								<table class="table table-striped table-bordered bootstrap-datatable datatable">
 								  <thead>
 									  <tr>
+									  	<th >Subject code</th>
+		              					<th >Description</th>
+		              					<th >Semester</th>
+		              					<th >S.Y.</th>
+		              					<th >Action</th>
+
+									  	<!--
 									  		<th>Subject Code</th>
 							              	<th>ID Number</th>
 							              	<th>Student</th>      
 							              	<th>Description</th>
 							              	<th>Action</th>
+							            -->
 									  </tr>
 								  </thead>   
 								  <tbody>
 								  	<?php
+								  		$result = mysql_query("SELECT  fr_ins_subject.*,sub.*,sem.*,sy.* FROM  fr_ins_subject , fr_subject as sub , fr_semester as sem, fr_sy as sy WHERE sub.SubCode = fr_ins_subject.Subject AND sem.SemID = sub.SemID AND sy.SYID = sem.SYID AND sem.sem_status = 'Active' AND fr_ins_subject.user_id = '".$_SESSION['user_id']."'");
 
+								  		if(mysql_num_rows($result) > 0)
+									 	{
+									 		while ($row = mysql_fetch_array($result)) 
+									 		{								 			
+									 ?>
+									 		<tr>
+									 			<td><?php echo $row['SubCode']; ?></td>
+	              								<td><?php echo $row['Description']; ?></td>
+										    	<td><?php echo $row['Semester']; ?></td>
+										    	<td><?php echo $row['SYstart']." - ".$row['SYend'] ; ?></td>
+										    	<td><a href="subjectmanagement.php?subject=persubjstud&&subcode=<?php echo $row['SubCode']; ?>"><button>View</button></a></td>
+										    </tr>   
+									<?php
+											}
+										}
+
+								  		/*
 										    $result = mysql_query("SELECT stud.*,sub.*,studsub.*,fr_subject.* FROM fr_ins_subject as sub,fr_stud as stud,fr_stud_subject as studsub , fr_subject WHERE fr_subject.SubCode = sub.Subject AND studsub.subject_id = sub.id AND studsub.user_id = stud.user_id AND sub.user_id = '".$_SESSION['user_id']."' AND studsub.status = 'APPROVED'")or die(mysql_error()); 
 
 											
@@ -310,7 +358,7 @@
 												</tr>  
 										<?php
 												}
-											}
+											}*/
 										?>
 								  </tbody>
 							  </table>  
@@ -445,6 +493,14 @@
 						{
 							require('subjectmanagement/edit_faculty_form.php');
 						}
+						else if(isset($_GET['subject']) && $_GET['subject'] == 'persubjstud')
+						{
+							require('subjectmanagement/persubjectstud.php');
+						}
+						else if(isset($_GET['subject']) && $_GET['subject'] == 'persubjstaff')
+						{
+							require('subjectmanagement/persubjectstaff.php');
+						}
 					?>
 				</div><!--/span-->
 			</div><!--/row-->
@@ -478,7 +534,7 @@
 					  <select name="SemID" id="selectError2" data-rel="chosen" required>
 					  	<option value=""> </option>
 						<?php
-		                    $result = mysql_query("SELECT sem.*,sy.* FROM fr_semester as sem, fr_sy as sy WHERE sy.SYID = sem.SYID ORDER BY sem.Semester ASC");
+		                    $result = mysql_query("SELECT sem.*,sy.* FROM fr_semester as sem, fr_sy as sy WHERE sy.SYID = sem.SYID AND sem.sem_status = 'Active' ORDER BY sem.Semester ASC");
 
 		                    while ($row = mysql_fetch_array($result)) 
 		                    {

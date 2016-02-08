@@ -276,7 +276,7 @@ if(isset($_SESSION['view_mode_session']))
 			
 			<!-- start: Content -->
 			<div id="content" class="span10">
-				
+				<br>
 				<ul class="breadcrumb">
 					<?php
 					//Breadcrumbs and admin logout link
@@ -310,19 +310,23 @@ if(isset($_SESSION['view_mode_session']))
 						</div>
 						<div class="nav-collapse sidebar-nav">
 							<ul style="color: #4d4d4d" class="nav nav-tabs nav-stacked main-menu">
-								<?php 
-									$result = mysql_query("SELECT * FROM  fr_path WHERE user_id = '".$_SESSION['user_id']."'") or die('Error share: '. mysql_error());
-								 	if(mysql_num_rows($result) > 0)
-								 	{
-								 		while ($row = mysql_fetch_array($result)) 
-								 		{								 			
-								 ?>
-											<li> <a href="index.php?id=<?php echo $row['id']; ?>"><font color="black">  <i class="icon-folder-close-alt"></i> My Folder </font> </a> </li>
-								
-								<?php
-								 		}
-								 	}
-								 ?>
+								<li>
+								<a class="dropmenu" href="#"><font color="black"> <i class="icon-folder-close-alt"></i> My Folder <i class="icon-angle-right"> </i></font></a>
+									<ul>
+									<?php 
+										$result = mysql_query("SELECT * FROM  fr_path WHERE user_id = '".$_SESSION['user_id']."'") or die('Error share: '. mysql_error());
+									 	if(mysql_num_rows($result) > 0)
+									 	{
+									 		while ($row = mysql_fetch_array($result)) 
+									 		{								 			
+									 ?>
+												<li> <a href="index.php?id=<?php echo $row['id']; ?>"><font color="black">  <i class="icon-folder-close-alt"></i> <?php echo basename($row['url']); ?> </font> </a> </li>
+									<?php
+									 		}
+									 	}
+									 ?>
+								 	</ul>
+								 </li>
 								 <li>
 									<a class="dropmenu" href="#"><font color="black"> <i class="icon-folder-close-alt"></i> Subject <i class="icon-angle-right"> </i></font></a>
 									<ul>

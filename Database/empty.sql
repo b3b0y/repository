@@ -1,6 +1,6 @@
 # MySQL database backup
 #
-# Generated: Friday 22. January 2016 02:51 HKT
+# Generated: Monday 8. February 2016 18:14 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -28,23 +28,19 @@ CREATE TABLE `fr_archive` (
   `name` varchar(100) NOT NULL,
   `date` date NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 ;
 
 #
-# Data contents of table fr_archive (4 records)
+# Data contents of table fr_archive (0 records)
 #
- 
-INSERT INTO `fr_archive` VALUES (1, 2, './Data/Dean/dean, dean/a', './Data/Dean/dean, dean/Archive/a', 'a', '2016-01-21') ; 
-INSERT INTO `fr_archive` VALUES (2, 2, './Data/Dean/dean, dean/xx/vv', './Data/Dean/dean, dean/Archive/vv', 'vv', '2016-01-21') ; 
-INSERT INTO `fr_archive` VALUES (3, 2, './Data/Dean/dean, dean/a', './Data/Dean/dean, dean/Archive/a', 'a', '2016-01-21') ; 
-INSERT INTO `fr_archive` VALUES (4, 2, './Data/Dean/dean, dean/a', './Data/Dean/dean, dean/Archive/a', 'a', '2016-01-21') ;
+
 #
 # End of data contents of table fr_archive
 # --------------------------------------------------------
 
 # MySQL database backup
 #
-# Generated: Friday 22. January 2016 02:51 HKT
+# Generated: Monday 8. February 2016 18:14 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -88,7 +84,7 @@ INSERT INTO `fr_course` VALUES (4, 'BSCOE', 'Bachelor of Science in Computer Eng
 
 # MySQL database backup
 #
-# Generated: Friday 22. January 2016 02:51 HKT
+# Generated: Monday 8. February 2016 18:14 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -134,7 +130,7 @@ CREATE TABLE `fr_deadline` (
 
 # MySQL database backup
 #
-# Generated: Friday 22. January 2016 02:51 HKT
+# Generated: Monday 8. February 2016 18:14 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -180,7 +176,7 @@ CREATE TABLE `fr_folder_owner` (
 
 # MySQL database backup
 #
-# Generated: Friday 22. January 2016 02:51 HKT
+# Generated: Monday 8. February 2016 18:14 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -220,21 +216,19 @@ CREATE TABLE `fr_ins_subject` (
   `Date_Created` date NOT NULL,
   `Time_Created` time NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 #
-# Data contents of table fr_ins_subject (2 records)
+# Data contents of table fr_ins_subject (0 records)
 #
- 
-INSERT INTO `fr_ins_subject` VALUES (1, 2, 'English 4', './Data/Dean/dean, dean/2016-2017/1st Semester/English 4', '2022-01-16', '02:46:49') ; 
-INSERT INTO `fr_ins_subject` VALUES (2, 2, 'IT3', './Data/Dean/dean, dean/2016-2017/1st Semester/IT3', '2022-01-16', '02:46:49') ;
+
 #
 # End of data contents of table fr_ins_subject
 # --------------------------------------------------------
 
 # MySQL database backup
 #
-# Generated: Friday 22. January 2016 02:51 HKT
+# Generated: Monday 8. February 2016 18:14 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -289,7 +283,7 @@ CREATE TABLE `fr_notification` (
 
 # MySQL database backup
 #
-# Generated: Friday 22. January 2016 02:51 HKT
+# Generated: Monday 8. February 2016 18:14 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -332,23 +326,20 @@ CREATE TABLE `fr_path` (
   `url` varchar(30000) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 ;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 ;
 
 #
-# Data contents of table fr_path (4 records)
+# Data contents of table fr_path (1 records)
 #
  
-INSERT INTO `fr_path` VALUES (1, './Data', 1) ; 
-INSERT INTO `fr_path` VALUES (2, './Data/Dean/dean, dean', 2) ; 
-INSERT INTO `fr_path` VALUES (3, './Data/Instructor/instructor, instructor', 4) ; 
-INSERT INTO `fr_path` VALUES (4, './Data/Student/BSIT/student-1', 3) ;
+INSERT INTO `fr_path` VALUES (1, './Data', 1) ;
 #
 # End of data contents of table fr_path
 # --------------------------------------------------------
 
 # MySQL database backup
 #
-# Generated: Friday 22. January 2016 02:51 HKT
+# Generated: Monday 8. February 2016 18:14 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -395,22 +386,19 @@ CREATE TABLE `fr_semester` (
   `SYID` int(11) NOT NULL,
   `sem_status` enum('Active','Inactive') NOT NULL default 'Inactive',
   PRIMARY KEY  (`SemID`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 ;
 
 #
-# Data contents of table fr_semester (3 records)
+# Data contents of table fr_semester (0 records)
 #
- 
-INSERT INTO `fr_semester` VALUES (1, '1st Semester', 1, 'Inactive') ; 
-INSERT INTO `fr_semester` VALUES (2, '2nd Semester', 1, 'Inactive') ; 
-INSERT INTO `fr_semester` VALUES (3, 'Summer', 1, 'Inactive') ;
+
 #
 # End of data contents of table fr_semester
 # --------------------------------------------------------
 
 # MySQL database backup
 #
-# Generated: Friday 22. January 2016 02:51 HKT
+# Generated: Monday 8. February 2016 18:14 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -478,7 +466,7 @@ CREATE TABLE `fr_share_folder` (
 
 # MySQL database backup
 #
-# Generated: Friday 22. January 2016 02:51 HKT
+# Generated: Monday 8. February 2016 18:14 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -532,22 +520,20 @@ CREATE TABLE `fr_staff` (
   `LastN` varchar(50) NOT NULL,
   `midN` varchar(50) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 ;
 
 #
-# Data contents of table fr_staff (3 records)
+# Data contents of table fr_staff (1 records)
 #
  
-INSERT INTO `fr_staff` VALUES (1, 1, 'admin', 'admin', 'admin') ; 
-INSERT INTO `fr_staff` VALUES (2, 2, 'dean', 'dean', 'dean') ; 
-INSERT INTO `fr_staff` VALUES (3, 4, 'instructor', 'instructor', '') ;
+INSERT INTO `fr_staff` VALUES (1, 1, 'admin', 'admin', 'admin') ;
 #
 # End of data contents of table fr_staff
 # --------------------------------------------------------
 
 # MySQL database backup
 #
-# Generated: Friday 22. January 2016 02:51 HKT
+# Generated: Monday 8. February 2016 18:14 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -609,24 +595,19 @@ CREATE TABLE `fr_stud` (
   `size` int(11) NOT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `ControlNo` (`ControlNo`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 #
-# Data contents of table fr_stud (5 records)
+# Data contents of table fr_stud (0 records)
 #
- 
-INSERT INTO `fr_stud` VALUES (1, 3, 1, 'student', 'student', '', 'BSIT', '4th Year', 0) ; 
-INSERT INTO `fr_stud` VALUES (2, 5, 552, 'Leo', 'Marapoc', '', 'BSIT', '4th Year', 0) ; 
-INSERT INTO `fr_stud` VALUES (3, 6, 445, 'Sheila', 'Mancera', '', 'BSIT', '4th Year', 0) ; 
-INSERT INTO `fr_stud` VALUES (4, 7, 443, 'Romalyn', 'Bertudazo', '', 'BSIT', '4th Year', 0) ; 
-INSERT INTO `fr_stud` VALUES (5, 8, 123, 'Trina', 'Larazzabal', '', 'BSBA', '3rd Year', 0) ;
+
 #
 # End of data contents of table fr_stud
 # --------------------------------------------------------
 
 # MySQL database backup
 #
-# Generated: Friday 22. January 2016 02:51 HKT
+# Generated: Monday 8. February 2016 18:14 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -701,7 +682,7 @@ CREATE TABLE `fr_stud_subject` (
 
 # MySQL database backup
 #
-# Generated: Friday 22. January 2016 02:51 HKT
+# Generated: Monday 8. February 2016 18:14 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -764,24 +745,19 @@ CREATE TABLE `fr_subject` (
   `status` enum('ASSIGNED','NOT ASSIGNED') NOT NULL default 'NOT ASSIGNED',
   `SemID` int(11) NOT NULL,
   PRIMARY KEY  (`subID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 #
-# Data contents of table fr_subject (5 records)
+# Data contents of table fr_subject (0 records)
 #
- 
-INSERT INTO `fr_subject` VALUES (1, 'IT7', 'Computer Programming', 'NOT ASSIGNED', 1) ; 
-INSERT INTO `fr_subject` VALUES (2, 'IT8', 'Operating System', 'NOT ASSIGNED', 1) ; 
-INSERT INTO `fr_subject` VALUES (3, 'IT4', 'Presentation Skills', 'NOT ASSIGNED', 1) ; 
-INSERT INTO `fr_subject` VALUES (4, 'English 4', 'Business Communication', 'ASSIGNED', 1) ; 
-INSERT INTO `fr_subject` VALUES (5, 'IT3', 'computer programming', 'ASSIGNED', 1) ;
+
 #
 # End of data contents of table fr_subject
 # --------------------------------------------------------
 
 # MySQL database backup
 #
-# Generated: Friday 22. January 2016 02:51 HKT
+# Generated: Monday 8. February 2016 18:14 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -845,20 +821,19 @@ CREATE TABLE `fr_sy` (
   `SYstart` int(11) NOT NULL,
   `SYend` int(11) NOT NULL,
   PRIMARY KEY  (`SYID`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 ;
 
 #
-# Data contents of table fr_sy (1 records)
+# Data contents of table fr_sy (0 records)
 #
- 
-INSERT INTO `fr_sy` VALUES (1, 2016, 2017) ;
+
 #
 # End of data contents of table fr_sy
 # --------------------------------------------------------
 
 # MySQL database backup
 #
-# Generated: Friday 22. January 2016 02:51 HKT
+# Generated: Monday 8. February 2016 18:14 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -930,27 +905,20 @@ CREATE TABLE `fr_user` (
   `last_logout_date` datetime NOT NULL,
   `activate` int(11) NOT NULL default '1',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 ;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 ;
 
 #
-# Data contents of table fr_user (8 records)
+# Data contents of table fr_user (1 records)
 #
  
-INSERT INTO `fr_user` VALUES (1, 'admin', 'admin', 5, 'offline', '2016-01-22 12:57:38', '2016-01-22 02:07:12', 1) ; 
-INSERT INTO `fr_user` VALUES (2, 'dean', '12345', 4, 'offline', '2016-01-22 02:19:13', '2016-01-22 02:24:22', 1) ; 
-INSERT INTO `fr_user` VALUES (3, 'student', '12345', 1, 'online', '2016-01-22 02:24:27', '2016-01-19 04:36:22', 1) ; 
-INSERT INTO `fr_user` VALUES (4, 'instructor', '12345', 3, 'offline', '2016-01-22 12:49:44', '2016-01-22 12:57:34', 1) ; 
-INSERT INTO `fr_user` VALUES (5, '552', '123', 1, 'pending', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1) ; 
-INSERT INTO `fr_user` VALUES (6, '445', '123', 1, 'pending', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1) ; 
-INSERT INTO `fr_user` VALUES (7, '443', '123', 1, 'pending', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1) ; 
-INSERT INTO `fr_user` VALUES (8, '123', '123', 1, 'pending', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1) ;
+INSERT INTO `fr_user` VALUES (1, 'admin', 'admin', 5, 'online', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1) ;
 #
 # End of data contents of table fr_user
 # --------------------------------------------------------
 
 # MySQL database backup
 #
-# Generated: Friday 22. January 2016 02:51 HKT
+# Generated: Monday 8. February 2016 18:14 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -1024,23 +992,20 @@ CREATE TABLE `fr_user_permissions` (
   `rename_F` int(11) NOT NULL,
   `delete_F` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 ;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 ;
 
 #
-# Data contents of table fr_user_permissions (4 records)
+# Data contents of table fr_user_permissions (1 records)
 #
  
-INSERT INTO `fr_user_permissions` VALUES (1, 1, 1, 1, 1, 1, 1) ; 
-INSERT INTO `fr_user_permissions` VALUES (2, 2, 1, 1, 1, 1, 1) ; 
-INSERT INTO `fr_user_permissions` VALUES (3, 3, 1, 1, 1, 1, 1) ; 
-INSERT INTO `fr_user_permissions` VALUES (4, 4, 1, 1, 1, 1, 1) ;
+INSERT INTO `fr_user_permissions` VALUES (1, 1, 1, 1, 1, 1, 1) ;
 #
 # End of data contents of table fr_user_permissions
 # --------------------------------------------------------
 
 # MySQL database backup
 #
-# Generated: Friday 22. January 2016 02:51 HKT
+# Generated: Monday 8. February 2016 18:14 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -1126,5 +1091,97 @@ INSERT INTO `position` VALUES (4, 'Working', 2) ;
 INSERT INTO `position` VALUES (5, 'Student', 1) ;
 #
 # End of data contents of table position
+# --------------------------------------------------------
+
+# MySQL database backup
+#
+# Generated: Monday 8. February 2016 18:14 HKT
+# Hostname: localhost
+# Database: `repo`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_archive`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_course`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_deadline`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_folder_owner`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_ins_subject`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_notification`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_path`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_semester`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_share_folder`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_staff`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_stud`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_stud_subject`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_subject`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_sy`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_user`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_user_permissions`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `position`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `project_notif`
+# --------------------------------------------------------
+
+
+#
+# Delete any existing table `project_notif`
+#
+
+DROP TABLE IF EXISTS `project_notif`;
+
+
+#
+# Table structure of table `project_notif`
+#
+
+CREATE TABLE `project_notif` (
+  `id` int(11) NOT NULL auto_increment,
+  `inst_id` int(11) NOT NULL,
+  `stud_id` int(11) NOT NULL,
+  `subject_id` int(11) NOT NULL,
+  `folder_name` varchar(100) NOT NULL,
+  `project_name` varchar(500) NOT NULL,
+  `Date` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 ;
+
+#
+# Data contents of table project_notif (0 records)
+#
+
+#
+# End of data contents of table project_notif
 # --------------------------------------------------------
 

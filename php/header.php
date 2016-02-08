@@ -1,3 +1,12 @@
+<?php 
+	if(isset($_GET['readall']) && $_GET['readall'] == '1')
+	{
+		mysql_query("UPDATE fr_notification SET status = 'read' WHERE user_id = '".$_GET['user_id']."'");
+	
+
+	}
+?>
+
 <div class="navbar">
 	<div class="navbar-inner">
 		<div class="container-fluid">
@@ -26,7 +35,7 @@
 						<ul class="dropdown-menu notifications">
 								<li class="dropdown-menu-title">
  									<span>You have <?php echo $cnt; ?> notifications</span>
-									<a href="#refresh"><i class="icon-repeat"></i></a>
+									<a href="<?php echo $_SERVER["PHP_SELF"]?>?readall=1&&user_id=<?php echo $_SESSION['user_id']; ?>"><i class="icon-repeat"></i></a>
 								</li>
 								<?php
 									while ($row = mysql_fetch_array($result)) 
@@ -34,7 +43,7 @@
 								?>	
 		                            	<li>
 		                                    <a href="<?php echo $row['link']; ?>&&notid=<?php echo $row['id']; ?>">
-		                                    	<span class="avatar"><img src="img/avatar.jpg" alt="Avatar"></span>
+		                                    	<span class="avatar"><img src=""></span>
 		                                    	<span class="header">
 													<span class="from">
 												     </span>

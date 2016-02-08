@@ -17,6 +17,8 @@
 	{
 		mysql_query("DELETE FROM fr_ins_subject WHERE id = '".$_GET['id']."'");
 
+		mysql_query("UPDATE fr_subject SET status = 'NOT ASSIGNED' WHERE SubCode ='".$_GET['subcode']."'");
+
 		echo '<script> alert("Successfully Delete"); window.location.href="../subjectmanagement.php?subject=faculty"; </script>';
 	}
 

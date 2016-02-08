@@ -69,7 +69,7 @@
 			
 			<!-- start: Content -->
 			<div id="content" class="span10">
-					
+
 				<ul class="breadcrumb">
 					<li>
 						<i class="icon-home"></i>
@@ -120,9 +120,13 @@
 						?>
 								<!--<a onclick="return confirm('Are you sure you want to backup your Files and Database?')" href="backup/db_backup.php" class="quick-button span2">
 									-->
-									<a class="quick-button span2  btn-link-1 launch-modal" href="#" data-modal-id="modal-register">
+								<a class="quick-button span2  btn-link-1 launch-modal" href="#" data-modal-id="modal-register">
 									<i class="icon-hdd"></i>
-									<p>Backup</p>
+									<p>Backup Data</p>
+								</a>
+								<a class="quick-button span2  btn-link-1 launch-modal" href="#" data-modal-id="modal-register1">
+									<i class="icon-hdd"></i>
+									<p>Backup Database</p>
 								</a>
 						<?php								
 							}
@@ -142,7 +146,35 @@
     		<div class="modal-content">
     			<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">×</button>
-					<h3>Upload file</h3>
+					<h3>Backup Data</h3>
+				</div>
+	    			<div class="modal-body"> 
+					  	<div class="control-group">
+		            		<form action="backup/data_restore.php" method="post" enctype="multipart/form-data" name="upload_form" id="upload_form">
+						         <label>Data to Restore from: </label>
+						         <input type="file" name="rzip" required/>  
+						         <input onclick="return confirm('Are you sure you want to Restore your Data?');" class="btn btn-primary" name="restore" type="submit" id="submit" value="Restore" />
+						  	</form>
+					  	</div>
+					  	<div class="control-group">
+					          <label>Backup Data: </label>
+					       		<a onclick="return confirm('Are you sure you want to backup your Files and Database?')" href="backup/data_backup.php"><button class="btn btn-primary"> Backup Data</button> </a>		
+					  	</div>
+					</div>
+	    			<div class="modal-footer">
+						<a href="#" class="btn" data-dismiss="modal">Close</a>
+					</div>
+    			</form> 
+				
+    		</div>
+    	</div>
+    </div>
+    <div class="modal fade" id="modal-register1" role="dialog" aria-labelledby="modal-register-label" aria-hidden="true">
+    	<div class="modal-dialog">
+    		<div class="modal-content">
+    			<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">×</button>
+					<h3>Backup Database</h3>
 				</div>
 	    			<div class="modal-body"> 
 	            		<div class="control-group">
@@ -160,10 +192,6 @@
 					       	<input onclick="return confirm('Are you sure you want to backup your Database?');" class="btn btn-primary" name="backup" type="submit" id="submit" value="Backup Database" />
 					  	</form>
 					  	</div>
-					  	<div class="control-group">
-					          <label>Backup Data: </label>
-					       		<a onclick="return confirm('Are you sure you want to backup your Files and Database?')" href="backup/data_backup.php"><button class="btn btn-primary"> Backup Data</button> </a>		
-					  	</div>
 					</div>
 	    			<div class="modal-footer">
 						<a href="#" class="btn" data-dismiss="modal">Close</a>
@@ -179,10 +207,8 @@
 	<footer>
 
 		<p>
-			<span style="text-align:left;float:left">&copy; 2013 <a href="http://jiji262.github.io/Bootstrap_Metro_Dashboard/" alt="Bootstrap_Metro_Dashboard">Bootstrap Metro Dashboard</a></span>
-			
+			<span style="text-align:left;float:left">&copy; <a href="index.php" alt="Bootstrap_Metro_Dashboard">CICTE WLC WEB-BASE FILE REPOSITORY</a></span>
 		</p>
-
 	</footer>
 	
 	<!-- start: JavaScript-->

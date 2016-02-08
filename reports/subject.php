@@ -122,7 +122,7 @@
 									  				<td><?php echo $row1['ControlNo']?></td>  
 										            <td><?php echo $row1['FName']." ".$row1['LName']; ?></td>
 										            <td><?php echo $row1['Year']; ?></td>
-										             <td><?php echo $row1['Date_Created']; ?></td>	
+										            <td><?php echo $row1['Date_Created']; ?></td>	
 									  			</tr>
 									  			<?php
 														}
