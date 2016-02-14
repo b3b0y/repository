@@ -25,7 +25,6 @@
 	if(isset($_GET['delete']) && $_GET['delete'] == 'drop')
 	{
 		
-
 		$result = mysql_query("SELECT * FROM  fr_stud_subject WHERE subject_id = '".$_GET['subject_id']."'");
 		if(mysql_num_rows($result) > 0)
 		{
@@ -41,6 +40,20 @@
 		}
 
 		echo '<script> alert("Successfully Drop"); window.location.href="../subjectmanagement.php?subject=student"; </script>';
+	}
+
+	if(isset($_GET['delete']) && $_GET['delete'] == 'message')
+	{
+		mysql_query("DELETE FROM fr_news WHERE id = '".$_GET['id']."'");
+
+		echo '<script> alert("Successfully Delete"); window.location.href="../newsfeed.php"; </script>';
+	}
+
+	if(isset($_GET['delete']) && $_GET['delete'] == 'notif')
+	{
+		mysql_query("DELETE FROM fr_notification WHERE id = '".$_GET['id']."'");
+
+		echo '<script> alert("Successfully Delete"); window.location.href="../messages.php"; </script>';
 	}
 
 ?>

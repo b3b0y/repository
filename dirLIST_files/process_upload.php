@@ -53,17 +53,6 @@ if($_POST['submit'] == $local_text['upload'])
 		exit;
 	}
 
-	$same_file_counter = 1;
-	
-	while(is_file($new_path))
-	{
-		$file_ext_comp = strrchr($file_name, '.');
-		$file_name_comp = substr($file_name, 0, -strlen($file_ext_comp));
-		$new_path = '../'.$dir_to_browse.$folder.$file_name_comp.'['.$same_file_counter.']'.$file_ext_comp;																																										
-		$same_file_counter++;
-	}
-
-	
 		if(isset($_SESSION['shared_folder_id']) && $_SESSION['shared_folder_id'] != "")
 		{
 			$result = mysql_query("SELECT * FROM fr_ins_subject  WHERE id = '".$_SESSION['shared_folder_id']."'");
@@ -77,7 +66,16 @@ if($_POST['submit'] == $local_text['upload'])
 			
 			$date = date ("y/m/d H:i:s");
 
-			$new_path = '../'.$dir_to_browse.$folder.$row2['FName'].' '.$row2['LName'].'_'.$file_name;
+			$path_parts = pathinfo($_FILES["file"]["name"]);
+    		$extension = $path_parts['extension'];
+
+			$new_path = '../'.$dir_to_browse.$folder.$row2['FName'].' '.$row2['LName'].".".$extension;
+
+			if(is_dir($new_path.'/'))
+				delete_directory($new_path.'/', 0);
+			elseif(is_file($new_path))
+				unlink($new_path);
+
 
 			if(move_uploaded_file($_FILES['file']['tmp_name'], $new_path))
 			{
@@ -97,6 +95,17 @@ if($_POST['submit'] == $local_text['upload'])
 		}
 		else
 		{	
+			$same_file_counter = 1;
+
+			while(is_file($new_path))
+			{
+				$file_ext_comp = strrchr($file_name, '.');
+				$file_name_comp = substr($file_name, 0, -strlen($file_ext_comp));
+				$new_path = '../'.$dir_to_browse.$folder.$file_name_comp.'['.$same_file_counter.']'.$file_ext_comp;																																										
+				$same_file_counter++;
+			}
+
+
 			if(move_uploaded_file($_FILES['file']['tmp_name'], $new_path))
 			{
 				header("Location: ../index.php");

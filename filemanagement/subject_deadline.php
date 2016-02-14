@@ -28,12 +28,15 @@ $rename_action = FALSE;
         $folder_id = $row['id'];
 
         $result = mysql_query("SELECT * FROM  fr_share_folder  WHERE shared_name = '".$mainfolder.'_'.$folder."'");
-        if(mysql_num_rows($result) > 0 )
+        if($Count = mysql_num_rows($result) > 0 )
         {
 
             $row2 = mysql_fetch_array($result);
-            mysql_query("UPDATE fr_share_folder SET status =  'set' WHERE id = '".$row2['id']."'");
-            mysql_query("INSERT INTO fr_deadline(folder_id,date_deadline,time_deadline,status) VALUES('".$row2['id']."','".$_POST['date']."','".$_POST['time']."','open')");    
+            for ($i=0; $i < $Count ; $i++) { 
+               mysql_query("UPDATE fr_share_folder SET status =  'set' WHERE shared_name = '".$mainfolder.'_'.$folder."'");
+            }
+          
+            mysql_query("INSERT INTO fr_deadline(folder_id,date_deadline,time_deadline,status) VALUES('".$row2['folder_id']."','".$_POST['date']."','".$_POST['time']."','open')");    
         }  
 
             $result2 = mysql_query("SELECT * FROM  fr_share_folder  WHERE shared_name = '".$mainfolder.'_'.$folder."'");
@@ -46,7 +49,7 @@ $rename_action = FALSE;
                   
               $date = date ("y/m/d H:i:s");
 
-              mysql_query("INSERT INTO fr_notification(user_id,link,message,status,Date) VALUES('".$row2['user_id']."','".$link."','".$message."','unread','".$date."')");
+              mysql_query("INSERT INTO fr_notification(user_id,link,message,status,Date) VALUES('".$row3['user_id']."','".$link."','".$message."','unread','".$date."')");
             }
 
          $rename_action = TRUE;

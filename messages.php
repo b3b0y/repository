@@ -75,19 +75,21 @@
 				</ul>
 
 				<div class="row-fluid">
-					<div class="span9">
+					<div class="span12">
 						<h1>Inbox</h1>
 						
-						<ul class="messagesList">
+						<ul class="messagesList" style="overflow-y: scroll; height:500px;"> 
 						<?php 
-							$result = mysql_query("SELECT * FROM fr_notification WHERE user_id = '".$_SESSION['user_id']."'");
+							$result = mysql_query("SELECT * FROM fr_notification WHERE user_id = '".$_SESSION['user_id']."' ORDER BY id DESC");
 							if (mysql_num_rows($result) > 0)
 							{
 								while ($row = mysql_fetch_array($result)) 
 								{
+									$date = new DateTime($row['date']);
+
 						?>
 								<li>
-									<span class="from"><a href="#"><button> Delete </button></a> <a href="<?php echo $row['link']; ?>"><span class=""><i></i></span><span class="glyphicons notes"><i></i></span></span><span class="title"><?php echo $row['message']; ?></span><span class="date"> <b> <?php echo $row['Date']; ?> </b></span></a>
+									<span class="from"><a onclick="return confirm('Are you sure you want to delete?');" href="php/delete.php?id=<?php echo $row['id']; ?>&&delete=notif"> <i class="halflings-icon trash"> </i> </a>  <span class=""><i></i></span><i></i></span></span><span class="title"><?php echo $row['message']; ?></span><span class="date"> <b><?php  echo date_format($date,"M d, Y").", ". time_elapsed_string($row['Date']); ?> </b></span>
 								</li>
 						<?php
 								}

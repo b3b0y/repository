@@ -1,5 +1,7 @@
 <?php date_default_timezone_set("Asia/Hong_kong");
 
+include_once("datetime.php");
+
 $dbhost = 'localhost';
 $dbuser= 'root';
 $dbpass = '';

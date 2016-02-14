@@ -348,6 +348,7 @@ a.brand span {
 	padding: 0px;
 	color: #fff !important;
 	background: #000 !important;
+
 }
 
 .header-nav .nav {
@@ -520,8 +521,9 @@ a.brand span {
   	z-index: 1000;
   	display: none;
   	float: left;
-  	min-width: 160px;
+  	min-width: 400px;
 	max-width: 300px;
+	max-height: 500px;
   	padding: 0px 0;
   	margin: 5px 0 0 0;
   	list-style: none;
@@ -531,7 +533,8 @@ a.brand span {
           	border-radius: 0px;
   	-webkit-box-shadow: none;
        -moz-box-shadow: none;
-            box-shadow: none;	
+            box-shadow: none;
+    overflow-y: scroll;	
 }
 
 .dropdown-menu.pull-right {
@@ -641,7 +644,7 @@ a.brand span {
 ul.notifications li,
 ul.tasks li,
 ul.messages li{
-	width: 260px;
+	width: 380px;
 }
 
 ul.notifications li .avatar img,

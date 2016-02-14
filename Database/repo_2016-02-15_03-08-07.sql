@@ -1,6 +1,6 @@
 # MySQL database backup
 #
-# Generated: Monday 8. February 2016 22:40 HKT
+# Generated: Monday 15. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -40,7 +40,7 @@ CREATE TABLE `fr_archive` (
 
 # MySQL database backup
 #
-# Generated: Monday 8. February 2016 22:40 HKT
+# Generated: Monday 15. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -84,7 +84,7 @@ INSERT INTO `fr_course` VALUES (4, 'BSCOE', 'Bachelor of Science in Computer Eng
 
 # MySQL database backup
 #
-# Generated: Monday 8. February 2016 22:40 HKT
+# Generated: Monday 15. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -130,7 +130,7 @@ CREATE TABLE `fr_deadline` (
 
 # MySQL database backup
 #
-# Generated: Monday 8. February 2016 22:40 HKT
+# Generated: Monday 15. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -176,7 +176,7 @@ CREATE TABLE `fr_folder_owner` (
 
 # MySQL database backup
 #
-# Generated: Monday 8. February 2016 22:40 HKT
+# Generated: Monday 15. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -247,7 +247,7 @@ INSERT INTO `fr_ins_subject` VALUES (19, 9, 'IT6', './Data/Instructor/Bughao, Ry
 
 # MySQL database backup
 #
-# Generated: Monday 8. February 2016 22:40 HKT
+# Generated: Monday 15. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -265,6 +265,63 @@ INSERT INTO `fr_ins_subject` VALUES (19, 9, 'IT6', './Data/Instructor/Bughao, Ry
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_ins_subject`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_news`
+# --------------------------------------------------------
+
+
+#
+# Delete any existing table `fr_news`
+#
+
+DROP TABLE IF EXISTS `fr_news`;
+
+
+#
+# Table structure of table `fr_news`
+#
+
+CREATE TABLE `fr_news` (
+  `id` int(11) NOT NULL auto_increment,
+  `subject_id` int(11) NOT NULL,
+  `ins_id` int(11) NOT NULL,
+  `message` varchar(2000) NOT NULL,
+  `date` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 ;
+
+#
+# Data contents of table fr_news (0 records)
+#
+
+#
+# End of data contents of table fr_news
+# --------------------------------------------------------
+
+# MySQL database backup
+#
+# Generated: Monday 15. February 2016 03:08 HKT
+# Hostname: localhost
+# Database: `repo`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_archive`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_course`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_deadline`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_folder_owner`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_ins_subject`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_news`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_notification`
@@ -345,7 +402,7 @@ INSERT INTO `fr_notification` VALUES (43, 4, 'enroll_subject.php?subject=subject
 
 # MySQL database backup
 #
-# Generated: Monday 8. February 2016 22:40 HKT
+# Generated: Monday 15. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -363,6 +420,9 @@ INSERT INTO `fr_notification` VALUES (43, 4, 'enroll_subject.php?subject=subject
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_ins_subject`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_news`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_notification`
@@ -411,7 +471,7 @@ INSERT INTO `fr_path` VALUES (11, './Data/Student/BSIT/Tizon-441', 11) ;
 
 # MySQL database backup
 #
-# Generated: Monday 8. February 2016 22:40 HKT
+# Generated: Monday 15. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -429,6 +489,9 @@ INSERT INTO `fr_path` VALUES (11, './Data/Student/BSIT/Tizon-441', 11) ;
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_ins_subject`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_news`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_notification`
@@ -472,7 +535,7 @@ INSERT INTO `fr_semester` VALUES (2, '2nd Semester', 1, 'Inactive') ;
 
 # MySQL database backup
 #
-# Generated: Monday 8. February 2016 22:40 HKT
+# Generated: Monday 15. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -490,6 +553,9 @@ INSERT INTO `fr_semester` VALUES (2, '2nd Semester', 1, 'Inactive') ;
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_ins_subject`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_news`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_notification`
@@ -540,7 +606,7 @@ CREATE TABLE `fr_share_folder` (
 
 # MySQL database backup
 #
-# Generated: Monday 8. February 2016 22:40 HKT
+# Generated: Monday 15. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -558,6 +624,9 @@ CREATE TABLE `fr_share_folder` (
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_ins_subject`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_news`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_notification`
@@ -612,7 +681,7 @@ INSERT INTO `fr_staff` VALUES (6, 10, 'Cheryl', 'Tarre', '') ;
 
 # MySQL database backup
 #
-# Generated: Monday 8. February 2016 22:40 HKT
+# Generated: Monday 15. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -630,6 +699,9 @@ INSERT INTO `fr_staff` VALUES (6, 10, 'Cheryl', 'Tarre', '') ;
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_ins_subject`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_news`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_notification`
@@ -691,7 +763,7 @@ INSERT INTO `fr_stud` VALUES (5, 11, 441, 'Mitzi hazel', 'Tizon', '', 'BSIT', '4
 
 # MySQL database backup
 #
-# Generated: Monday 8. February 2016 22:40 HKT
+# Generated: Monday 15. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -709,6 +781,9 @@ INSERT INTO `fr_stud` VALUES (5, 11, 441, 'Mitzi hazel', 'Tizon', '', 'BSIT', '4
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_ins_subject`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_news`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_notification`
@@ -786,7 +861,7 @@ INSERT INTO `fr_stud_subject` VALUES (21, 11, 'IT 8', './Data/Instructor/Joscoro
 
 # MySQL database backup
 #
-# Generated: Monday 8. February 2016 22:40 HKT
+# Generated: Monday 15. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -804,6 +879,9 @@ INSERT INTO `fr_stud_subject` VALUES (21, 11, 'IT 8', './Data/Instructor/Joscoro
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_ins_subject`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_news`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_notification`
@@ -881,7 +959,7 @@ INSERT INTO `fr_subject` VALUES (19, 'IT 8', 'OOP', 'ASSIGNED', 1) ;
 
 # MySQL database backup
 #
-# Generated: Monday 8. February 2016 22:40 HKT
+# Generated: Monday 15. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -899,6 +977,9 @@ INSERT INTO `fr_subject` VALUES (19, 'IT 8', 'OOP', 'ASSIGNED', 1) ;
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_ins_subject`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_news`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_notification`
@@ -958,7 +1039,7 @@ INSERT INTO `fr_sy` VALUES (1, 2016, 2017) ;
 
 # MySQL database backup
 #
-# Generated: Monday 8. February 2016 22:40 HKT
+# Generated: Monday 15. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -976,6 +1057,9 @@ INSERT INTO `fr_sy` VALUES (1, 2016, 2017) ;
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_ins_subject`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_news`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_notification`
@@ -1053,7 +1137,7 @@ INSERT INTO `fr_user` VALUES (11, 'tizon', '12345', 1, 'online', '2016-02-08 10:
 
 # MySQL database backup
 #
-# Generated: Monday 8. February 2016 22:40 HKT
+# Generated: Monday 15. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -1071,6 +1155,9 @@ INSERT INTO `fr_user` VALUES (11, 'tizon', '12345', 1, 'online', '2016-02-08 10:
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_ins_subject`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_news`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_notification`
@@ -1150,7 +1237,7 @@ INSERT INTO `fr_user_permissions` VALUES (11, 11, 1, 1, 1, 1, 1) ;
 
 # MySQL database backup
 #
-# Generated: Monday 8. February 2016 22:40 HKT
+# Generated: Monday 15. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -1168,6 +1255,9 @@ INSERT INTO `fr_user_permissions` VALUES (11, 11, 1, 1, 1, 1, 1) ;
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_ins_subject`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_news`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_notification`
@@ -1240,7 +1330,7 @@ INSERT INTO `position` VALUES (5, 'Student', 1) ;
 
 # MySQL database backup
 #
-# Generated: Monday 8. February 2016 22:40 HKT
+# Generated: Monday 15. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -1258,6 +1348,9 @@ INSERT INTO `position` VALUES (5, 'Student', 1) ;
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_ins_subject`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_news`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_notification`
