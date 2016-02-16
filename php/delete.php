@@ -56,4 +56,23 @@
 		echo '<script> alert("Successfully Delete"); window.location.href="../messages.php"; </script>';
 	}
 
+	if(isset($_GET['delete']) && $_GET['delete'] == 'edit_faculty')
+	{
+		mysql_query("DELETE FROM  fr_user WHERE id = '".$_GET['id']."'");
+
+		mysql_query("DELETE FROM  fr_staff  WHERE user_id = '".$_GET['id']."'");	
+
+		echo '<script> alert("Successfully Delete"); window.location.href="../user.php?faculty=true"; </script>';
+	}
+
+	if(isset($_GET['delete']) && $_GET['delete'] == 'edit_student')
+	{
+		mysql_query("DELETE FROM  fr_user WHERE id = '".$_GET['id']."'");
+
+		mysql_query("DELETE FROM  fr_stud WHERE user_id = '".$_GET['id']."'");	
+
+		echo '<script> alert("Successfully Delete"); window.location.href="../user.php?faculty=true"; </script>';
+	}
+
+
 ?>

@@ -334,7 +334,7 @@ if(isset($_SESSION['view_mode_session']))
 									<?php
 										if($_SESSION['UserLvl'] == 1)
 										{
-											$result = mysql_query("SELECT * FROM fr_stud_subject WHERE  user_id = '".$_SESSION['user_id']."'") or die('Error share: '. mysql_error());
+											$result = mysql_query("SELECT * FROM fr_stud_subject as stud_sub, fr_subject as subj ,  fr_semester as sem  WHERE stud_sub.subject = subj.SubCode AND subj.SemID = sem.SemID AND sem.sem_status = 'Active' AND user_id = '".$_SESSION['user_id']."'") or die('Error share: '. mysql_error());
 										 	if(mysql_num_rows($result) > 0)
 										 	{
 										 		while ($row = mysql_fetch_array($result)) 
@@ -347,7 +347,7 @@ if(isset($_SESSION['view_mode_session']))
 										} 
 										else
 										{
-											$result = mysql_query("SELECT * FROM  fr_ins_subject WHERE  user_id = '".$_SESSION['user_id']."'") or die('Error share: '. mysql_error());
+											$result = mysql_query("SELECT * FROM  fr_ins_subject as ins_sub ,  fr_subject as subj ,  fr_semester as sem WHERE ins_sub.Subject = subj.SubCode AND subj.SemID = sem.SemID AND sem.sem_status = 'Active' AND ins_sub.user_id = '".$_SESSION['user_id']."'") or die('Error share: '. mysql_error());
 										 	if(mysql_num_rows($result) > 0)
 										 	{
 										 		while ($row = mysql_fetch_array($result)) 

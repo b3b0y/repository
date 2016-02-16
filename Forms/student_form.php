@@ -1,4 +1,8 @@
 
+<div class="box-content">
+ <a href="user.php?faculty=true&&cancel=true"><button class="btn">Cancel</button></a>
+</div>
+
 <div class="row-fluid sortable">
 <div class="box span12">
 	<div class="box-header" data-original-title>

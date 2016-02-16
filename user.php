@@ -1,10 +1,28 @@
 <?php session_start();
 	
-		require("php/config.php");
+	require("php/config.php");
+
 	if(!isset($_SESSION['login'])) 
 	{
 	      header("Location: login.php");
 	} 
+
+
+	if(isset($_GET['cancel']) && $_GET['cancel'] == true)
+	{
+		unset($_SESSION['uname']);
+		unset($_SESSION['lname']);
+		unset($_SESSION['fname']);
+		unset($_SESSION['mname']);
+		unset($_SESSION['ulvl']);
+		unset($_SESSION['UFail']);
+		unset($_SESSION['pFail']);
+
+		unset($_SESSION['course']);
+		unset($_SESSION['year']);
+		unset($_SESSION['cfail']);
+		unset($_SESSION['ControlNo']);
+	}
 
 ?>
 
@@ -121,48 +139,48 @@
 					</div>
 					<div class="box-content buttons">
 						<a href="user.php?user=faculty"> <button class="btn btn-large btn-success">ADD FACULTY</button> </a>
-						<button class="btn btn-large btn-success">Edit Selected</button>
-						<button class="btn btn-large btn-success">Delete Selected</button>
 					</div>
 					<div class="box-content">
 						<table class="table table-striped table-bordered bootstrap-datatable datatable">
 						  <thead>
 							  <tr>
-							  	  <th>#</th>
+							  	  <th>No.</th>
 								  <th>Name</th>
 								  <th>Username</th>
 								  <th>Last Login</th>
 								  <th>Last Log-Out</th>
 								  <th>User Level</th>
 								  <th>Status</th>
+								  <th>Action</th>
 							  </tr>
 						  </thead>   
 						  <tbody>
 						  	<?php
 						  			if($_SESSION['Ulvl'] >= 3)
 									{
-										$result = mysql_query("SELECT fr_user.*,position.*,fr_staff.* FROM fr_user,position,fr_staff WHERE fr_user.UserLvl > 1 AND fr_user.UserLvl = position.UserLvl AND fr_user.id = fr_staff.user_id ") or die ("Admin :". mysql_error());
+										$result = mysql_query("SELECT fr_user.*,position.Position,fr_staff.FirstN,fr_staff.LastN,fr_staff.midN FROM fr_user,position,fr_staff WHERE fr_user.UserLvl > 1 AND fr_user.UserLvl = position.UserLvl AND fr_user.id = fr_staff.user_id ") or die ("Admin :". mysql_error());
 									}
-
+									/*
 									else if($_SESSION['Ulvl'] == "3")
 									{
 										$result = mysql_query("SELECT fr_user.*,position.*,fr_staff.* FROM fr_user,position,fr_staff WHERE fr_user.UserLvl < 3 AND fr_user.UserLvl = position.UserLvl AND fr_user.id = fr_staff.user_id ") or die ("Instructor :". mysql_error());
 									}
-
+									*/
 								 	if(mysql_num_rows($result) > 0)
 								 	{
 								 		while ($row = mysql_fetch_array($result)) 
-								 		{								 			
+								 		{	
+								 		$Count++;							 			
 								 ?>
 								 		<tr>
-											<td><input class="check" type="checkbox" name="users[]" value="<?php echo $row['username']; ?>"></td>      
-											<td><?php echo $row['FirstN'].' &nbsp'.$row['LastN'] ; ?></td>
+											<td><?php echo $Count; ?></td>      
+											<td><?php echo $row['FirstN'].' &nbsp'.$row['midN'].' &nbsp'.$row['LastN'] ; ?></td>
 											<td><?php echo $row['username']; ?></td>
-										
 											<td><?php echo $row['last_login_date']; ?></td>
 											<td><?php echo $row['last_logout_date']; ?></td>
 											<td><?php echo $row['Position']; ?></td>
-											<td><?php echo $row['status']; ?></td>
+											<td><?php echo $row['status'] == 'online' ? '<span class="btn btn-mini btn-success">'. $row['status'] .'</span>' : '<span class="btn btn-mini btn-danger">'.$row['status'].'</span>' ; ?> </td>
+											<td><a href="user.php?user=edit_faculty&&id=<?php echo $row['id']; ?>"><button><i class="halflings-icon edit"></i>Edit</button></a> <a onclick="return confirm('Are you sure you want to delete?');" href="php/delete.php?delete=edit_faculty&&id=<?php echo $row['id']; ?>"><button><i class="halflings-icon trash"></i>Delete</button></a></td>
 										</tr>  
 								<?php
 										}
@@ -190,13 +208,13 @@
 					<div class="box-content buttons">
 						<a href="user.php?user=student"> <button class="btn btn-large btn-success">ADD STUDENT</button> </a>
 						<button class="btn btn-large btn-success btn-setting">UPLOAD CSV FILE</button>
-						<button class="btn btn-large btn-success">Edit Selected</button>
-						<button class="btn btn-large btn-success">Delete Selected</button>
+
 					</div>
 					<div class="box-content">
 						<table class="table table-striped table-bordered bootstrap-datatable datatable">
 						  <thead>
-							  <tr>    
+							  <tr>
+							  	<th>No.</th>    
 								<th>Name</th>
 								<th>Username</th>
 								<th>Password</th>
@@ -204,27 +222,31 @@
 								<th>Last Login</th>
 								<th>Last Log-Out</th>
 								<th>Status</th>
+								<th>Action</th>
 							  </tr>
 						  </thead>   
 						  <tbody>
 						  	<?php
 						  		
-									$result = mysql_query("SELECT fr_user.*,fr_stud.* FROM fr_user,fr_stud WHERE fr_user.UserLvl = 1  AND fr_user.id = fr_stud.user_id ") or die ("Instructor :". mysql_error());
+									$result = mysql_query("SELECT fr_user.*,fr_stud.FName,fr_stud.LName,fr_stud.Course,fr_stud.Year FROM fr_user,fr_stud WHERE fr_user.UserLvl = 1  AND fr_user.id = fr_stud.user_id ") or die ("Instructor :". mysql_error());
 									
 
 								 	if(mysql_num_rows($result) > 0)
 								 	{
 								 		while ($row = mysql_fetch_array($result)) 
-								 		{								 			
+								 		{		
+								 		$Count++;						 			
 								 ?>
 								 		<tr>
+								 			<td><?php echo $Count; ?></td>   
 											<td><?php echo $row['FName'].' &nbsp'.$row['LName'] ; ?></td>
 											<td><?php echo $row['username']; ?></td>
 											<td><?php echo $row['password']; ?></td>
 											<td><?php echo $row['Course'].' - '.$row['Year']; ?></td>
 											<td><?php echo $row['last_login_date']; ?></td>
 											<td><?php echo $row['last_logout_date']; ?></td>
-											<td><?php echo $row['status']; ?></td>
+											<td><?php echo $row['status'] == 'online' ? '<span class="btn btn-mini btn-success">'. $row['status'] .'</span>' : '<span class="btn btn-mini btn-danger">'.$row['status'].'</span>' ; ?> </td>
+											<td><a href="user.php?user=edit_student&&id=<?php echo $row['id']; ?>"><button><i class="halflings-icon edit"></i>Edit</button></a><a onclick="return confirm('Are you sure you want to delete?');" href="php/delete.php?delete=edit_student&&id=<?php echo $row['id']; ?>"><button><i class="halflings-icon trash"></i>Delete</button></a></td>
 										</tr>  
 								<?php
 										}
@@ -243,6 +265,15 @@
 						{
 							require('Forms/student_form.php');
 						}
+						else if(isset($_GET['user']) && $_GET['user'] == 'edit_faculty')
+						{
+							require('Forms/edit_faculty_form.php');
+						}
+						else if(isset($_GET['user']) && $_GET['user'] == 'edit_student')
+						{
+							require('Forms/edit_stud_form.php');
+						}
+
 					?>
 				</div><!--/span-->
 			</div><!--/row-->

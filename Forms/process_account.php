@@ -62,7 +62,6 @@ if(isset($_GET['faculty']) && $_GET['faculty'] == "faculty")
 			
 			while ($row = mysql_fetch_array($qry)) 
 			{
-				unset($_SESSION['CFail']);
 				unset($_SESSION['UFail']);
 				
 				if($uname == $row['username'])
@@ -72,8 +71,13 @@ if(isset($_GET['faculty']) && $_GET['faculty'] == "faculty")
 					$_SESSION['fname'] = $Fname;
 					$_SESSION['mname'] = $mname;
 					$_SESSION['ulvl'] = $ulvl;
-					echo $_SESSION['UFail'] = "User Name is available";
+					$_SESSION['UFail'] = "User Name is already used";
 					
+					unset($_SESSION['uname']);
+					unset($_SESSION['pFail']);
+
+					header("Location: ../user.php?user=faculty");
+
 					break;
 				}
 				
@@ -128,20 +132,21 @@ if(isset($_GET['faculty']) && $_GET['faculty'] == "faculty")
 					
 					mysql_query("INSERT INTO fr_path(url,user_id) VALUES('".$path."','".$row2['id']."')");
 					
-					mkdir (".".$path, 0700);
+					if(!file_exists(".".$path)) 
+					{
+						mkdir (".".$path, 0700);
+					}
 				
 					mysql_query("INSERT INTO fr_user_permissions(user_id,upload,download,create_folders,rename_F,delete_F) VALUES('".$row['id']."','1','1','1','1','1')");
 				}
-
-
 
 				unset($_SESSION['uname']);
 				unset($_SESSION['lname']);
 				unset($_SESSION['fname']);
 				unset($_SESSION['mname']);
 				unset($_SESSION['ulvl']);
-				unset($_SESSION['CFail']);
 				unset($_SESSION['UFail']);
+				unset($_SESSION['pFail']);
 				
 				echo '<script> alert("Successfully Added"); window.location.href="../user.php?faculty=true"; </script>';
 
@@ -155,7 +160,12 @@ if(isset($_GET['faculty']) && $_GET['faculty'] == "faculty")
 			$_SESSION['mname'] = $mname;
 			$_SESSION['ulvl'] = $ulvl;
 			$stop = 1;
-			echo '<script> alert("Password did not match"); window.location.href="../user.php?faculty=true"; </script>';
+			$_SESSION['pFail'] = "Password did not match";
+
+			unset($_SESSION['UFail']);
+
+			header("Location: ../user.php?user=faculty");
+			//echo '<script> alert("Password did not match"); window.location.href="../user.php?faculty=true"; </script>';
 			
 		}	
 }
