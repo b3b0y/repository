@@ -717,7 +717,6 @@ ul.messages li .message {
 	min-height: 100%;
 	padding: 20px 20px;
 	position: relative;
-	background: #ffffff url(../img/WLC.jpg);
 	background-size: 600px 600px;
     background-repeat: no-repeat;
     background-position: center; 
@@ -903,7 +902,7 @@ ul.messages li .message {
 	z-index: 50;
   	margin-top: -1px;
 	padding: 10px;
-	background-color : transparent;
+	background: #fff;
 }
 
 /* Vertical Bar Chart
@@ -2116,7 +2115,7 @@ fieldset[disabled] .btn-link:focus {
 .login-box input[type="text"],
 .login-box input[type="password"] {
 	border: 1px solid #eee !important;
-	color: #aaa;
+	color: #000;
 	border-left: none !important;
 	-webkit-box-shadow: none;
        -moz-box-shadow: none;

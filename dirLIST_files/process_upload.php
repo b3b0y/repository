@@ -61,11 +61,6 @@ if($_POST['submit'] == $local_text['upload'])
 			$result2 = mysql_query("SELECT * FROM  fr_stud WHERE user_id = '".$_SESSION['user_id']."'");
 			$row2 = mysql_fetch_array($result2);
 
-			$link = 'reports.php?view=folder&&foldern='.basename($dir_to_browse.$folder);
-			$message = $row2['FName'].' '.$row2['LName']. ' submit a file '.$file_name. ' in '. $row['Subject'];				
-			
-			$date = date ("y/m/d H:i:s");
-
 			$path_parts = pathinfo($_FILES["file"]["name"]);
     		$extension = $path_parts['extension'];
 
@@ -80,9 +75,14 @@ if($_POST['submit'] == $local_text['upload'])
 			if(move_uploaded_file($_FILES['file']['tmp_name'], $new_path))
 			{
 
+				$link = 'reports.php?view=folder&&foldern='.basename($dir_to_browse.$folder).'&&id='.$_SESSION['shared_folder_id'];
+				$message = $row2['FName'].' '.$row2['LName']. ' Submittied a file  in folder '. $_SESSION['Activity'] ;				
+				
+				$date = date ("y/m/d H:i:s");
+
 				mysql_query("INSERT INTO fr_notification(user_id,link,message,status,Date) VALUES('".$row['user_id']."','".$link."','".$message."','unread','".$date."')");
 
-				mysql_query("INSERT INTO  project_notif(inst_id,stud_id,subject_id,folder_name,project_name,Date) VALUES('".$row['user_id']."','".$row2['user_id']."','".$row['id']."','".basename($dir_to_browse)."','".$row2['FName'].' '.$row2['LName'].'_'.$file_name."','".$date."')");
+				mysql_query("INSERT INTO  project_notif(inst_id,stud_id,subject_id,folder_name,project_name,Date) VALUES('".$row['user_id']."','".$row2['user_id']."','".$row['id']."','".basename($dir_to_browse)."','".$row2['FName'].' '.$row2['LName'].'.'.$extension."','".$date."')");
 
 				header("Location: ../index.php?share=".$_SESSION['share']."&&folder2=".$_SESSION['folder2']);
 				exit;

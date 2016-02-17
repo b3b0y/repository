@@ -1,6 +1,6 @@
 # MySQL database backup
 #
-# Generated: Monday 15. February 2016 03:08 HKT
+# Generated: Thursday 18. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -40,7 +40,7 @@ CREATE TABLE `fr_archive` (
 
 # MySQL database backup
 #
-# Generated: Monday 15. February 2016 03:08 HKT
+# Generated: Thursday 18. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -84,7 +84,7 @@ INSERT INTO `fr_course` VALUES (4, 'BSCOE', 'Bachelor of Science in Computer Eng
 
 # MySQL database backup
 #
-# Generated: Monday 15. February 2016 03:08 HKT
+# Generated: Thursday 18. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -130,7 +130,7 @@ CREATE TABLE `fr_deadline` (
 
 # MySQL database backup
 #
-# Generated: Monday 15. February 2016 03:08 HKT
+# Generated: Thursday 18. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -176,7 +176,7 @@ CREATE TABLE `fr_folder_owner` (
 
 # MySQL database backup
 #
-# Generated: Monday 15. February 2016 03:08 HKT
+# Generated: Thursday 18. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -216,10 +216,10 @@ CREATE TABLE `fr_ins_subject` (
   `Date_Created` date NOT NULL,
   `Time_Created` time NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1 ;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1 ;
 
 #
-# Data contents of table fr_ins_subject (19 records)
+# Data contents of table fr_ins_subject (20 records)
 #
  
 INSERT INTO `fr_ins_subject` VALUES (1, 6, 'IT2-A', './Data/Instructor/Joscoro, Cantero/2016-2017/1st Semester/IT2-A', '2008-02-16', '18:48:21') ; 
@@ -240,14 +240,15 @@ INSERT INTO `fr_ins_subject` VALUES (15, 8, 'CPE2', './Data/Instructor/Bernardo,
 INSERT INTO `fr_ins_subject` VALUES (16, 9, 'MATH3-A', './Data/Instructor/Bughao, Ryan/2016-2017/1st Semester/MATH3-A', '2008-02-16', '18:50:18') ; 
 INSERT INTO `fr_ins_subject` VALUES (17, 9, 'MATH3-B', './Data/Instructor/Bughao, Ryan/2016-2017/1st Semester/MATH3-B', '2008-02-16', '18:50:18') ; 
 INSERT INTO `fr_ins_subject` VALUES (18, 9, 'MATH6', './Data/Instructor/Bughao, Ryan/2016-2017/1st Semester/MATH6', '2008-02-16', '18:50:18') ; 
-INSERT INTO `fr_ins_subject` VALUES (19, 9, 'IT6', './Data/Instructor/Bughao, Ryan/2016-2017/1st Semester/IT6', '2008-02-16', '18:50:18') ;
+INSERT INTO `fr_ins_subject` VALUES (19, 9, 'IT6', './Data/Instructor/Bughao, Ryan/2016-2017/1st Semester/IT6', '2008-02-16', '18:50:18') ; 
+INSERT INTO `fr_ins_subject` VALUES (20, 10, 'Thesis', './Data/Dean/Tarre, Cheryl/2016-2017/1st Semester/Thesis', '2017-02-16', '11:54:00') ;
 #
 # End of data contents of table fr_ins_subject
 # --------------------------------------------------------
 
 # MySQL database backup
 #
-# Generated: Monday 15. February 2016 03:08 HKT
+# Generated: Thursday 18. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -301,7 +302,7 @@ CREATE TABLE `fr_news` (
 
 # MySQL database backup
 #
-# Generated: Monday 15. February 2016 03:08 HKT
+# Generated: Thursday 18. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -347,62 +348,28 @@ CREATE TABLE `fr_notification` (
   `status` enum('unread','read') NOT NULL,
   `Date` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=44 DEFAULT CHARSET=latin1 ;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 ;
 
 #
-# Data contents of table fr_notification (43 records)
+# Data contents of table fr_notification (9 records)
 #
  
-INSERT INTO `fr_notification` VALUES (1, 6, 'subjectmanagement.php?subject=approve', 'Leo Marapoc enrolled IT2-A', 'read', '2016-02-08 19:56:56') ; 
-INSERT INTO `fr_notification` VALUES (2, 6, 'subjectmanagement.php?subject=approve', 'Leo Marapoc enrolled IT2-B', 'read', '2016-02-08 19:56:56') ; 
-INSERT INTO `fr_notification` VALUES (3, 6, 'subjectmanagement.php?subject=approve', 'Leo Marapoc enrolled IT7', 'read', '2016-02-08 19:56:57') ; 
-INSERT INTO `fr_notification` VALUES (4, 6, 'subjectmanagement.php?subject=approve', 'Leo Marapoc enrolled IT17', 'read', '2016-02-08 19:56:57') ; 
-INSERT INTO `fr_notification` VALUES (5, 6, 'subjectmanagement.php?subject=approve', 'Leo Marapoc enrolled IT 8', 'read', '2016-02-08 19:56:57') ; 
-INSERT INTO `fr_notification` VALUES (6, 2, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT2-A', 'read', '2016-02-08 20:00:29') ; 
-INSERT INTO `fr_notification` VALUES (7, 2, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT2-B', 'read', '2016-02-08 20:00:29') ; 
-INSERT INTO `fr_notification` VALUES (8, 2, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT7', 'read', '2016-02-08 20:00:29') ; 
-INSERT INTO `fr_notification` VALUES (9, 2, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT17', 'read', '2016-02-08 20:00:29') ; 
-INSERT INTO `fr_notification` VALUES (10, 2, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT 8', 'read', '2016-02-08 20:00:30') ; 
-INSERT INTO `fr_notification` VALUES (11, 2, 'enroll_subject.php?subject=subject', 'You are Droped in IT2-B', 'read', '2016-02-08 20:04:38') ; 
-INSERT INTO `fr_notification` VALUES (12, 6, 'subjectmanagement.php?subject=approve', 'Sheila Mancera enroll IT2-A', 'read', '2016-02-08 22:02:35') ; 
-INSERT INTO `fr_notification` VALUES (13, 6, 'subjectmanagement.php?subject=approve', 'Sheila Mancera enroll IT7', 'read', '2016-02-08 22:02:35') ; 
-INSERT INTO `fr_notification` VALUES (14, 6, 'subjectmanagement.php?subject=approve', 'Sheila Mancera enroll IT17', 'read', '2016-02-08 22:02:35') ; 
-INSERT INTO `fr_notification` VALUES (15, 6, 'subjectmanagement.php?subject=approve', 'Sheila Mancera enroll IT 8', 'read', '2016-02-08 22:02:35') ; 
-INSERT INTO `fr_notification` VALUES (16, 6, 'subjectmanagement.php?subject=approve', 'Trina Larazzabal enroll IT2-A', 'read', '2016-02-08 22:03:52') ; 
-INSERT INTO `fr_notification` VALUES (17, 6, 'subjectmanagement.php?subject=approve', 'Trina Larazzabal enroll IT7', 'read', '2016-02-08 22:03:52') ; 
-INSERT INTO `fr_notification` VALUES (18, 6, 'subjectmanagement.php?subject=approve', 'Trina Larazzabal enroll IT17', 'read', '2016-02-08 22:03:52') ; 
-INSERT INTO `fr_notification` VALUES (19, 6, 'subjectmanagement.php?subject=approve', 'Trina Larazzabal enroll IT 8', 'read', '2016-02-08 22:03:52') ; 
-INSERT INTO `fr_notification` VALUES (20, 6, 'subjectmanagement.php?subject=approve', 'Romalyn Bertudazo enroll IT2-A', 'read', '2016-02-08 22:04:24') ; 
-INSERT INTO `fr_notification` VALUES (21, 6, 'subjectmanagement.php?subject=approve', 'Romalyn Bertudazo enroll IT7', 'read', '2016-02-08 22:04:24') ; 
-INSERT INTO `fr_notification` VALUES (22, 6, 'subjectmanagement.php?subject=approve', 'Romalyn Bertudazo enroll IT17', 'read', '2016-02-08 22:04:24') ; 
-INSERT INTO `fr_notification` VALUES (23, 6, 'subjectmanagement.php?subject=approve', 'Romalyn Bertudazo enroll IT 8', 'read', '2016-02-08 22:04:24') ; 
-INSERT INTO `fr_notification` VALUES (24, 6, 'subjectmanagement.php?subject=approve', 'Mitzi hazel Tizon enroll IT2-A', 'read', '2016-02-08 22:06:26') ; 
-INSERT INTO `fr_notification` VALUES (25, 6, 'subjectmanagement.php?subject=approve', 'Mitzi hazel Tizon enroll IT7', 'read', '2016-02-08 22:06:26') ; 
-INSERT INTO `fr_notification` VALUES (26, 6, 'subjectmanagement.php?subject=approve', 'Mitzi hazel Tizon enroll IT17', 'read', '2016-02-08 22:06:26') ; 
-INSERT INTO `fr_notification` VALUES (27, 6, 'subjectmanagement.php?subject=approve', 'Mitzi hazel Tizon enroll IT 8', 'read', '2016-02-08 22:06:26') ; 
-INSERT INTO `fr_notification` VALUES (28, 4, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT17', 'unread', '2016-02-08 22:13:01') ; 
-INSERT INTO `fr_notification` VALUES (29, 4, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT 8', 'unread', '2016-02-08 22:13:01') ; 
-INSERT INTO `fr_notification` VALUES (30, 11, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT2-A', 'read', '2016-02-08 22:13:01') ; 
-INSERT INTO `fr_notification` VALUES (31, 11, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT7', 'read', '2016-02-08 22:13:01') ; 
-INSERT INTO `fr_notification` VALUES (32, 11, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT17', 'read', '2016-02-08 22:13:01') ; 
-INSERT INTO `fr_notification` VALUES (33, 11, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT 8', 'read', '2016-02-08 22:13:01') ; 
-INSERT INTO `fr_notification` VALUES (34, 3, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT2-A', 'unread', '2016-02-08 22:13:18') ; 
-INSERT INTO `fr_notification` VALUES (35, 3, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT7', 'unread', '2016-02-08 22:13:18') ; 
-INSERT INTO `fr_notification` VALUES (36, 3, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT17', 'unread', '2016-02-08 22:13:18') ; 
-INSERT INTO `fr_notification` VALUES (37, 3, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT 8', 'unread', '2016-02-08 22:13:18') ; 
-INSERT INTO `fr_notification` VALUES (38, 5, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT2-A', 'unread', '2016-02-08 22:13:19') ; 
-INSERT INTO `fr_notification` VALUES (39, 5, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT7', 'unread', '2016-02-08 22:13:19') ; 
-INSERT INTO `fr_notification` VALUES (40, 5, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT17', 'unread', '2016-02-08 22:13:19') ; 
-INSERT INTO `fr_notification` VALUES (41, 5, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT 8', 'unread', '2016-02-08 22:13:19') ; 
-INSERT INTO `fr_notification` VALUES (42, 4, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT2-A', 'unread', '2016-02-08 22:13:19') ; 
-INSERT INTO `fr_notification` VALUES (43, 4, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT7', 'unread', '2016-02-08 22:13:19') ;
+INSERT INTO `fr_notification` VALUES (1, 6, 'reports.php?view=folder&&foldern=Activity 1&&id=1', 'Leo Marapoc Submittied a file  in folder IT2-A_Activity 1', 'read', '2016-02-18 00:44:57') ; 
+INSERT INTO `fr_notification` VALUES (2, 6, 'reports.php?view=folder&&foldern=Activity 1&&id=1', 'Leo Marapoc Submittied a file  in folder IT2-A_Activity 1', 'read', '2016-02-18 00:45:37') ; 
+INSERT INTO `fr_notification` VALUES (3, 2, 'index.php?share=6', 'New folder shared IT7_Activity 1', 'unread', '2016-02-18 01:05:21') ; 
+INSERT INTO `fr_notification` VALUES (4, 3, 'index.php?share=7', 'New folder shared IT7_Activity 1', 'unread', '2016-02-18 01:05:21') ; 
+INSERT INTO `fr_notification` VALUES (5, 5, 'index.php?share=8', 'New folder shared IT7_Activity 1', 'unread', '2016-02-18 01:05:21') ; 
+INSERT INTO `fr_notification` VALUES (6, 4, 'index.php?share=9', 'New folder shared IT7_Activity 1', 'unread', '2016-02-18 01:05:21') ; 
+INSERT INTO `fr_notification` VALUES (7, 11, 'index.php?share=10', 'New folder shared IT7_Activity 1', 'unread', '2016-02-18 01:05:21') ; 
+INSERT INTO `fr_notification` VALUES (8, 6, 'reports.php?view=folder&&foldern=Activity 1&&id=3', 'Leo Marapoc Submittied a file  in folder IT7_Activity 1', 'read', '2016-02-18 01:05:39') ; 
+INSERT INTO `fr_notification` VALUES (9, 4, 'index.php?share=11', 'New folder shared IT2-A_Activity 1', 'read', '2016-02-18 02:28:36') ;
 #
 # End of data contents of table fr_notification
 # --------------------------------------------------------
 
 # MySQL database backup
 #
-# Generated: Monday 15. February 2016 03:08 HKT
+# Generated: Thursday 18. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -448,10 +415,10 @@ CREATE TABLE `fr_path` (
   `url` varchar(30000) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 ;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 ;
 
 #
-# Data contents of table fr_path (11 records)
+# Data contents of table fr_path (13 records)
 #
  
 INSERT INTO `fr_path` VALUES (1, './Data', 1) ; 
@@ -464,14 +431,16 @@ INSERT INTO `fr_path` VALUES (7, './Data/Dean/Tarre, Cheryl', 10) ;
 INSERT INTO `fr_path` VALUES (8, './Data/Student/BSIT/Mancera-445', 3) ; 
 INSERT INTO `fr_path` VALUES (9, './Data/Student/BSBA/Larazzabal-123', 5) ; 
 INSERT INTO `fr_path` VALUES (10, './Data/Student/BSIT/Bertudazo-443', 4) ; 
-INSERT INTO `fr_path` VALUES (11, './Data/Student/BSIT/Tizon-441', 11) ;
+INSERT INTO `fr_path` VALUES (11, './Data/Student/BSIT/Tizon-441', 11) ; 
+INSERT INTO `fr_path` VALUES (12, './Data/Instructor/qq, qq', 12) ; 
+INSERT INTO `fr_path` VALUES (13, './Data/Instructor/qq, qqq', 13) ;
 #
 # End of data contents of table fr_path
 # --------------------------------------------------------
 
 # MySQL database backup
 #
-# Generated: Monday 15. February 2016 03:08 HKT
+# Generated: Thursday 18. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -535,7 +504,7 @@ INSERT INTO `fr_semester` VALUES (2, '2nd Semester', 1, 'Inactive') ;
 
 # MySQL database backup
 #
-# Generated: Monday 15. February 2016 03:08 HKT
+# Generated: Thursday 18. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -594,19 +563,29 @@ CREATE TABLE `fr_share_folder` (
   `time_shared` time NOT NULL,
   `status` enum('set','unset') NOT NULL default 'unset',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 ;
 
 #
-# Data contents of table fr_share_folder (0 records)
+# Data contents of table fr_share_folder (10 records)
 #
-
+ 
+INSERT INTO `fr_share_folder` VALUES (1, 1, 2, './Data/Instructor/Joscoro, Cantero/2016-2017/1st Semester/IT2-A/Activity 1', 'IT2-A_Activity 1', 0, 1, '2016-02-17', '23:44:53', 'unset') ; 
+INSERT INTO `fr_share_folder` VALUES (2, 1, 3, './Data/Instructor/Joscoro, Cantero/2016-2017/1st Semester/IT2-A/Activity 1', 'IT2-A_Activity 1', 0, 1, '2016-02-17', '23:44:53', 'unset') ; 
+INSERT INTO `fr_share_folder` VALUES (3, 1, 5, './Data/Instructor/Joscoro, Cantero/2016-2017/1st Semester/IT2-A/Activity 1', 'IT2-A_Activity 1', 0, 1, '2016-02-17', '23:44:53', 'unset') ; 
+INSERT INTO `fr_share_folder` VALUES (5, 1, 11, './Data/Instructor/Joscoro, Cantero/2016-2017/1st Semester/IT2-A/Activity 1', 'IT2-A_Activity 1', 0, 1, '2016-02-17', '23:44:53', 'unset') ; 
+INSERT INTO `fr_share_folder` VALUES (6, 3, 2, './Data/Instructor/Joscoro, Cantero/2016-2017/1st Semester/IT7/Activity 1', 'IT7_Activity 1', 0, 1, '2016-02-18', '01:05:21', 'unset') ; 
+INSERT INTO `fr_share_folder` VALUES (7, 3, 3, './Data/Instructor/Joscoro, Cantero/2016-2017/1st Semester/IT7/Activity 1', 'IT7_Activity 1', 0, 1, '2016-02-18', '01:05:21', 'unset') ; 
+INSERT INTO `fr_share_folder` VALUES (8, 3, 5, './Data/Instructor/Joscoro, Cantero/2016-2017/1st Semester/IT7/Activity 1', 'IT7_Activity 1', 0, 1, '2016-02-18', '01:05:21', 'unset') ; 
+INSERT INTO `fr_share_folder` VALUES (9, 3, 4, './Data/Instructor/Joscoro, Cantero/2016-2017/1st Semester/IT7/Activity 1', 'IT7_Activity 1', 0, 1, '2016-02-18', '01:05:21', 'unset') ; 
+INSERT INTO `fr_share_folder` VALUES (10, 3, 11, './Data/Instructor/Joscoro, Cantero/2016-2017/1st Semester/IT7/Activity 1', 'IT7_Activity 1', 0, 1, '2016-02-18', '01:05:21', 'unset') ; 
+INSERT INTO `fr_share_folder` VALUES (11, 1, 4, './Data/Instructor/Joscoro, Cantero/2016-2017/1st Semester/IT2-A/Activity 1', 'IT2-A_Activity 1', 0, 1, '2016-02-18', '02:28:36', 'unset') ;
 #
 # End of data contents of table fr_share_folder
 # --------------------------------------------------------
 
 # MySQL database backup
 #
-# Generated: Monday 15. February 2016 03:08 HKT
+# Generated: Thursday 18. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -681,7 +660,7 @@ INSERT INTO `fr_staff` VALUES (6, 10, 'Cheryl', 'Tarre', '') ;
 
 # MySQL database backup
 #
-# Generated: Monday 15. February 2016 03:08 HKT
+# Generated: Thursday 18. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -756,14 +735,14 @@ INSERT INTO `fr_stud` VALUES (1, 2, 552, 'Leo', 'Marapoc', '', 'BSIT', '4th Year
 INSERT INTO `fr_stud` VALUES (2, 3, 445, 'Sheila', 'Mancera', '', 'BSIT', '4th Year', 0) ; 
 INSERT INTO `fr_stud` VALUES (3, 4, 443, 'Romalyn', 'Bertudazo', '', 'BSIT', '4th Year', 0) ; 
 INSERT INTO `fr_stud` VALUES (4, 5, 123, 'Trina', 'Larazzabal', '', 'BSBA', '3rd Year', 0) ; 
-INSERT INTO `fr_stud` VALUES (5, 11, 441, 'Mitzi hazel', 'Tizon', '', 'BSIT', '4th Year', 0) ;
+INSERT INTO `fr_stud` VALUES (5, 11, 442, 'Mitzi hazel', 'Tizon', '', 'BSIT', '4th Year', 0) ;
 #
 # End of data contents of table fr_stud
 # --------------------------------------------------------
 
 # MySQL database backup
 #
-# Generated: Monday 15. February 2016 03:08 HKT
+# Generated: Thursday 18. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -827,12 +806,12 @@ CREATE TABLE `fr_stud_subject` (
   `subject_id` int(11) NOT NULL,
   `Date_Created` date NOT NULL,
   `Time_Created` time NOT NULL,
-  `status` enum('APPROVED','DISAPPROVED') NOT NULL,
+  `status` enum('APPROVED','DISAPPROVED','Dropped') NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1 ;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1 ;
 
 #
-# Data contents of table fr_stud_subject (20 records)
+# Data contents of table fr_stud_subject (21 records)
 #
  
 INSERT INTO `fr_stud_subject` VALUES (1, 2, 'IT2-A', './Data/Instructor/Joscoro, Cantero/2016-2017/1st Semester/IT2-A/Student/552-Marapoc', 1, '2016-02-08', '20:00:29', 'APPROVED') ; 
@@ -846,7 +825,7 @@ INSERT INTO `fr_stud_subject` VALUES (9, 3, 'IT 8', './Data/Instructor/Joscoro, 
 INSERT INTO `fr_stud_subject` VALUES (10, 5, 'IT2-A', './Data/Instructor/Joscoro, Cantero/2016-2017/1st Semester/IT2-A/Student/123-Larazzabal', 1, '2016-02-08', '22:13:18', 'APPROVED') ; 
 INSERT INTO `fr_stud_subject` VALUES (11, 5, 'IT7', './Data/Instructor/Joscoro, Cantero/2016-2017/1st Semester/IT7/Student/123-Larazzabal', 3, '2016-02-08', '22:13:19', 'APPROVED') ; 
 INSERT INTO `fr_stud_subject` VALUES (12, 5, 'IT17', './Data/Instructor/Joscoro, Cantero/2016-2017/1st Semester/IT17/Student/123-Larazzabal', 4, '2016-02-08', '22:13:19', 'APPROVED') ; 
-INSERT INTO `fr_stud_subject` VALUES (13, 5, 'IT 8', './Data/Instructor/Joscoro, Cantero/2016-2017/1st Semester/IT 8/Student/123-Larazzabal', 5, '2016-02-08', '22:13:19', 'APPROVED') ; 
+INSERT INTO `fr_stud_subject` VALUES (13, 5, 'IT 8', './Data/Instructor/Joscoro, Cantero/2016-2017/1st Semester/IT 8/Student/123-Larazzabal', 5, '2016-02-08', '22:13:19', 'Dropped') ; 
 INSERT INTO `fr_stud_subject` VALUES (14, 4, 'IT2-A', './Data/Instructor/Joscoro, Cantero/2016-2017/1st Semester/IT2-A/Student/443-Bertudazo', 1, '2016-02-08', '22:13:19', 'APPROVED') ; 
 INSERT INTO `fr_stud_subject` VALUES (15, 4, 'IT7', './Data/Instructor/Joscoro, Cantero/2016-2017/1st Semester/IT7/Student/443-Bertudazo', 3, '2016-02-08', '22:13:19', 'APPROVED') ; 
 INSERT INTO `fr_stud_subject` VALUES (16, 4, 'IT17', './Data/Instructor/Joscoro, Cantero/2016-2017/1st Semester/IT17/Student/443-Bertudazo', 4, '2016-02-08', '22:13:01', 'APPROVED') ; 
@@ -854,14 +833,15 @@ INSERT INTO `fr_stud_subject` VALUES (17, 4, 'IT 8', './Data/Instructor/Joscoro,
 INSERT INTO `fr_stud_subject` VALUES (18, 11, 'IT2-A', './Data/Instructor/Joscoro, Cantero/2016-2017/1st Semester/IT2-A/Student/441-Tizon', 1, '2016-02-08', '22:13:01', 'APPROVED') ; 
 INSERT INTO `fr_stud_subject` VALUES (19, 11, 'IT7', './Data/Instructor/Joscoro, Cantero/2016-2017/1st Semester/IT7/Student/441-Tizon', 3, '2016-02-08', '22:13:01', 'APPROVED') ; 
 INSERT INTO `fr_stud_subject` VALUES (20, 11, 'IT17', './Data/Instructor/Joscoro, Cantero/2016-2017/1st Semester/IT17/Student/441-Tizon', 4, '2016-02-08', '22:13:01', 'APPROVED') ; 
-INSERT INTO `fr_stud_subject` VALUES (21, 11, 'IT 8', './Data/Instructor/Joscoro, Cantero/2016-2017/1st Semester/IT 8/Student/441-Tizon', 5, '2016-02-08', '22:13:01', 'APPROVED') ;
+INSERT INTO `fr_stud_subject` VALUES (21, 11, 'IT 8', './Data/Instructor/Joscoro, Cantero/2016-2017/1st Semester/IT 8/Student/441-Tizon', 5, '2016-02-08', '22:13:01', 'APPROVED') ; 
+INSERT INTO `fr_stud_subject` VALUES (22, 2, 'Thesis', './Data/Dean/Tarre, Cheryl/2016-2017/1st Semester/Thesis/Student/552-Marapoc', 20, '0000-00-00', '00:00:00', 'DISAPPROVED') ;
 #
 # End of data contents of table fr_stud_subject
 # --------------------------------------------------------
 
 # MySQL database backup
 #
-# Generated: Monday 15. February 2016 03:08 HKT
+# Generated: Thursday 18. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -928,10 +908,10 @@ CREATE TABLE `fr_subject` (
   `SemID` int(11) NOT NULL,
   PRIMARY KEY  (`subID`),
   UNIQUE KEY `SubCode` (`SubCode`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1 ;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1 ;
 
 #
-# Data contents of table fr_subject (19 records)
+# Data contents of table fr_subject (20 records)
 #
  
 INSERT INTO `fr_subject` VALUES (1, 'Free-Ele1', 'DBMS1', 'ASSIGNED', 1) ; 
@@ -952,14 +932,15 @@ INSERT INTO `fr_subject` VALUES (15, 'IT2-A', 'Computer Progrgamming 2', 'ASSIGN
 INSERT INTO `fr_subject` VALUES (16, 'IT2-B', 'Computer Programming 2', 'ASSIGNED', 1) ; 
 INSERT INTO `fr_subject` VALUES (17, 'IT7', 'Object Oriented Prog', 'ASSIGNED', 1) ; 
 INSERT INTO `fr_subject` VALUES (18, 'IT17', 'ISS', 'ASSIGNED', 1) ; 
-INSERT INTO `fr_subject` VALUES (19, 'IT 8', 'OOP', 'ASSIGNED', 1) ;
+INSERT INTO `fr_subject` VALUES (19, 'IT 8', 'OOP', 'ASSIGNED', 1) ; 
+INSERT INTO `fr_subject` VALUES (20, 'Thesis', 'Thesis Proposal', 'ASSIGNED', 1) ;
 #
 # End of data contents of table fr_subject
 # --------------------------------------------------------
 
 # MySQL database backup
 #
-# Generated: Monday 15. February 2016 03:08 HKT
+# Generated: Thursday 18. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -1039,7 +1020,7 @@ INSERT INTO `fr_sy` VALUES (1, 2016, 2017) ;
 
 # MySQL database backup
 #
-# Generated: Monday 15. February 2016 03:08 HKT
+# Generated: Thursday 18. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -1114,30 +1095,30 @@ CREATE TABLE `fr_user` (
   `last_logout_date` datetime NOT NULL,
   `activate` int(11) NOT NULL default '1',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 ;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 ;
 
 #
 # Data contents of table fr_user (11 records)
 #
  
-INSERT INTO `fr_user` VALUES (1, 'admin', 'admin', 5, 'offline', '0000-00-00 00:00:00', '2016-02-08 09:52:17', 1) ; 
-INSERT INTO `fr_user` VALUES (2, 'marapoc', '12345', 1, 'offline', '2016-02-08 09:53:17', '2016-02-08 10:02:58', 1) ; 
+INSERT INTO `fr_user` VALUES (1, 'admin', 'admin', 5, 'online', '2016-02-17 01:31:57', '2016-02-17 01:31:27', 1) ; 
+INSERT INTO `fr_user` VALUES (2, 'marapoc', '12345', 1, 'offline', '2016-02-17 11:42:07', '2016-02-17 11:42:11', 1) ; 
 INSERT INTO `fr_user` VALUES (3, 'mancera', '12345', 1, 'offline', '2016-02-08 10:02:19', '2016-02-08 10:03:59', 1) ; 
-INSERT INTO `fr_user` VALUES (4, 'bertudazo', '123', 1, 'online', '2016-02-08 10:04:15', '0000-00-00 00:00:00', 1) ; 
+INSERT INTO `fr_user` VALUES (4, 'bertudazo', '123', 1, 'online', '2016-02-18 02:29:20', '0000-00-00 00:00:00', 1) ; 
 INSERT INTO `fr_user` VALUES (5, 'trina', '12345', 1, 'offline', '2016-02-08 10:03:42', '2016-02-08 10:05:59', 1) ; 
-INSERT INTO `fr_user` VALUES (6, 'cantero', '12345', 3, 'online', '2016-02-08 07:23:54', '0000-00-00 00:00:00', 1) ; 
+INSERT INTO `fr_user` VALUES (6, 'cantero', '12345', 3, 'offline', '2016-02-18 12:35:33', '2016-02-18 03:07:41', 1) ; 
 INSERT INTO `fr_user` VALUES (7, 'bertulfo', '12345', 3, 'offline', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1) ; 
 INSERT INTO `fr_user` VALUES (8, 'bernardo', '12345', 3, 'offline', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1) ; 
 INSERT INTO `fr_user` VALUES (9, 'bughao', '12345', 3, 'offline', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1) ; 
-INSERT INTO `fr_user` VALUES (10, 'tarre', '12345', 4, 'online', '2016-02-08 09:52:25', '0000-00-00 00:00:00', 1) ; 
-INSERT INTO `fr_user` VALUES (11, 'tizon', '12345', 1, 'online', '2016-02-08 10:06:14', '0000-00-00 00:00:00', 1) ;
+INSERT INTO `fr_user` VALUES (10, 'tarre', '12345', 4, 'online', '2016-02-18 03:07:57', '2016-02-17 11:43:21', 1) ; 
+INSERT INTO `fr_user` VALUES (11, 'mikay', '12345', 1, 'offline', '2016-02-08 10:06:14', '0000-00-00 00:00:00', 1) ;
 #
 # End of data contents of table fr_user
 # --------------------------------------------------------
 
 # MySQL database backup
 #
-# Generated: Monday 15. February 2016 03:08 HKT
+# Generated: Thursday 18. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -1214,10 +1195,10 @@ CREATE TABLE `fr_user_permissions` (
   `rename_F` int(11) NOT NULL,
   `delete_F` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 ;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 ;
 
 #
-# Data contents of table fr_user_permissions (11 records)
+# Data contents of table fr_user_permissions (13 records)
 #
  
 INSERT INTO `fr_user_permissions` VALUES (1, 1, 1, 1, 1, 1, 1) ; 
@@ -1230,14 +1211,16 @@ INSERT INTO `fr_user_permissions` VALUES (7, 10, 1, 1, 1, 1, 1) ;
 INSERT INTO `fr_user_permissions` VALUES (8, 3, 1, 1, 1, 1, 1) ; 
 INSERT INTO `fr_user_permissions` VALUES (9, 5, 1, 1, 1, 1, 1) ; 
 INSERT INTO `fr_user_permissions` VALUES (10, 4, 1, 1, 1, 1, 1) ; 
-INSERT INTO `fr_user_permissions` VALUES (11, 11, 1, 1, 1, 1, 1) ;
+INSERT INTO `fr_user_permissions` VALUES (11, 11, 1, 1, 1, 1, 1) ; 
+INSERT INTO `fr_user_permissions` VALUES (12, 12, 1, 1, 1, 1, 1) ; 
+INSERT INTO `fr_user_permissions` VALUES (13, 13, 1, 1, 1, 1, 1) ;
 #
 # End of data contents of table fr_user_permissions
 # --------------------------------------------------------
 
 # MySQL database backup
 #
-# Generated: Monday 15. February 2016 03:08 HKT
+# Generated: Thursday 18. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -1330,7 +1313,7 @@ INSERT INTO `position` VALUES (5, 'Student', 1) ;
 
 # MySQL database backup
 #
-# Generated: Monday 15. February 2016 03:08 HKT
+# Generated: Thursday 18. February 2016 03:08 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -1413,12 +1396,15 @@ CREATE TABLE `project_notif` (
   `project_name` varchar(500) NOT NULL,
   `Date` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ;
 
 #
-# Data contents of table project_notif (0 records)
+# Data contents of table project_notif (3 records)
 #
-
+ 
+INSERT INTO `project_notif` VALUES (1, 6, 2, 1, 'Activity 1', 'Leo Marapoc.jpg', '2016-02-18 00:44:57') ; 
+INSERT INTO `project_notif` VALUES (2, 6, 2, 1, 'Activity 1', 'Leo Marapoc.png', '2016-02-18 00:45:37') ; 
+INSERT INTO `project_notif` VALUES (3, 6, 2, 3, 'Activity 1', 'Leo Marapoc.jpg', '2016-02-18 01:05:39') ;
 #
 # End of data contents of table project_notif
 # --------------------------------------------------------

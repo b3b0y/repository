@@ -6,7 +6,7 @@ $listing_mode = 0;
 //Directory to browse ***INCLUDING TRAILING SLASH***. Leave it as "./" if you want to browse the directory this file is in for HTTP listing or leave it blank for browsing the root directory for FTP listing.  This can be an absolute or relative path (relative to the index.php file). CAUTION: Listing a directory above your web root will cause errors.
 //$dir_to_browse = "./Data/"; //default[HTTP] = "./" or default[FTP] = "/"
 
-	if(!isset($_GET['id']) || !isset($_GET['subf']) || !isset($_GET['studsub']) || !isset($_GET['share']) || isset($_GET['archive']))
+	if(!isset($_GET['id']) || !isset($_GET['subf']) || !isset($_GET['studsub']) || !isset($_GET['share']) || !isset($_GET['archive']))
 	{
 		$result1 = mysql_query("SELECT fr_path.* FROM fr_path  WHERE user_id = '".$_SESSION['user_id']."'")or die(mysql_error());
 		if(mysql_num_rows($result1) > 0)
@@ -63,6 +63,10 @@ $listing_mode = 0;
 			$result1 = mysql_query("SELECT * FROM fr_user_permissions WHERE user_id = '".$_SESSION['user_id']."'");
 			$row1 = mysql_fetch_array($result1);
 
+
+			$_SESSION['subf'] = $_GET['subf'];
+			$_SESSION['folder1'] = $_GET['folder1'];
+
 			$_SESSION['upload'] = $row1['upload'];
 			$_SESSION['download'] = $row1['download'];
 			$_SESSION['create_folders'] = $row1['create_folders'];
@@ -92,6 +96,8 @@ $listing_mode = 0;
 
 			$result1 = mysql_query("SELECT * FROM fr_user_permissions WHERE user_id = '".$_SESSION['user_id']."'");
 			$row1 = mysql_fetch_array($result1);
+
+			$_SESSION['studsub'] = $_GET['studsub'];
 
 			$_SESSION['upload'] = $row1['upload'];
 			$_SESSION['download'] = $row1['download'];
@@ -123,6 +129,7 @@ $listing_mode = 0;
 			$_SESSION['share'] = $_GET['share'];
 			$_SESSION['folder2'] = $_GET['folder2'];
 
+			$_SESSION['Activity'] = $row['shared_name'];
 			$_SESSION['download'] = $row['download'];
 			$_SESSION['upload'] = $row['upload'];
 			$_SESSION['rename'] = 0;

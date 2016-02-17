@@ -125,6 +125,10 @@
 								<i class="icon-book"></i>
 								<p>Student Subject</p>
 							</a>
+							<div class="clearfix"></div>
+						</div>
+
+						<div class="box-content">
 							<a href="subjectmanagement.php?subject=approve" class="quick-button span2">
 								<i class="icon-book"></i>
 								<p>Approve Subject</p>
@@ -132,6 +136,10 @@
 							<a href="subjectmanagement.php?subject=deadline" class="quick-button span2">
 								<i class="icon-book"></i>
 								<p>Deadline </p>
+							</a>
+							<a href="subjectmanagement.php?subject=shared" class="quick-button span2">
+								<i class="icon-book"></i>
+								<p>Shared </p>
 							</a>
 							<div class="clearfix"></div>
 						</div>	
@@ -263,27 +271,6 @@
 									<?php
 											}
 										}
-
-								  		/*
-											$result = mysql_query("SELECT inst.*,sub.id,sub.Subject,fr_subject.* FROM fr_ins_subject as sub,fr_staff as inst,fr_subject WHERE inst.user_id = sub.user_id AND fr_subject.SubCode = sub.Subject") or die("Error:".mysql_error());
-											
-										 	if(mysql_num_rows($result) > 0)
-										 	{
-										 		while ($row = mysql_fetch_array($result)) 
-										 		{								 			
-										 ?>
-										 		<tr>
-										 			<td><?php echo $row['id']; ?></td> 
-									              	<td><?php echo $row['FirstN']." ".$row['LastN']; ?></td>       
-									              	<td><?php echo $row['Subject']; ?></td>
-									              	<td><?php echo $row['Description']; ?></td>
-													<!--<td><a onclick="return confirm('Are you sure you want to delete?');" href="php/delete.php?delete=faculty&&id=<?php echo $row['id']; ?>"><button><i class="halflings-icon trash"></i></button></a></td>
-													-->
-												</tr>  
-										<?php
-												}
-											}
-											*/
 										?>
 									
 								  </tbody>
@@ -311,13 +298,6 @@
 		              					<th >S.Y.</th>
 		              					<th >Action</th>
 
-									  	<!--
-									  		<th>Subject Code</th>
-							              	<th>ID Number</th>
-							              	<th>Student</th>      
-							              	<th>Description</th>
-							              	<th>Action</th>
-							            -->
 									  </tr>
 								  </thead>   
 								  <tbody>
@@ -339,26 +319,6 @@
 									<?php
 											}
 										}
-
-								  		/*
-										    $result = mysql_query("SELECT stud.*,sub.*,studsub.*,fr_subject.* FROM fr_ins_subject as sub,fr_stud as stud,fr_stud_subject as studsub , fr_subject WHERE fr_subject.SubCode = sub.Subject AND studsub.subject_id = sub.id AND studsub.user_id = stud.user_id AND sub.user_id = '".$_SESSION['user_id']."' AND studsub.status = 'APPROVED'")or die(mysql_error()); 
-
-											
-										 	if(mysql_num_rows($result) > 0)
-										 	{
-										 		while ($row = mysql_fetch_array($result)) 
-										 		{								 			
-										 ?>
-										 		<tr>
-										 			<td><?php echo $row['Subject']; ?></td>
-										            <td><?php echo $row['ControlNo']?></td>  
-										            <td><?php echo $row['FName']." ".$row['LName']; ?></td>       
-										            <td><?php echo $row['Description']; ?></td>
-													<td><a onclick="return confirm('Are you sure you want to Drop?');" href="php/delete.php?delete=drop&&subject_id=<?php echo $row['subject_id']; ?>"><button><i class="halflings-icon trash"></i> Drop</button></a></td>
-												</tr>  
-										<?php
-												}
-											}*/
 										?>
 								  </tbody>
 							  </table>  
@@ -444,12 +404,13 @@
 							            <th>Date</th>
 							            <th>Time</th>
 							            <th>Status</th>
+							            <th>Action</th>
 									  </tr>
 								  </thead>   
 								  <tbody>
 								  	<?php
 								  		
-											$result = mysql_query("SELECT dead.*,ins.* FROM fr_deadline as dead , fr_ins_subject as ins WHERE dead.folder_id = ins.id AND user_id = '".$_SESSION['user_id']."'")or die("Error:". mysql_error());            
+											$result = mysql_query("SELECT dead.*,ins.Subject FROM fr_deadline as dead , fr_ins_subject as ins WHERE dead.folder_id = ins.id AND user_id = '".$_SESSION['user_id']."'")or die("Error:". mysql_error());            
 											
 										 	if(mysql_num_rows($result) > 0)
 										 	{
@@ -460,7 +421,8 @@
 													<td><?php echo $row['Subject']; ?></td>
 									              	<td><?php echo $row['date_deadline']; ?></td>
 									               	<td><?php echo $row['time_deadline']; ?></td>
-									              	<td><?php echo $row['status']; ?></td>
+									              	<td><?php echo  $row['status'] == 'open' ? '<span class="btn btn-mini btn-success">open</span>' : '<span class="btn btn-mini btn-danger">closed</span>' ; ?> </td>
+									              	<td><a onclick="return confirm('Are you sure you want to delete?');" href="php/delete.php?delete=deadline&&id=<?php echo $row['id']; ?>"><button><i class="halflings-icon trash"></i>Delete</button></a></td>
 												</tr>  
 										<?php
 												}
@@ -471,7 +433,88 @@
 							  </table>  
 							</div>
 
-						<?php
+					<?php
+						}
+						else if(isset($_GET['subject']) && $_GET['subject'] == 'shared')
+						{
+					?>
+							<div class="box-header" data-original-title>
+								<h2><i class="halflings-icon calendar"></i><span class="break"></span>Deadline</h2>
+							</div>
+							<div class="box-content">
+								<table class="table table-striped table-bordered bootstrap-datatable datatable">
+								  <thead>
+									  <tr>
+									  	<th>Subject / Folder Name</th>
+										<th>Action</th>
+									  </tr>
+								  </thead>   
+								  <tbody>
+								  	<?php
+								  		
+											$result = mysql_query("SELECT * FROM  fr_share_folder GROUP BY 	shared_name")or die("Error:". mysql_error());            
+											
+										 	if(mysql_num_rows($result) > 0)
+										 	{
+										 		while ($row = mysql_fetch_array($result)) 
+										 		{								 			
+										 ?>
+										 		<tr>
+													<td><?php echo $row['shared_name']; ?></td>
+									              	<td><a href="subjectmanagement.php?shared=subject&&sname=<?php echo $row['shared_name']; ?>"><button>View</button></a></td>
+												</tr>  
+										<?php
+												}
+											}
+										?>
+										
+								  </tbody>
+							  </table>  
+							</div>
+
+					<?php
+						}
+						else if(isset($_GET['shared']) && $_GET['shared'] == 'subject')
+						{
+					?>
+							<div class="box-header" data-original-title>
+								<h2><i class="halflings-icon calendar"></i><span class="break"></span>Deadline</h2>
+							</div>
+							<div class="box-content">
+								<table class="table table-striped table-bordered bootstrap-datatable datatable">
+								  <thead>
+									  <tr>
+									  	<th>Name of Students</th>
+									  	<th>Shared Name</th>
+							            <th>Date Shared</th>
+										<th>Action</th>
+									  </tr>
+								  </thead>   
+								  <tbody>
+								  	<?php
+								  		
+											$result = mysql_query("SELECT sf.*,stud.FName,stud.Mname,stud.LName FROM  fr_share_folder as sf, fr_stud as stud WHERE sf.user_id = stud.user_id AND sf.shared_name = '".$_GET['sname']."'")or die("Error:". mysql_error());            
+											
+										 	if(mysql_num_rows($result) > 0)
+										 	{
+										 		while ($row = mysql_fetch_array($result)) 
+										 		{								 			
+										 ?>
+										 		<tr>
+													<td><?php echo $row['FName'].' '.$row['Mname'].' '.$row['LName'] ; ?></td>
+													<td><?php echo $row['shared_name']; ?></td>
+									              	<td><?php echo $row['date_shared']; ?></td>
+									              	<td><a onclick="return confirm('Are you sure you want to delete?');" href="php/delete.php?delete=shared&&id=<?php echo $row['id']; ?>&&sname=<?php echo $_GET['sname']; ?>"><button><i class="halflings-icon trash"></i>Remove</button></a></td>
+												</tr>  
+										<?php
+												}
+											}
+										?>
+										
+								  </tbody>
+							  </table>  
+							</div>
+					<?php 
 						}
 						else if(isset($_GET['user']) && $_GET['user'] == 'faculty')
 						{

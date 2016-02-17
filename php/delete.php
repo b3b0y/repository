@@ -25,10 +25,10 @@
 	if(isset($_GET['delete']) && $_GET['delete'] == 'drop')
 	{
 		
-		$result = mysql_query("SELECT * FROM  fr_stud_subject WHERE subject_id = '".$_GET['subject_id']."'");
+		$result = mysql_query("SELECT * FROM  fr_stud_subject WHERE id = '".$_GET['id']."'");
 		if(mysql_num_rows($result) > 0)
 		{
-			mysql_query("DELETE FROM fr_stud_subject WHERE subject_id = '".$_GET['subject_id']."'");
+			mysql_query("UPDATE fr_stud_subject SET status = 'Dropped'  WHERE id = '".$_GET['id']."'");
 			$row = mysql_fetch_array($result);
 
 			$link = 'enroll_subject.php?subject=subject';
@@ -37,9 +37,10 @@
 			$date = date ("y/m/d H:i:s");
 
 			mysql_query("INSERT INTO fr_notification(user_id,link,message,status,Date) VALUES('".$row['user_id']."','".$link."','".$message."','unread','".$date."')");
+		
+			echo '<script> alert("Successfully Drop"); window.location.href="../subjectmanagement.php?subject=persubjstud&&subcode='.$row['subject'].'"; </script>';
 		}
 
-		echo '<script> alert("Successfully Drop"); window.location.href="../subjectmanagement.php?subject=student"; </script>';
 	}
 
 	if(isset($_GET['delete']) && $_GET['delete'] == 'message')
@@ -72,6 +73,14 @@
 		mysql_query("DELETE FROM  fr_stud WHERE user_id = '".$_GET['id']."'");	
 
 		echo '<script> alert("Successfully Delete"); window.location.href="../user.php?faculty=true"; </script>';
+	}
+
+
+	if(isset($_GET['delete']) && $_GET['delete'] == 'shared')
+	{
+		mysql_query("DELETE FROM  fr_share_folder WHERE id = '".$_GET['id']."'");
+
+		echo '<script> alert("Successfully Delete"); window.location.href="../subjectmanagement.php?shared=subject&&sname='.$_GET['sname'].'"; </script>';
 	}
 
 

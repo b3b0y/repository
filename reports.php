@@ -93,9 +93,14 @@
 							</a>
 							-->
 
-							<a href="reports.php?subject=subject" class="quick-button span2">
+							<a href="reports.php?subject=Enrolled" class="quick-button span2">
 								<i class="icon-book"></i>
-								<p>Subject Enrolled</p>
+								<p>Student Enrolled</p>
+							</a>
+
+							<a href="reports.php?subject=Dropped" class="quick-button span2">
+								<i class="icon-book"></i>
+								<p>Student Dropped</p>
 							</a>
 
 							<a href="reports.php?activity=activity" class="quick-button span2">
@@ -151,7 +156,59 @@
 								</div>
 						<?php 
 							}
-							if(isset($_GET['subject']) && $_GET['subject'] == 'subject') 
+							if(isset($_GET['subject']) && $_GET['subject'] == 'Enrolled') 
+							{
+						?>
+								<div class="box-header" data-original-title>
+									<h2><i class="halflings-icon book"></i><span class="break"></span>Subject</h2>
+								</div>
+								<div class="box-content">
+									<table class="table table-striped table-bordered bootstrap-datatable datatable">
+									  <thead>
+										  <tr>
+										  	<th class="group-word">Subject code</th>
+			              					<th class="group-false">Description</th>
+			              					<th class="group-false">Semester</th>
+			              					<th class="group-false">S.Y.</th>
+			              					<th class="group-false">Action</th>
+										  </tr>
+									  </thead>   
+									  <tbody>
+									  	<?php
+
+									  			if($_SESSION['UserLvl'] == 3) 
+									  			{
+									  				$result = mysql_query("SELECT  fr_ins_subject.*,sub.*,sem.*,sy.* FROM  fr_ins_subject , fr_subject as sub , fr_semester as sem, fr_sy as sy WHERE sub.SubCode = fr_ins_subject.Subject AND sem.SemID = sub.SemID AND sy.SYID = sem.SYID AND sem.sem_status = 'Active' AND fr_ins_subject.user_id = '".$_SESSION['user_id']."'");
+									  			}
+									  			else if($_SESSION['UserLvl'] == 4) 
+									  			{
+									  				$result = mysql_query("SELECT sub.*,sem.*,sy.* FROM fr_subject as sub , fr_semester as sem, fr_sy as sy WHERE sem.SemID = sub.SemID AND sy.SYID = sem.SYID AND sem.sem_status = 'Active'");
+									  			}
+											 	
+
+											 	if(mysql_num_rows($result) > 0)
+											 	{
+											 		while ($row = mysql_fetch_array($result)) 
+											 		{								 			
+											 ?>
+											 		<tr>
+											 			<td><?php echo $row['SubCode']; ?></td>
+			              								<td><?php echo $row['Description']; ?></td>
+												    	<td><?php echo $row['Semester']; ?></td>
+												    	<td><?php echo $row['SYstart']." - ".$row['SYend'] ; ?></td>
+												    	<td><a href="reports/subject.php?view=Enrolled&&subcode=<?php echo $row['SubCode']; ?>&&sem=<?php echo $row['SemID']; ?>"><button>View</button></a></td>
+												    </tr>   
+											<?php
+													}
+												}
+											?>
+
+									  </tbody>
+								  </table>            
+								</div>
+						<?php 
+							}
+							if(isset($_GET['subject']) && $_GET['subject'] == 'Dropped') 
 							{
 						?>
 								<div class="box-header" data-original-title>
@@ -191,7 +248,7 @@
 			              								<td><?php echo $row['Description']; ?></td>
 												    	<td><?php echo $row['Semester']; ?></td>
 												    	<td><?php echo $row['SYstart']." - ".$row['SYend'] ; ?></td>
-												    	<td><a href="reports/subject.php?view=subject&&subcode=<?php echo $row['SubCode']; ?>&&sem=<?php echo $row['SemID']; ?>"><button>View</button></a></td>
+												    	<td><a href="reports/subject.php?view=Dropped&&subcode=<?php echo $row['SubCode']; ?>&&sem=<?php echo $row['SemID']; ?>"><button>View</button></a></td>
 												    </tr>   
 											<?php
 													}
@@ -221,7 +278,7 @@
 									  <tbody>
 									  	<?php
 
-									  			$result = mysql_query("SELECT pn.*,isub.Subject FROM project_notif as pn , fr_ins_subject  as isub WHERE pn.subject_id = isub.id AND pn.inst_id = '".$_SESSION['user_id']."' ");
+									  			$result = mysql_query("SELECT DISTINCT pn.subject_id,pn.folder_name,isub.Subject,sem.SemID FROM project_notif as pn , fr_ins_subject  as isub , fr_subject as sub , fr_semester as sem WHERE  isub.Subject = sub.SubCode AND sem.SemID = sub.SemID AND  pn.subject_id = isub.id  AND pn.inst_id = '".$_SESSION['user_id']."' ") or die(mysql_error());
 
 											 	if(mysql_num_rows($result) > 0)
 											 	{
@@ -231,54 +288,8 @@
 											 		<tr>
 											 			<td><?php echo $row['Subject']; ?></td>
 			              								<td><?php echo $row['folder_name']; ?></td>
-												    	<td><a href="reports.php?view=folder&&foldern=<?php echo $row['folder_name']; ?>&&id=<?php echo $row['subject_id']; ?>"><button>View</button></a></td>
-												    </tr>   
-											<?php
-													}
-												}
-											?>
-
-									  </tbody>
-								  </table>            
-								</div>
-						<?php 
-							}
-							if(isset($_GET['view']) && $_GET['view'] == 'folder') 
-							{
-
-									if(isset($_GET['notid']) && !empty($_GET['notid']))
-									{
-										mysql_query("UPDATE fr_notification SET status = 'read' WHERE id = '".$_GET['notid']."'");
-									}
-						?>
-
-								<div class="box-content">
-									<div class="box-content">
-									<a href="reports.php?activity=activity"><button>Back</button></a> 
-									<a href="reports/activity.php?foldern=<?php echo $_GET['foldern']; ?>&&id=<?php echo $_GET['id']; ?>"><button>Print</button></a>
-									</div>
-									<table class="table table-striped table-bordered bootstrap-datatable datatable">
-									  <thead>
-										  <tr>
-										  	<th class="group-word">Name</th>
-			              					<th class="group-false">Project</th>
-			              					<th class="group-false">Date Submitted</th>
-										  </tr>
-									  </thead>   
-									  <tbody>
-									  	<?php
-
-									  			$result = mysql_query("SELECT stud.*,pn.* FROM project_notif as pn , fr_stud  as stud WHERE pn.stud_id = stud.user_id AND pn.folder_name = '".$_GET['foldern']."' AND pn.subject_id = '".$_GET['id']."'");
-
-											 	if(mysql_num_rows($result) > 0)
-											 	{
-											 		while ($row = mysql_fetch_array($result)) 
-											 		{								 			
-											 ?>
-											 		<tr>
-											 			<td><?php echo $row['FName']." ".$row['LName']; ?></td>
-			              								<td><?php echo $row['project_name']; ?></td>
-			              								<td><?php echo $row['Date']; ?></td>
+												    	<td><a href="reports/activity.php?submit=Submitted&&foldern=<?php echo $row['folder_name']; ?>&&id=<?php echo $row['subject_id']; ?>&&sem=<?php echo $row['SemID']; ?>"><button>SUBMITTED</button></a>
+												    	<a href="reports/activity.php?submit=nsubmit&&foldern=<?php echo $row['folder_name']; ?>&&id=<?php echo $row['subject_id']; ?>&&sem=<?php echo $row['SemID']; ?>"><button>NOT SUBMITTED</button></a></td>
 												    </tr>   
 											<?php
 													}

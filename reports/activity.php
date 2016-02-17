@@ -61,6 +61,10 @@
 			<div id="content" class="span10">		
 					<div class="row-fluid sortable">
 						<div class="box span9">
+							<?php
+								if(isset($_GET['submit']) && $_GET['submit'] == 'Submitted')
+								{
+							?>
 							<div class="box-header">
 								<script>
 		                           //window.print();
@@ -76,7 +80,7 @@
 		                              .hide-from-printer{  display:none; }
 		                            }
 		                        </style>
-								<a class="hide-from-printer" href="../reports.php?view=folder&&foldern=<?php echo $_GET['foldern']; ?>&&id=<?php echo $_GET['id']; ?>"><button>Back</button></a> 
+								<a class="hide-from-printer" href="../reports.php?activity=activity"><button>Back</button></a> 
 								<input class="hide-from-printer" type="button" value="Print" onclick="printpage()">
 							</div>
 
@@ -84,7 +88,7 @@
 
 
 							<?php 
-									$result = mysql_query("SELECT pn.*,isub.Subject FROM project_notif as pn , fr_ins_subject  as isub WHERE pn.subject_id = isub.id AND pn.folder_name = '".$_GET['foldern']."' AND pn.subject_id = '".$_GET['id']."'");
+									$result = mysql_query("SELECT pn.*,isub.Subject,sub.*,sem.*,sy.* FROM project_notif as pn , fr_ins_subject  as isub , fr_subject as sub , fr_semester as sem, fr_sy as sy WHERE isub.Subject = sub.SubCode AND sem.SemID = sub.SemID AND sy.SYID = sem.SYID AND sem.SemID = '".$_GET['sem']."' AND pn.subject_id = isub.id AND pn.folder_name = '".$_GET['foldern']."' AND pn.subject_id = '".$_GET['id']."'") or die(mysql_error());
 									$row = mysql_fetch_array($result);
 							?>
 									<div class="box-content">
@@ -97,17 +101,19 @@
 													College of ICT & Engineering
 												<br><br>
 												<b>
-													<br>List of Students Submitted
-													<br>in
-													<br><?php echo  $row['Subject']; ?>
+													<br>LIST OF STUDENT SUBMITTED A FILE IN  <?php echo  $row['folder_name']; ?> 
+													<br>FOR THE SUBJECT  <?php echo  $row['Subject']; ?> 
+													<br> FOR  <?php echo strtoupper($row['Semester']); ?>
+													<br>SY: <?php echo $row['SYstart']." - ".$row['SYend'] ; ?>
+													<br>AS OF <?php echo strtoupper(date('F d, Y')); ?>
 												</b>
 											</center>
 									  	</div>
 
 									  	<table  class="table bootstrap-datatable datatable">
 									  		<thead>
-									  			<th>Name</th>
-				              					<th>Project</th>
+									  			<th>Name of students</th>
+				              					<th>Project Name</th>
 				              					<th>Date Submitted</th>
 									  		</thead>
 									  		<tbody>
@@ -116,12 +122,13 @@
 												 	if(mysql_num_rows($result) > 0)
 												 	{
 												 		while ($row1 = mysql_fetch_array($result)) 
-												 		{								 			
+												 		{			
+												 		$date = new DateTime($row1['Date']);					 			
 												 ?>
 									  			<tr>
 										 			<td><?php echo $row1['FName']." ".$row1['LName']; ?></td>
 		              								<td><?php echo $row1['project_name']; ?></td>
-		              								<td><?php echo $row1['Date']; ?></td>
+		              								<td><?php echo date_format($date,"F d, Y h:ia"); ?></td>
 											    </tr>
 									  			<?php
 														}
@@ -130,8 +137,108 @@
 									  		</tbody>
 									  	</table>
 										         
+										<br><br><br><br>
+
+									  	Prepared by:
+									  	<br><br><br>
+									  	<?php 
+									  		$result2 = mysql_query("SELECT staf.* FROM fr_staff as staf , fr_ins_subject as ins WHERE ins.user_id = staf.user_id AND ins.id = '".$_GET['id']."' ");
+									  		$row2 = mysql_fetch_array($result2);
+
+									  		echo '<label style="margin-left: 160px;"><b>'.$row2['FirstN'] .' '. $row2['LastN'].'</b></label>';
+
+									  	?>
+									  	<label style="margin-left: 100px; margin-top:-20px;">____________________________</label>
+									  	<label style="margin-left: 170px; ">Instructor</label>    								
 
 									</div>
+							<?php
+								}
+								if(isset($_GET['submit']) && $_GET['submit'] == 'nsubmit')
+								{
+							?>
+									<div class="box-header">
+										<script>
+				                           //window.print();
+
+				                            function printpage()
+				                            {
+				                                window.print();
+				                            }
+				                        </script>
+				                        <style type="text/css">
+				                            @media print {
+				                              /* style sheet for print goes here */
+				                              .hide-from-printer{  display:none; }
+				                            }
+				                        </style>
+										<a class="hide-from-printer" href="../reports.php?activity=activity"><button>Back</button></a> 
+										<input class="hide-from-printer" type="button" value="Print" onclick="printpage()">
+									</div>
+							<?php 
+									$result = mysql_query("SELECT pn.*,isub.Subject,sub.*,sem.*,sy.* FROM project_notif as pn , fr_ins_subject  as isub , fr_subject as sub , fr_semester as sem, fr_sy as sy WHERE isub.Subject = sub.SubCode AND sem.SemID = sub.SemID AND sy.SYID = sem.SYID AND sem.SemID = '".$_GET['sem']."' AND pn.subject_id = isub.id AND pn.folder_name = '".$_GET['foldern']."' AND pn.subject_id = '".$_GET['id']."'") or die(mysql_error());
+									$row = mysql_fetch_array($result);
+							?>
+									<div class="box-content">
+										<div class="page-header">
+											<center>
+													WESTERN LEYTE COLLEGE OF ORMOC CITY, INC.
+												<br>
+													Bonifacio St. Ormoc City
+												<br>
+													College of ICT & Engineering
+												<br><br>
+												<b>
+													<br>LIST OF STUDENT NOT SUMBITTED A FILE IN  <?php echo  $row['folder_name']; ?> 
+													<br>FOR THE SUBJECT  <?php echo  $row['Subject']; ?> 
+													<br> FOR  <?php echo strtoupper($row['Semester']); ?>
+													<br>SY: <?php echo $row['SYstart']." - ".$row['SYend'] ; ?>
+													<br>AS OF <?php echo strtoupper(date('F d, Y')); ?>
+												</b>
+											</center>
+									  	</div>
+
+									  	<table  class="table bootstrap-datatable datatable">
+									  		<thead>
+									  			<th>Name of students</th>
+									  		</thead>
+									  		<tbody>
+									  			<?php
+									  				$result = mysql_query("SELECT * FROM fr_stud_subject as studsub , fr_stud as stud  WHERE studsub.user_id = stud.user_id AND studsub.subject_id = '".$_GET['id']."' AND NOT EXISTS(SELECT * FROM project_notif as pn WHERE pn.stud_id = studsub.user_id AND studsub.subject_id = pn.subject_id)") or die(mysql_error());
+												 	if(mysql_num_rows($result) > 0)
+												 	{
+												 		while ($row1 = mysql_fetch_array($result)) 
+												 		{			
+												 		$date = new DateTime($row1['Date']);					 			
+												 ?>
+									  			<tr>
+										 			<td><?php echo $row1['FName']." ".$row1['LName']; ?></td>
+											    </tr>
+									  			<?php
+														}
+													}
+												?>
+									  		</tbody>
+									  	</table>
+
+									  	<br><br><br><br>
+
+									  	Prepared by:
+									  	<br><br><br>
+									  	<?php 
+									  		$result2 = mysql_query("SELECT staf.* FROM fr_staff as staf , fr_ins_subject as ins WHERE ins.user_id = staf.user_id AND ins.id = '".$_GET['id']."' ");
+									  		$row2 = mysql_fetch_array($result2);
+
+									  		echo '<label style="margin-left: 160px;"><b>'.$row2['FirstN'] .' '. $row2['LastN'].'</b></label>';
+
+									  	?>
+									  	<label style="margin-left: 100px; margin-top:-20px;">____________________________</label>
+									  	<label style="margin-left: 170px; ">Instructor</label> 
+									</div>
+
+							<?php
+								}
+							?>
 					</div><!--/span-->
 				</div>
 		

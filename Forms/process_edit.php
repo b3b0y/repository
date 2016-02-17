@@ -54,21 +54,26 @@ include_once("../php/config.php");
 		}
 			if($pass == $repass)
 			{
-				$result = mysql_query("SELECT * FROM fr_user WHERE id = '".$_POST['id'] ."' AND username = '".$uname."' ");
-				if(mysql_num_rows($result) == 0)
+				$result = mysql_query("SELECT * FROM fr_user WHERE username = '".$uname."' ");
+				if(mysql_num_rows($result) > 0)
 				{
-					$stop = 1;
-					$_SESSION['lname'] = $Lname;
-					$_SESSION['fname'] = $Fname;
-					$_SESSION['mname'] = $mname;
-					$_SESSION['ulvl'] = $ulvl;
-					$_SESSION['pass'] = $pass;
-					$_SESSION['UFail'] = "User Name is already used";
-					
-					unset($_SESSION['uname']);
-					unset($_SESSION['pFail']);
+					$row = mysql_fetch_array($result);
 
-					header("Location: ../user.php?user=edit_faculty&&id=".$_POST['id']);
+					if($row['username'] != $_POST['username'])
+					{
+						$stop = 1;
+						$_SESSION['lname'] = $Lname;
+						$_SESSION['fname'] = $Fname;
+						$_SESSION['mname'] = $mname;
+						$_SESSION['ulvl'] = $ulvl;
+						$_SESSION['pass'] = $pass;
+						$_SESSION['UFail'] = "User Name is already used";
+						
+						unset($_SESSION['uname']);
+						unset($_SESSION['pFail']);
+
+						header("Location: ../user.php?user=edit_faculty&&id=".$_POST['id']);
+					}
 				}
 
 				if($stop == 0)
@@ -153,41 +158,51 @@ include_once("../php/config.php");
 			$pass = mysql_escape_string(trim($_POST['pass']));
 		}
 
-			$result = mysql_query("SELECT * FROM fr_user WHERE id = '".$_POST['id'] ."' AND username = '".$uname."' ");
-			if(mysql_num_rows($result) == 0)
+			$result = mysql_query("SELECT * FROM fr_user WHERE username = '".$uname."' ");
+			if(mysql_num_rows($result) > 0)
 			{
-				$stop = 1;
-				$_SESSION['lname'] = $Lname;
-				$_SESSION['fname'] = $Fname;
-				$_SESSION['mname'] = $Mname;
-				$_SESSION['course'] = $course;
-				$_SESSION['year'] = $year;
-				$_SESSION['pass'] = $pass;
-				$_SESSION['ControlNo'] = $Idnum;
-				$_SESSION['UFail'] = "User Name is already used";
+				$row = mysql_fetch_array($result);
+
+				if($row['username'] != $_POST['username'])
+				{
+					$stop = 1;
+					$_SESSION['lname'] = $Lname;
+					$_SESSION['fname'] = $Fname;
+					$_SESSION['mname'] = $Mname;
+					$_SESSION['course'] = $course;
+					$_SESSION['year'] = $year;
+					$_SESSION['pass'] = $pass;
+					$_SESSION['ControlNo'] = $Idnum;
+					$_SESSION['UFail'] = "User Name is already used";
+					
+					unset($_SESSION['uname']);
+
+					header("Location: ../user.php?user=edit_student&&id=".$_POST['id']);
+				}
+			}
+
+
+			$result = mysql_query("SELECT * FROM fr_stud WHERE ControlNo = '".$Idnum."' ") or die("Student Search Query : " . mysql_error());
+			if(mysql_num_rows($result) > 0)
+			{
+				$row = mysql_fetch_array($result);
 				
-				unset($_SESSION['uname']);
+				if($row['ControlNo'] != $_POST['cnum'])
+				{
+					$stop = 1;
+					$_SESSION['lname'] = $Lname;
+					$_SESSION['fname'] = $Fname;
+					$_SESSION['mname'] = $Mname;
+					$_SESSION['course'] = $course;
+					$_SESSION['year'] = $year;
+					$_SESSION['cfail'] = "Control number is already used";
 
-				header("Location: ../user.php?user=edit_student&&id=".$_POST['id']);
+					unset($_SESSION['ControlNo']);
+
+					header("Location: ../user.php?user=edit_student&&id=".$_POST['id']);
+				}
 			}
-
-			$result = mysql_query("SELECT * FROM fr_stud WHERE user_id = '".$_POST['id'] ."' AND ControlNo = '".$Idnum."' ") or die("Student Search Query : " . mysql_error());
-			if(mysql_num_rows($result) == 0)
-			{
-				$_SESSION['lname'] = $Lname;
-				$_SESSION['fname'] = $Fname;
-				$_SESSION['mname'] = $Mname;
-				$_SESSION['course'] = $course;
-				$_SESSION['year'] = $year;
-				$_SESSION['cfail'] = "Control number is already used";
-
-				$stop = 1;
-
-				unset($_SESSION['ControlNo']);
-
-				header("Location: ../user.php?user=edit_student&&id=".$_POST['id']);
-			}
-
+		
 			if($stop == 0)
 			{
 				mysql_query("UPDATE fr_user SET username= '".$uname."', password= '".$pass."' WHERE id = '".$_POST['id'] ."'");
@@ -206,6 +221,6 @@ include_once("../php/config.php");
 
 				echo '<script> alert("Successfully Update"); window.location.href="../user.php?student=true"; </script>';
 			}
-
+		
 	}
 ?>

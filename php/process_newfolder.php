@@ -33,8 +33,33 @@ require('../dirLIST_files/functions.php');
 
 	if(mkdir($new_path, 0700))
 	{
-		header("Location: ../index.php?folder=".$_POST['folder']);
-		exit;
+		if(isset($_POST['folder']) && $_POST['folder'] != "")
+		{
+			header("Location: ../index.php?folder=".$_POST['folder']);
+			exit;
+		}
+		else if(isset($_SESSION['subf']) && isset($_SESSION['folder1']))
+		{
+			$subf = $_SESSION['subf'];
+			$folder1 = $_SESSION['folder1'];
+
+			unset($_SESSION['subf']);
+			unset($_SESSION['folder1']);
+
+			header("Location: ../index.php?subf=".$subf.'&&folder1='.$folder1);
+		}
+		else if(isset($_SESSION['studsub']))
+		{
+			$studsub =  $_SESSION['studsub'];
+			unset($_SESSION['studsub']);
+
+			header("Location: ../index.php?studsub=".$studsub);
+		}
+		else
+		{
+			header("Location: ../index.php");
+		}
+		
 	}	
 	else
 	{

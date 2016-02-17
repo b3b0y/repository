@@ -14,6 +14,15 @@ if(!isset($_SESSION['login']))
         header("Location: login.php");
 } 
 
+if(isset($_GET['empty']) && $_GET['empty'] == 'true')
+{
+	unset($_GET['id']);
+	unset($_GET['subf']);
+	unset($_GET['studsub']);
+	unset($_GET['share']);
+	unset($_GET['archive']);
+}
+
 /*
 if (!empty($_SESSION['dir_to_browse'])) 
 {
@@ -608,6 +617,7 @@ if(isset($_SESSION['view_mode_session']))
 		.file_bg2 ul:hover
 		{
 			background-color: #e5f2ff;
+			z-index: 9999;
 			border: 1px solid #99ccff;
 			opacity: 0.6;
 			filter: alpha(opacity=60);

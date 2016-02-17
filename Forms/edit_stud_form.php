@@ -23,6 +23,7 @@ $row = mysql_fetch_array($result);
 					<label class="control-label" for="focusedInput">Control number:</label>
 					<div class="controls">
 					  <input name="Idnum" placeholder="Control number" class="input-xlarge focused" id="focusedInput" type="text" value="<?php if(isset($_SESSION['ControlNo'])) { echo $_SESSION['ControlNo']; } else { if(isset($_SESSION['cfail'])) { echo ""; } else { echo  $row['ControlNo']; } } ?>" required><font style="color:red;" > *</font> <font style="color:red;" > <strong><?php echo $_SESSION['cfail']; ?> </font> 
+					  <input name="cnum" type="hidden" value="<?php echo $row['ControlNo']; ?>">
 					</div>
 				  </div>
 				  <div class="control-group">
@@ -78,6 +79,7 @@ $row = mysql_fetch_array($result);
 					<label class="control-label" for="focusedInput">Username:</label>
 					<div class="controls">
 					  <input name="uname" placeholder="Username" class="input-xlarge focused" id="focusedInput" type="text" value="<?php if(isset($_SESSION['uname'])) { echo $_SESSION['uname']; } else { if(isset($_SESSION['UFail'])) { echo ""; } else { echo $row['username']; } }  ?>" required><font style="color:red;" > *</font> <font style="color:red;" ><?php  if(isset($_SESSION['UFail'])) { echo $_SESSION['UFail']; } else { echo ""; } ?> </font>  
+					   <input name="username" type="hidden" value="<?php echo $row['username']; ?>">
 					</div>
 				  </div>
 				  <div class="control-group">

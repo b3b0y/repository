@@ -49,7 +49,20 @@
 	<!-- end: Favicon -->
 	
 		
-		
+		<script>
+           //window.print();
+
+            function printpage()
+            {
+                window.print();
+            }
+        </script>
+        <style type="text/css">
+            @media print {
+              /* style sheet for print goes here */
+              .hide-from-printer{  display:none; }
+            }
+        </style>
 		
 </head>
 
@@ -61,27 +74,17 @@
 			<div id="content" class="span10">		
 					<div class="row-fluid sortable">
 						<div class="box span9">
-							<div class="box-header">
-								<script>
-		                           //window.print();
-
-		                            function printpage()
-		                            {
-		                                window.print();
-		                            }
-		                        </script>
-		                        <style type="text/css">
-		                            @media print {
-		                              /* style sheet for print goes here */
-		                              .hide-from-printer{  display:none; }
-		                            }
-		                        </style>
-								<a class="hide-from-printer" href="../reports.php?subject=subject"><button>Back</button></a> 
-								<input class="hide-from-printer" type="button" value="Print" onclick="printpage()">
-							</div>
 							<?php 
-								if(isset($_GET['view']) && $_GET['view'] == 'subject') 
+								if(isset($_GET['view']) && $_GET['view'] == 'Enrolled') 
 								{
+							?>
+								<div class="box-header">
+									
+									<a class="hide-from-printer" href="../reports.php?subject=Enrolled"><button>Back</button></a> 
+									<input class="hide-from-printer" type="button" value="Print" onclick="printpage()">
+								</div>
+
+							<?php
 									$result = mysql_query("SELECT sub.*,sem.*,sy.* FROM  fr_subject as sub , fr_semester as sem, fr_sy as sy WHERE sem.SemID = sub.SemID AND sy.SYID = sem.SYID AND sem.SemID = '".$_GET['sem']."' AND sub.SubCode = '".$_GET['subcode']."'");
 									$row = mysql_fetch_array($result);
 							?>
@@ -95,9 +98,10 @@
 													College of ICT & Engineering
 												<br><br>
 												<b>
-													<br>List of students for <?php echo $row['Semester']; ?>
+													<br>LIST OF STUDENTS ENROLLED IN <?php echo $_GET['subcode'].' - '.$row['Description']; ?>
+													<br> FOR  <?php echo strtoupper($row['Semester']); ?>
 													<br>SY: <?php echo $row['SYstart']." - ".$row['SYend'] ; ?>
-													<br><?php echo $_GET['subcode'].' - '.$row['Description']; ?>
+													<br>AS OF <?php echo date('F d, Y'); ?>
 												</b>
 											</center>
 									  	</div>
@@ -105,24 +109,25 @@
 									  	<table  class="table   bootstrap-datatable datatable">
 									  		<thead>
 									  			<th>Control No.</th>
-									  			<th>Name</th>
-									  			<th>Year</th>
-									  			<th>Date Approve</th>
+									  			<th>Name of students</th>
+									  			<th>Year level</th>
+									  			<th>Date Enrolled</th>
 									  		</thead>
 									  		<tbody>
 									  			<?php
 
-										  			$result1 = mysql_query("SELECT stud.*,studsub.Date_Created FROM fr_ins_subject as sub,fr_stud as stud,fr_stud_subject as studsub , fr_subject WHERE fr_subject.SubCode = sub.Subject AND studsub.subject_id = sub.id AND studsub.user_id = stud.user_id AND sub.Subject = '".$_GET['subcode']."'")or die(mysql_error()); 
+										  			$result1 = mysql_query("SELECT stud.*,studsub.Date_Created FROM fr_ins_subject as sub,fr_stud as stud,fr_stud_subject as studsub , fr_subject WHERE fr_subject.SubCode = sub.Subject AND studsub.subject_id = sub.id AND studsub.user_id = stud.user_id AND sub.Subject = '".$_GET['subcode']."' AND studsub.status = 'APPROVED'")or die(mysql_error()); 
 												 	if(mysql_num_rows($result) > 0)
 												 	{
 												 		while ($row1 = mysql_fetch_array($result1)) 
-												 		{								 			
+												 		{				
+												 		$date = new DateTime($row1['Date_Created']);				 			
 												 ?>
 									  			<tr>
 									  				<td><?php echo $row1['ControlNo']?></td>  
 										            <td><?php echo $row1['FName']." ".$row1['LName']; ?></td>
 										            <td><?php echo $row1['Year']; ?></td>
-										            <td><?php echo $row1['Date_Created']; ?></td>	
+										            <td><?php echo date_format($date,"F d, Y"); ?></td>	
 									  			</tr>
 									  			<?php
 														}
@@ -130,8 +135,102 @@
 												?>
 									  		</tbody>
 									  	</table>
-										         
 
+									  	<br><br><br><br>
+
+									  	Prepared by:
+									  	<br><br><br>
+									  	<?php 
+									  		$result2 = mysql_query("SELECT staf.* FROM fr_staff as staf , fr_ins_subject as ins WHERE ins.user_id = staf.user_id AND ins.Subject = '".$_GET['subcode']."' ");
+									  		$row2 = mysql_fetch_array($result2);
+
+									  		echo '<label style="margin-left: 160px;"><b>'.$row2['FirstN'] .' '. $row2['LastN'].'</b></label>';
+
+									  	?>
+									  	<label style="margin-left: 100px; margin-top:-20px;">____________________________</label>
+									  	<label style="margin-left: 170px; ">Instructor</label>    								
+
+									</div>
+							<?php 
+								}
+							?>
+							<?php 
+								if(isset($_GET['view']) && $_GET['view'] == 'Dropped') 
+								{
+
+							?>
+								<div class="box-header">
+									
+									<a class="hide-from-printer" href="../reports.php?subject=Dropped"><button>Back</button></a> 
+									<input class="hide-from-printer" type="button" value="Print" onclick="printpage()">
+								</div>
+								
+							<?php
+									$result = mysql_query("SELECT sub.*,sem.*,sy.* FROM  fr_subject as sub , fr_semester as sem, fr_sy as sy WHERE sem.SemID = sub.SemID AND sy.SYID = sem.SYID AND sem.SemID = '".$_GET['sem']."' AND sub.SubCode = '".$_GET['subcode']."'");
+									$row = mysql_fetch_array($result);
+							?>
+									<div class="box-content">
+										<div class="page-header">
+											<center>
+													WESTERN LEYTE COLLEGE OF ORMOC CITY, INC.
+												<br>
+													Bonifacio St. Ormoc City
+												<br>
+													College of ICT & Engineering
+												<br><br>
+												<b>
+													<br>LIST OF DROPPED STUDENTS IN <?php echo $_GET['subcode'].' - '.$row['Description']; ?>
+													<br> FOR  <?php echo strtoupper($row['Semester']); ?>
+													<br>SY: <?php echo $row['SYstart']." - ".$row['SYend'] ; ?>
+													<br>AS OF <?php echo date('F d, Y'); ?>
+												</b>
+											</center>
+									  	</div>
+
+									  	<table  class="table   bootstrap-datatable datatable">
+									  		<thead>
+									  			<th>Control No.</th>
+									  			<th>Name of students</th>
+									  			<th>Year level</th>
+									  			<th>Date Enrolled</th>
+									  		</thead>
+									  		<tbody>
+									  			<?php
+
+										  			$result1 = mysql_query("SELECT stud.*,studsub.Date_Created FROM fr_ins_subject as sub,fr_stud as stud,fr_stud_subject as studsub , fr_subject WHERE fr_subject.SubCode = sub.Subject AND studsub.subject_id = sub.id AND studsub.user_id = stud.user_id AND sub.Subject = '".$_GET['subcode']."' AND studsub.status = 'Dropped'")or die(mysql_error()); 
+												 	if(mysql_num_rows($result) > 0)
+												 	{
+												 		while ($row1 = mysql_fetch_array($result1)) 
+												 		{				
+												 		$date = new DateTime($row1['Date_Created']);				 			
+												 ?>
+									  			<tr>
+									  				<td><?php echo $row1['ControlNo']?></td>  
+										            <td><?php echo $row1['FName']." ".$row1['LName']; ?></td>
+										            <td><?php echo $row1['Year']; ?></td>
+										            <td><?php echo date_format($date,"F d, Y"); ?></td>	
+									  			</tr>
+									  			<?php
+														}
+													}
+												?>
+									  		</tbody>
+									  	</table>
+
+									  	
+									  	<br><br><br><br>
+
+									  	Prepared by:
+									  	<br><br><br>
+									  	<?php 
+									  		$result2 = mysql_query("SELECT staf.* FROM fr_staff as staf , fr_ins_subject as ins WHERE ins.user_id = staf.user_id AND ins.Subject = '".$_GET['subcode']."' ");
+									  		$row2 = mysql_fetch_array($result2);
+
+									  		echo '<label style="margin-left: 160px;"><b>'.$row2['FirstN'] .' '. $row2['LastN'].'</b></label>';
+
+									  	?>
+									  	<label style="margin-left: 100px; margin-top:-20px;">____________________________</label>
+									  	<label style="margin-left: 170px; ">Instructor</label> 
 									</div>
 							<?php 
 								}
