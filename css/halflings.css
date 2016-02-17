@@ -533,7 +533,7 @@ html .halflings {
 .no-inlinesvg .halflings-icon {
   background-image: url(../img/glyphicons_halflings.png);
 }
-.halflings-icon.white {
+.halflings-icon.black {
   background-image: url(../img/glyphicons_halflings-white.svg);
 }
 .no-inlinesvg .halflings-icon.white {
