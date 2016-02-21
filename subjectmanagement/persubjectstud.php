@@ -14,6 +14,7 @@
 				<th >Name of Students</th>
 				<th >Year level</th>
 				<th >Date Enrolled</th>
+				<th>Storage</th>
 				<th>Status</th>
 				<th >Action</th>
 
@@ -32,6 +33,7 @@
 		            <td><?php echo $row['FName']." ".$row['LName']; ?></td>
 		            <td><?php echo $row['Year']; ?></td>
 		            <td><?php echo $row['Date_Created']; ?></td>
+		              <td><?php echo $row['size_limit']; ?></td>
 		            <td><?php echo  $row['status'] == 'APPROVED' ? '<span class="btn btn-mini btn-success">Enrolled</span>' : '<span class="btn btn-mini btn-danger">'.$row['status'].'</span>' ; ?> </td>
 		            <td><a onclick="return confirm('Are you sure you want to Drop?');" href="php/delete.php?delete=drop&&id=<?php echo $row['id']; ?>"><button><i class="halflings-icon trash"></i> Drop</button></a></td>
 			    </tr>   

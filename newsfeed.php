@@ -26,10 +26,11 @@
 
 			$link = 'newsfeed.php?';
 
-	        $message = $name.' is set a New Announcement ';                
-
+			
 			while ($row = mysql_fetch_array($result)) 
-			{
+			{	
+				   $message = $name.'  send a New Announcement in'. $row['subject'];  
+
 				mysql_query("INSERT INTO fr_notification(user_id,link,message,status,Date) VALUES('".$row['user_id']."','".$link."','".$message."','unread','".$date."')");
 			}
 

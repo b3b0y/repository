@@ -290,10 +290,17 @@ if(isset($_SESSION['view_mode_session']))
 				<ul class="breadcrumb">
 					<?php
 					//Breadcrumbs and admin logout link
+					$result = mysql_query("SELECT * FROM  fr_path WHERE user_id = '".$_SESSION['user_id']."'") or die('Error share: '. mysql_error());
+					 	if(mysql_num_rows($result) > 0)
+					 	{
+					 		$row = mysql_fetch_array($result);							 			
+
+					 		$home = "index.php?id=".$row['id'];
+					 	}
 					
 					$this_file_name = basename($_SERVER['PHP_SELF']);
 					$this_file_size = filesize($this_file_name);
-					echo '<li> <i class="icon-home"></i> <a href="'.$this_file_name.'">Home</a><i class="icon-angle-right"> </i> </li>';
+					echo '<li> <i class="icon-home"></i> <a href="'.$home.'">Home</a><i class="icon-angle-right"> </i> </li>';
 					if(!empty($url_folder))
 					{
 						$folders_in_url = explode("/", $url_folder);
@@ -391,23 +398,6 @@ if(isset($_SESSION['view_mode_session']))
 
 												if($oldtime > time())
 												{		
-													/*
-													if($bol == true)
-													{
-														$datetime1 = strtotime(date_format($date, 'Y-m-d H:i:s A'));
-														$datetime2 = strtotime(date("Y-m-d H:i:s A"));
-														$interval  = abs($datetime2 - $datetime1);
-														$minutes   = round($interval / 60);
-
-														if($minutes <= 60)
-														{
-														 	$message = $row['shared_name'].' is only have '.$minutes.' minutes left before the deadline ends'; 
-														 	$link = 'index.php?share='.$row['id'];
-														 	mysql_query("INSERT INTO fr_notification(user_id,link,message,status,Date) VALUES('".$row['user_id']."','".$link."','".$message."','unread','".date ("y/m/d H:i:s")."')");											
-														}
-														$bol = false;
-													}
-												*/
 								?>					
 									 				<li><a class="submenu" href="index.php?share=<?php echo  $row['id']; ?>"><font color="black"> <i class="icon-file-alt"></i><?php echo basename($row['shared_name']); ?></font></a> </li>
 								<?php

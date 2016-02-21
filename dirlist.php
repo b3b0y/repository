@@ -15,50 +15,8 @@
 	//Chcek if directory exists -done
 	if($folder_exists == true)
 	{
-?>
-	<div class="row-fluid">	
-		<div class="box-content">
-			<div class="box defualt span12">
-				<?php 
-				
-					if($_SESSION['upload'] == 1)
-					{
-				?>
-					<a class="quick-button-small span2  btn-link-1 launch-modal" href="#" data-modal-id="modal-register2">
-					 	<i class="icon-upload-alt"></i>
-					 	<p>Upload</p>
-					 </a>
-				<?php
-					}
-					if($_SESSION['create_folders'] == 1)
-					{
-				?>
-					 <a class="quick-button-small span2  btn-link-1 launch-modal" href="#" data-modal-id="modal-register">
-					 	<i class="icon-folder-close"></i>
-					 	<p>New folder</p>
-					 </a>
 
-				<?PHP 
-					}
-					if($view_mode_user_selectable == 1) 
-					{ 
-				?>
-				<a class="quick-button-small span2" href="dirLIST_files/change_view.php?folder=<?PHP echo $_GET['folder']; ?>"><?PHP echo ($view_mode == 0) ? '<i class="icon-th-list"></i>' : '<i class="icon-th-large"></i>'; ?>
-						<p>Thumbnail</p>
-	        	</a>
-				<?PHP 
-					} 
-				?>
-			<div class="clearfix"></div>
-		</div>
-		</div>	
-	</div><!--/row-->
-          	
-	<!-- Output basic HTML code -done -->
-	<?PHP
-	}
-
-	//Open FTP connection
+			//Open FTP connection
 	if($listing_mode == 1)
 	{
 		$ftp_stream = ftp_connect($ftp_host) or die(display_error_message("<b>Could not connect to FTP host</b>"));
@@ -93,7 +51,7 @@
 		case "archive_error": echo display_error_message("<div class='box-content alerts'> <div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert'>×</button><strong>Archived failed, cannot archive this folder!</div></div>")."<br />";break;
 		case "upload_banned": echo display_error_message("<div class='box-content alerts'> <div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert'>×</button><strong>Upload failed, banned file type</div></div>")."<br />";break;
 		case "upload_error": echo display_error_message("<div class='box-content alerts'> <div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert'>×</button><strong>Upload failed, an unknown error occured</div></div>")."<br />";break;
-		case "size": echo display_error_message("<div class='box-content alerts'> <div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert'>×</button><strong>File size exceeded limit. Max allowed is ".max_upload_size()."B</b></div></div>")."<br />";break;
+		case "size": echo display_error_message("<div class='box-content alerts'> <div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert'>×</button><strong>File size exceeded limit</b></div></div>")."<br />";break;
 		case "nofile": echo display_error_message("<div class='box-content alerts'> <div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert'>×</button><strong>Please select a file to upload!</div></div>")."<br />";break;
 		case 'link' : echo display_error_message("<div class='box-content alerts'> <div class='alert alert-error'> <b>Error:</b> Folder specified does not exist. This could be because you manually entered the folder name in the URL or you don't have permission to access this folder</div></div>"); break;
 		case "rename_archive": echo display_error_message("<div class='box-content alerts'> <div class='alert alert-error'> <button type='button' class='close' data-dismiss='alert'>×</button><strong>Cant rename Archive folder!</div></div>")."<br />";break;
@@ -220,6 +178,94 @@
 		}
 	}
 	//Hide file extensions if enabled -done
+?>
+	<div class="row-fluid">	
+		<div class="box-content">
+		<?php 
+
+			$dir = $_SESSION['dir_to_browse'];
+
+			function filesize_r($dir)
+		    {
+		      @$dh = opendir($dir);
+		      $size = 0;
+		      while ($file = @readdir($dh))
+		      {
+		        if ($file != "." and $file != "..") 
+		        {
+		          $path = $dir."/".$file;
+		          if (is_dir($path))
+		          {
+		            $size += filesize_r($path); // recursive in sub-folders
+		          }
+		          elseif (is_file($path))
+		          {
+		            $size += filesize($path); // add file
+		          }
+		        }
+		      }
+		      @closedir($dh);
+		      return $size;
+		    }
+
+		    	$total_size = sprintf("%01.2f", (filesize_r($dir) / 1024) / 1024);
+
+				$file_size = $total_size;
+				if($file_size >=  1024)
+					$file_size = " GB";
+				elseif ($file_size >=  1)
+					$file_size = " MB";
+				else
+					$file_size = " KB";
+
+				$bar = (($total_size / $_SESSION['size_limit']) * 100 ) * 1;
+
+		 ?>
+			<h5>Space used : <?php 	echo $total_size .' '.$file_size .' / '. sprintf("%01.3f",$_SESSION['size_limit'] / 1024 ); ?> GB</h5>
+			<div class="meter <?php if($bar >= 70) { echo 'red'; } else { echo 'blue'; } ?>"><span style="width: <?php echo $bar; ?>%"></span></div>
+		</div>
+	</div>
+	<div class="row-fluid">	
+		<div class="box-content">
+			<div class="box defualt span12">
+				<?php 
+				
+					if($_SESSION['upload'] == 1)
+					{
+				?>
+					<a class="quick-button-small span2  btn-link-1 launch-modal" href="#" data-modal-id="modal-register2">
+					 	<i class="icon-upload-alt"></i>
+					 	<p>Upload</p>
+					 </a>
+				<?php
+					}
+					if($_SESSION['create_folders'] == 1)
+					{
+				?>
+					 <a class="quick-button-small span2  btn-link-1 launch-modal" href="#" data-modal-id="modal-register">
+					 	<i class="icon-folder-close"></i>
+					 	<p>New folder</p>
+					 </a>
+
+				<?PHP 
+					}
+					if($view_mode_user_selectable == 1) 
+					{ 
+				?>
+				<a class="quick-button-small span2" href="dirLIST_files/change_view.php?folder=<?PHP echo $_GET['folder']; ?>"><?PHP echo ($view_mode == 0) ? '<i class="icon-th-list"></i>' : '<i class="icon-th-large"></i>'; ?>
+						<p>Thumbnail</p>
+	        	</a>
+				<?PHP 
+					} 
+				?>
+			<div class="clearfix"></div>
+		</div>
+		</div>	
+	</div><!--/row-->
+          	
+	<!-- Output basic HTML code -done -->
+	<?PHP
+	}
 
 	if(!empty($folders['name']) || !empty($files['name'])) { ?>
 

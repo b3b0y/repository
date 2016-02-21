@@ -100,7 +100,7 @@
 
 					<div class="box defualt span12">
 						<div class="box-header">
-							<h2><i class="halflings-icon hand-top"></i><span class="break"></span>Accounts</h2>
+							<h2><i class="halflings-icon hand-top"></i><span class="break"></span>ACCOUNTS DASHBOARD</h2>
 						</div>
 						<div class="box-content">
 							
@@ -135,7 +135,7 @@
 						{
 					?>
 							<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon user"></i><span class="break"></span>Faculty</h2>
+						<h2><i class="halflings-icon user"></i><span class="break"></span>LIST OF FACULTY ACCOUNT</h2>
 					</div>
 					<div class="box-content buttons">
 						<a href="user.php?user=faculty"> <button class="btn btn-large btn-success">ADD FACULTY</button> </a>
@@ -145,11 +145,12 @@
 						  <thead>
 							  <tr>
 							  	  <th>No.</th>
-								  <th>Name</th>
+								  <th>Name of Faculty</th>
 								  <th>Username</th>
 								  <th>Last Login</th>
 								  <th>Last Log-Out</th>
 								  <th>User Level</th>
+								  <th>Storage</th>
 								  <th>Status</th>
 								  <th>Action</th>
 							  </tr>
@@ -158,7 +159,7 @@
 						  	<?php
 						  			if($_SESSION['Ulvl'] >= 3)
 									{
-										$result = mysql_query("SELECT fr_user.*,position.Position,fr_staff.FirstN,fr_staff.LastN,fr_staff.midN FROM fr_user,position,fr_staff WHERE fr_user.UserLvl > 1 AND fr_user.UserLvl = position.UserLvl AND fr_user.id = fr_staff.user_id ") or die ("Admin :". mysql_error());
+										$result = mysql_query("SELECT fr_user.*,position.Position,fr_staff.FirstN,fr_staff.LastN,fr_staff.midN,fr_staff.size_limit FROM fr_user,position,fr_staff WHERE fr_user.UserLvl > 1 AND fr_user.UserLvl = position.UserLvl AND fr_user.id = fr_staff.user_id ") or die ("Admin :". mysql_error());
 									}
 									/*
 									else if($_SESSION['Ulvl'] == "3")
@@ -179,8 +180,9 @@
 											<td><?php echo $row['last_login_date']; ?></td>
 											<td><?php echo $row['last_logout_date']; ?></td>
 											<td><?php echo $row['Position']; ?></td>
+											<td><?php echo $row['size_limit']; ?> GB</td>
 											<td><?php echo $row['status'] == 'online' ? '<span class="btn btn-mini btn-success">'. $row['status'] .'</span>' : '<span class="btn btn-mini btn-danger">'.$row['status'].'</span>' ; ?> </td>
-											<td><a href="user.php?user=edit_faculty&&id=<?php echo $row['id']; ?>"><button><i class="halflings-icon edit"></i>Edit</button></a> <a onclick="return confirm('Are you sure you want to delete?');" href="php/delete.php?delete=edit_faculty&&id=<?php echo $row['id']; ?>"><button><i class="halflings-icon trash"></i>Delete</button></a></td>
+											<td><a href="user.php?user=edit_faculty&&id=<?php echo $row['id']; ?>"><button><i class="halflings-icon edit"></i></button></a> <a onclick="return confirm('Are you sure you want to delete?');" href="php/delete.php?delete=edit_faculty&&id=<?php echo $row['id']; ?>"><button><i class="halflings-icon trash"></i></button></a></td>
 										</tr>  
 								<?php
 										}
@@ -203,7 +205,7 @@
 						{
 					?>
 					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon user"></i><span class="break"></span>Student</h2>
+						<h2><i class="halflings-icon user"></i><span class="break"></span>LIST OF STUDENTS ACCOUNT</h2>
 					</div>
 					<div class="box-content buttons">
 						<a href="user.php?user=student"> <button class="btn btn-large btn-success">ADD STUDENT</button> </a>
@@ -215,12 +217,13 @@
 						  <thead>
 							  <tr>
 							  	<th>No.</th>    
-								<th>Name</th>
+								<th>Name of students</th>
 								<th>Username</th>
 								<th>Password</th>
-								<th>Course/Year</th>
+								<th>Course/Year level</th>
 								<th>Last Login</th>
 								<th>Last Log-Out</th>
+								<th>Storage</th>
 								<th>Status</th>
 								<th>Action</th>
 							  </tr>
@@ -228,7 +231,7 @@
 						  <tbody>
 						  	<?php
 						  		
-									$result = mysql_query("SELECT fr_user.*,fr_stud.FName,fr_stud.LName,fr_stud.Course,fr_stud.Year FROM fr_user,fr_stud WHERE fr_user.UserLvl = 1  AND fr_user.id = fr_stud.user_id ") or die ("Instructor :". mysql_error());
+									$result = mysql_query("SELECT fr_user.*,fr_stud.FName,fr_stud.LName,fr_stud.Course,fr_stud.Year,fr_stud.size_limit FROM fr_user,fr_stud WHERE fr_user.UserLvl = 1  AND fr_user.id = fr_stud.user_id ") or die ("Instructor :". mysql_error());
 									
 
 								 	if(mysql_num_rows($result) > 0)
@@ -245,8 +248,9 @@
 											<td><?php echo $row['Course'].' - '.$row['Year']; ?></td>
 											<td><?php echo $row['last_login_date']; ?></td>
 											<td><?php echo $row['last_logout_date']; ?></td>
+											<td><?php echo $row['size_limit']; ?> GB</td>
 											<td><?php echo $row['status'] == 'online' ? '<span class="btn btn-mini btn-success">'. $row['status'] .'</span>' : '<span class="btn btn-mini btn-danger">'.$row['status'].'</span>' ; ?> </td>
-											<td><a href="user.php?user=edit_student&&id=<?php echo $row['id']; ?>"><button><i class="halflings-icon edit"></i>Edit</button></a><a onclick="return confirm('Are you sure you want to delete?');" href="php/delete.php?delete=edit_student&&id=<?php echo $row['id']; ?>"><button><i class="halflings-icon trash"></i>Delete</button></a></td>
+											<td><a href="user.php?user=edit_student&&id=<?php echo $row['id']; ?>"><button><i class="halflings-icon edit"></i></button></a><a onclick="return confirm('Are you sure you want to delete?');" href="php/delete.php?delete=edit_student&&id=<?php echo $row['id']; ?>"><button><i class="halflings-icon trash"></i></button></a></td>
 										</tr>  
 								<?php
 										}

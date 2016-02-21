@@ -156,7 +156,7 @@
 
 					<div class="box defualt span12">
 						<div class="box-header">
-							<h2><i class="halflings-icon hand-top"></i><span class="break"></span>Accounts</h2>
+							<h2><i class="halflings-icon hand-top"></i><span class="break"></span>TERM MANAGEMENT</h2>
 						</div>
 						<div class="box-content">
 							
@@ -181,7 +181,7 @@
 						{
 					?>
 							<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon calendar"></i><span class="break"></span>School Year</h2>
+						<h2><i class="halflings-icon calendar"></i><span class="break"></span>LIST OF SCHOOL YEAR</h2>
 					</div>
 					<div class="box-content buttons">
 						<form method="post" action="<?php $_SERVER['PHP_SELF'] ?>" name="form1">
@@ -221,12 +221,10 @@
 						{
 					?>
 					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon calendar"></i><span class="break"></span>Semester</h2>
+						<h2><i class="halflings-icon calendar"></i><span class="break"></span>LIST OF SEMESTER</h2>
 					</div>
 					<div class="box-content buttons">
 						<button class="btn btn-large btn-success btn-setting">ADD SEMESTER</button>
-						<button class="btn btn-large btn-success">Edit Selected</button>
-						<button class="btn btn-large btn-success">Delete Selected</button>
 					</div>
 					<div class="box-content">
 						<table class="table table-striped table-bordered bootstrap-datatable datatable">
@@ -251,8 +249,8 @@
 								 		<tr>
 											<td><?php echo $row['Semester']; ?></td>
               								<td><?php echo $row['SYstart'].'-'.$row['SYend']; ?></td>
-              								<td><?php echo  $row['sem_status'] == 'Active' ? '<span class="btn btn-mini btn-success">Active</span>' : '<span class="btn btn-mini btn-danger">Inactive</span>' ; ?> </td>
-              								<td><?php echo  $row['sem_status'] == 'Active' ? '<a href="termmanagement.php?sem=true&&deactivate='.$row['SemID'].'"><button class="btn btn-mini btn-danger">Deactivate</button></a>' : '<a href="termmanagement.php?sem=true&&activate='.$row['SemID'].'"><button class="btn btn-mini btn-success">Activate</button></a>' ; ?> </td>
+              								<td><?php echo  $row['sem_status'] == 'Active' ? '<span class="btn-success">Active</span>' : '<span class="btn-danger">Inactive</span>' ; ?> </td>
+              								<td><?php echo  $row['sem_status'] == 'Active' ? '<a href="termmanagement.php?sem=true&&deactivate='.$row['SemID'].'"><button class="btn btn-large btn-danger">Deactivate</button></a>' : '<a href="termmanagement.php?sem=true&&activate='.$row['SemID'].'"><button class="btn btn-large btn-success">Activate</button></a>' ; ?> </td>
 										</tr>  
 								<?php
 										}

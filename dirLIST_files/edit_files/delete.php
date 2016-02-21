@@ -28,8 +28,16 @@ if($listing_mode == 0) //http deletion
 	elseif(is_file($item_path))
 		unlink($item_path);
 		
-	header("Location: ../../index.php?folder=".$_GET['folder']);
+	if(isset($_SESSION['subf']) && $_SESSION['subf'] != '')
+	{
+		header("Location: ../../index.php?subf=".$_SESSION['subf']."&&folder1=".$_SESSION['folder1']);
+		exit;
+	}
+	else
+	{
+		header("Location: ../../index.php?folder=".$_GET['folder']);
 	exit;
+	}	
 
 
 }
@@ -47,8 +55,16 @@ elseif($listing_mode == 1) //ftp deletion
 	else
 		delete_directory($item_path.'/', 1);
 	
-	header("Location: ../../index.php?folder=".$_GET['folder']);
+	if(isset($_SESSION['subf']) && $_SESSION['subf'] != '')
+	{
+		header("Location: ../index.php?subf=".$_SESSION['subf']."&&folder1=".$_SESSION['folder1']);
+		exit;
+	}
+	else
+	{
+		header("Location: ../../index.php?folder=".$_GET['folder']);
 	exit;
+	}	
 
 }
 ?>

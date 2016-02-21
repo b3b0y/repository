@@ -123,7 +123,7 @@ if(isset($_GET['faculty']) && $_GET['faculty'] == "faculty")
 					$result = mysql_query("SELECT id FROM fr_user WHERE username ='".$uname."'");
 					$row = mysql_fetch_array($result);
 
-					mysql_query("INSERT INTO fr_staff (user_id,FirstN,LastN,midN) VALUES('".$row['id']."','".$Fname."','".$Lname."','".$mname."')") or die("Paths Query  : "  . mysql_error());
+					mysql_query("INSERT INTO fr_staff (user_id,FirstN,LastN,midN,size_limit) VALUES('".$row['id']."','".$Fname."','".$Lname."','".$mname."','5')") or die("Paths Query  : "  . mysql_error());
 					
 					mysql_query("UPDATE fr_user SET status = 'offline' WHERE username = '".$uname."'");
 					
@@ -231,12 +231,14 @@ else if(isset($_GET['student']) && $_GET['student'] == "student")
 		{
 			if(!isset($row['ControlNo']))
 			{
+				$size = 1;
+
 				mysql_query("INSERT INTO fr_user (username,password,UserLvl,status) VALUES ('".$Idnum."','".$pass."','1','pending')") or die("User Query  : "  . mysql_error());
 				
 				$result = mysql_query("SELECT id FROM fr_user WHERE username ='".$Idnum."'");
 				$row = mysql_fetch_array($result);
 
-				mysql_query("INSERT INTO fr_stud(user_id,ControlNo,FName,LName,Mname,Course,Year) VALUES ('".$row['id']."','".$Idnum."','".$Fname."','".$Lname."','".$Mname."','".$course."','".$year."')") or die("Stud Query  : "  . mysql_error());
+				mysql_query("INSERT INTO fr_stud(user_id,ControlNo,FName,LName,Mname,Course,Year,size_limit) VALUES ('".$row['id']."','".$Idnum."','".$Fname."','".$Lname."','".$Mname."','".$course."','".$year."','".$size."')") or die("Stud Query  : "  . mysql_error());
 
 				unset($_SESSION['genpass']);
 

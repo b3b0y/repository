@@ -94,11 +94,11 @@
 
 					<div class="box defualt span12">
 						<div class="box-header">
-							<h2><i class="halflings-icon hand-top"></i><span class="break"></span>Accounts</h2>
+							<h2><i class="halflings-icon hand-top"></i><span class="break"></span>SUBJECT DASHBOARD</h2>
 						</div>
 						<div class="box-content">
 						<?php
-							if($_SESSION['UserLvl'] >= 3)
+							if($_SESSION['UserLvl'] >= 3 && $_SESSION['UserLvl'] <= 4 )
 							{
 						?>
 								<a href="subjectmanagement.php?subject=mysubject" class="quick-button span2">
@@ -125,10 +125,6 @@
 								<i class="icon-book"></i>
 								<p>Student Subject</p>
 							</a>
-							<div class="clearfix"></div>
-						</div>
-
-						<div class="box-content">
 							<a href="subjectmanagement.php?subject=approve" class="quick-button span2">
 								<i class="icon-book"></i>
 								<p>Approve Subject</p>
@@ -137,6 +133,11 @@
 								<i class="icon-book"></i>
 								<p>Deadline </p>
 							</a>
+							<div class="clearfix"></div>
+						</div>
+
+						<div class="box-content">
+							
 							<a href="subjectmanagement.php?subject=shared" class="quick-button span2">
 								<i class="icon-book"></i>
 								<p>Shared </p>
@@ -154,7 +155,7 @@
 						{
 					?>
 							<div class="box-header" data-original-title>
-								<h2><i class="halflings-icon book"></i><span class="break"></span>My SUbject</h2>
+								<h2><i class="halflings-icon book"></i><span class="break"></span>MY SUBJECT LIST</h2>
 							</div>
 							<div class="box-content">
 								<table class="table table-striped table-bordered bootstrap-datatable datatable">
@@ -190,7 +191,7 @@
 						{
 					?>
 							<div class="box-header" data-original-title>
-								<h2><i class="halflings-icon calendar"></i><span class="break"></span>Subject</h2>
+								<h2><i class="halflings-icon calendar"></i><span class="break"></span>LIST OF SUBJECT</h2>
 							</div>
 							<div class="box-content buttons">
 								<button class="btn btn-large btn-success btn-setting">ADD SUBJECT</button>
@@ -239,7 +240,7 @@
 						{
 					?>
 							<div class="box-header" data-original-title>
-								<h2><i class="halflings-icon calendar"></i><span class="break"></span>Faculty Subject</h2>
+								<h2><i class="halflings-icon calendar"></i><span class="break"></span>LIST OF FACULTY SUBJECT</h2>
 							</div>
 							<div class="box-content buttons">
 								<a href="subjectmanagement.php?faculty=add"><button class="btn btn-large btn-success">ADD SUBJECT</button></a>
@@ -283,10 +284,7 @@
 						{
 					?>
 							<div class="box-header" data-original-title>
-								<h2><i class="halflings-icon calendar"></i><span class="break"></span>Student Subject</h2>
-							</div>
-							<div class="box-content buttons">
-								<button class="btn btn-large btn-success">Delete Selected</button>
+								<h2><i class="halflings-icon calendar"></i><span class="break"></span>LIST OF STUDENT SUBJECT</h2>
 							</div>
 							<div class="box-content">
 								<table class="table table-striped table-bordered bootstrap-datatable datatable">
@@ -340,7 +338,7 @@
 					?>			
 							<form method="post" action="subjectmanagement/process_approve_subject.php">
 								<div class="box-header" data-original-title>
-									<h2><i class="halflings-icon calendar"></i><span class="break"></span>Approve Subject</h2>
+									<h2><i class="halflings-icon calendar"></i><span class="break"></span>LIST OF ENROLLED SUBJECT</h2>
 								</div>
 								<div class="box-content">
 									<table class="table table-striped table-bordered bootstrap-datatable datatable">
@@ -394,7 +392,7 @@
 						{
 					?>
 							<div class="box-header" data-original-title>
-								<h2><i class="halflings-icon calendar"></i><span class="break"></span>Deadline</h2>
+								<h2><i class="halflings-icon calendar"></i><span class="break"></span>LIST OF DEADLINE</h2>
 							</div>
 							<div class="box-content">
 								<table class="table table-striped table-bordered bootstrap-datatable datatable">
@@ -439,7 +437,7 @@
 						{
 					?>
 							<div class="box-header" data-original-title>
-								<h2><i class="halflings-icon calendar"></i><span class="break"></span>Deadline</h2>
+								<h2><i class="halflings-icon calendar"></i><span class="break"></span>LIST OF SHARED FOLDER</h2>
 							</div>
 							<div class="box-content">
 								<table class="table table-striped table-bordered bootstrap-datatable datatable">

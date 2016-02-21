@@ -7,11 +7,17 @@
 <div class="row-fluid sortable">
 <div class="box span12">
 	<div class="box-header" data-original-title>
-		<h2><i class="halflings-icon edit"></i><span class="break"></span>FACULTY</h2>
+		<h2><i class="halflings-icon edit"></i><span class="break"></span>ADD FACULTY</h2>
 	</div>		
 	<div class="box-content">
 			<form method="post" action="Forms/process_account.php?faculty=faculty" class="form-horizontal">
 				<fieldset>
+					<div class="control-group">
+					<label class="control-label" for="selectError">Storage:</label>
+					<div class="controls">
+						<input type="text" value="5GB"  readonly="">
+					</div>
+					</div>
 				   <div class="control-group">
 					<label class="control-label" for="selectError">Select User level</label>
 					<div class="controls">

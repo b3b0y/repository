@@ -83,7 +83,7 @@
 
 					<div class="box defualt span12">
 						<div class="box-header">
-							<h2><i class="halflings-icon hand-top"></i><span class="break"></span>Reports</h2>
+							<h2><i class="halflings-icon hand-top"></i><span class="break"></span>REPORTS MANAGEMENT</h2>
 						</div>
 						<div class="box-content">	
 							<!--
@@ -95,12 +95,7 @@
 
 							<a href="reports.php?subject=Enrolled" class="quick-button span2">
 								<i class="icon-book"></i>
-								<p>Student Enrolled</p>
-							</a>
-
-							<a href="reports.php?subject=Dropped" class="quick-button span2">
-								<i class="icon-book"></i>
-								<p>Student Dropped</p>
+								<p>Student</p>
 							</a>
 
 							<a href="reports.php?activity=activity" class="quick-button span2">
@@ -160,7 +155,7 @@
 							{
 						?>
 								<div class="box-header" data-original-title>
-									<h2><i class="halflings-icon book"></i><span class="break"></span>Subject</h2>
+									<h2><i class="halflings-icon book"></i><span class="break"></span>LIST OF SUBJECT</h2>
 								</div>
 								<div class="box-content">
 									<table class="table table-striped table-bordered bootstrap-datatable datatable">
@@ -196,7 +191,11 @@
 			              								<td><?php echo $row['Description']; ?></td>
 												    	<td><?php echo $row['Semester']; ?></td>
 												    	<td><?php echo $row['SYstart']." - ".$row['SYend'] ; ?></td>
-												    	<td><a href="reports/subject.php?view=Enrolled&&subcode=<?php echo $row['SubCode']; ?>&&sem=<?php echo $row['SemID']; ?>"><button>View</button></a></td>
+												    	<td>
+												    		<a href="reports/subject.php?view=Enrolled&&subcode=<?php echo $row['SubCode']; ?>&&sem=<?php echo $row['SemID']; ?>"><button>ENROLLED</button></a>
+												    		<a href="reports/subject.php?view=Dropped&&subcode=<?php echo $row['SubCode']; ?>&&sem=<?php echo $row['SemID']; ?>"><button>DROPPED</button></a>
+												    	</td>
+												    		
 												    </tr>   
 											<?php
 													}
@@ -208,6 +207,7 @@
 								</div>
 						<?php 
 							}
+							/*
 							if(isset($_GET['subject']) && $_GET['subject'] == 'Dropped') 
 							{
 						?>
@@ -259,12 +259,12 @@
 								  </table>            
 								</div>
 						<?php 
-							}
+							}*/
 							if(isset($_GET['activity']) && $_GET['activity'] == 'activity') 
 							{
 						?>
 								<div class="box-header" data-original-title>
-									<h2><i class="halflings-icon book"></i><span class="break"></span>Subject</h2>
+									<h2><i class="halflings-icon book"></i><span class="break"></span>LIST OF ACTIVITY</h2>
 								</div>
 								<div class="box-content">
 									<table class="table table-striped table-bordered bootstrap-datatable datatable">

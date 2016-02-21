@@ -226,7 +226,7 @@ function max_upload_size()
 function icons($files, $view_mode)
 {
 	//The index 0 and 1 represent the view modes thumbnails and list respectively
-	$specific_icons[0] = array('.asp', '.aspx', '.css', '.dll', '.doc', '.docx', '.exe', '.ini', '.js', '.log', '.pdf', '.php', '.ppt', '.pptx', '.psd', '.rar', '.txt', '.rtf', '.xls', '.xlsx', '.zip');	
+	$specific_icons[0] = array('.asp','.csv', '.aspx', '.css', '.dll', '.doc', '.docx', '.exe', '.ini', '.js', '.log', '.pdf', '.php', '.ppt', '.pptx', '.psd', '.rar', '.txt', '.rtf', '.xls', '.xlsx', '.zip');	
 	$specific_icons[1] = array('.php','.js','.zip','.dll','.pdf','.ppt','.psd', '.rar','.xls');
 	$images =array('.jpg','.jpeg','.gif','.png','.tiff','.bmp');
 	$videos = array('.avi','.mpg','.mpeg','.wmv','.asf','.divx','.3gp', '.ram', '.mkv', '.flv');
@@ -236,7 +236,7 @@ function icons($files, $view_mode)
 	$web = array('.asp','.htm','.html','.xhtml', '.url');
 	$exec = array('.bat','.com','.exe', '.msi');
 	$compressed = array('.ace','.tar', '.gz');
-	$text[1] = array('.doc','.docx','.wpd','.rtf');
+	$text[1] = array('.doc','.docx','.wpd','.rtf' ,'.csv');
 	$text_plain[1] = array('.txt', '.log','.ini', '.css');
 	$sql = array('.sql');
 	

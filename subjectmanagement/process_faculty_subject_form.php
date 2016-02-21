@@ -4,30 +4,44 @@
   include_once("../php/config.php");
 
 
-    $result = mysql_query("SELECT * FROM fr_path WHERE user_id = '".$_POST['user_id']."'");
-    $row = mysql_fetch_array($result);
+    $result = mysql_query("SELECT * FROM fr_staff WHERE user_id = '".$_POST['user_id']."'");
+    $row1 = mysql_fetch_array($result);
     
   $ItemCnt = count($_POST['subject']);
   for($i=0; $i < $ItemCnt; $i++) 
   {
-    $path = $row['url'];
+    $path = './Data';
     //$path = $row['pathName']."/".$row1['Position']."/".$row1['LastN'].", ".$row1['FirstN'];
     
     $date = date ("d/m/y");
     $time = date ("H:i:s");
 
-
-    if(!file_exists(".".$path."/".$_POST['sy'][$i])) 
+    if(!file_exists(".".$path."/Subject")) 
     {
-        mkdir(".".$path."/".$_POST['sy'][$i], 0700, true);
-    } 
-   
-    if(!file_exists(".".$path."/".$_POST['sy'][$i]."/".$_POST['sem'][$i])) 
-    {
-        mkdir(".".$path."/".$_POST['sy'][$i]."/".$_POST['sem'][$i], 0700, true);
+        mkdir(".".$path."/Subject", 0700, true);
     }
 
-   $path .= "/".$_POST['sy'][$i]."/".$_POST['sem'][$i]."/".$_POST['subject'][$i];
+    if(!file_exists(".".$path."/Subject"."/Instructor")) 
+    {
+        mkdir(".".$path."/Subject"."/Instructor", 0700, true);
+    }
+
+    if(!file_exists(".".$path."/Subject"."/Instructor"."/".$row1['LastN'].", ".$row1['FirstN'])) 
+    {
+        mkdir(".".$path."/Subject"."/Instructor"."/".$row1['LastN'].", ".$row1['FirstN'], 0700, true);
+    }
+   
+    if(!file_exists(".".$path."/Subject"."/Instructor"."/".$row1['LastN'].", ".$row1['FirstN']."/".$_POST['sy'][$i])) 
+    {
+        mkdir(".".$path."/Subject"."/Instructor"."/".$row1['LastN'].", ".$row1['FirstN']."/".$_POST['sy'][$i], 0700, true);
+    } 
+   
+    if(!file_exists(".".$path."/Subject"."/Instructor"."/".$row1['LastN'].", ".$row1['FirstN']."/".$_POST['sy'][$i]."/".$_POST['sem'][$i])) 
+    {
+        mkdir(".".$path."/Subject"."/Instructor"."/".$row1['LastN'].", ".$row1['FirstN']."/".$_POST['sy'][$i]."/".$_POST['sem'][$i], 0700, true);
+    }
+
+   $path .= "/Subject"."/Instructor"."/".$row1['LastN'].", ".$row1['FirstN']."/".$_POST['sy'][$i]."/".$_POST['sem'][$i]."/".$_POST['subject'][$i];
 
     if(!file_exists(".".$path))
     {
