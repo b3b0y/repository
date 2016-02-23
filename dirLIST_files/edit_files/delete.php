@@ -28,7 +28,12 @@ if($listing_mode == 0) //http deletion
 	elseif(is_file($item_path))
 		unlink($item_path);
 		
-	if(isset($_SESSION['subf']) && $_SESSION['subf'] != '')
+	if(isset($_SESSION['studsub']) && $_SESSION['studsub'] != '')
+	{
+		header("Location: ../../index.php?studsub=".$_SESSION['studsub']);
+		exit;
+	}
+	else if(isset($_SESSION['subf']) && $_SESSION['subf'] != '')
 	{
 		header("Location: ../../index.php?subf=".$_SESSION['subf']."&&folder1=".$_SESSION['folder1']);
 		exit;
@@ -36,7 +41,7 @@ if($listing_mode == 0) //http deletion
 	else
 	{
 		header("Location: ../../index.php?folder=".$_GET['folder']);
-	exit;
+		exit;
 	}	
 
 

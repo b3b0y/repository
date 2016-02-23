@@ -208,20 +208,37 @@
 		      return $size;
 		    }
 
-		    	$total_size = sprintf("%01.2f", (filesize_r($dir) / 1024) / 1024);
+		    	$total_size = filesize_r($dir);
+		    	
 
-				$file_size = $total_size;
-				if($file_size >=  1024)
-					$file_size = " GB";
-				elseif ($file_size >=  1)
-					$file_size = " MB";
+				$file_size =  $total_size / 1024;
+				if($file_size >=  1048576)
+					$file_size = sprintf("%01.2f", $file_size/1048576)." GB";
+				elseif ($file_size >=  1024)
+					$file_size = sprintf("%01.2f", $file_size/1024)." MB";
 				else
-					$file_size = " KB";
+					$file_size = sprintf("%01.1f", $file_size)." KB";
 
-				$bar = (($total_size / $_SESSION['size_limit']) * 100 ) * 1;
+				$free = ($_SESSION['size_limit'] * 1024) - ($total_size / 1024);
+				if($free >=  1048576)
+					$free = sprintf("%01.2f", $free/1048576)." GB";
+				elseif ($free >=  1024)
+					$free = sprintf("%01.2f", $free/1024)." MB";
+				else
+					$storage = sprintf("%01.1f", $free)." KB";
+
+				$storage = $_SESSION['size_limit'] * 1024;
+				if($storage >=  1048576)
+					$storage = sprintf("%01.2f", $storage/1048576)." GB";
+				elseif ($storage >=  1024)
+					$storage = sprintf("%01.2f", $storage/1024)." MB";
+				else
+					$storage = sprintf("%01.1f", $storage)." KB";
+
+				$bar = (($file_size / $_SESSION['size_limit']) * 100 ) * 1;
 
 		 ?>
-			<h5>Space used : <?php 	echo $total_size .' '.$file_size .' / '. sprintf("%01.3f",$_SESSION['size_limit'] / 1024 ); ?> GB</h5>
+			<h5>Space used : <?php 	echo $file_size .' / '. $storage; ?>  | Space free: <?php echo $free; ?> </h5>
 			<div class="meter <?php if($bar >= 70) { echo 'red'; } else { echo 'blue'; } ?>"><span style="width: <?php echo $bar; ?>%"></span></div>
 		</div>
 	</div>

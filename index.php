@@ -435,7 +435,9 @@ if(isset($_SESSION['view_mode_session']))
 						</div>
 						
 						<div class="box-content files">
-							 <?php require('dirlist.php'); ?>
+							 <?php 
+								require('dirlist.php'); 
+							 ?>
 						</div>
 					</div><!--/span-->
 					

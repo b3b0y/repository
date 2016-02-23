@@ -36,7 +36,7 @@ $local_text = (empty($_SESSION['lang_id'])) ? set_local_text(0) : set_local_text
 
 if($_POST['submit'] == $local_text['upload'])
 {
-	$dir = $_SESSION['dir_to_browse'];
+	$dir = '.'.$_SESSION['dir_to_browse'];
 
 	function filesize_r($dir)
     {
@@ -63,8 +63,7 @@ if($_POST['submit'] == $local_text['upload'])
 
     $total_size = sprintf("%01.2f", (filesize_r($dir) / 1024) / 1024) + sprintf("%01.2f", ($_FILES['file']['size'] / 1024) / 1024);
     
-    
-	if( $_SESSION['size_limit'] > $total_size )
+	if( $_SESSION['size_limit'] > $total_size)
 	{
 		$file_name = $_FILES['file']['name'];
 		if(get_magic_quotes_gpc()) 
@@ -138,6 +137,11 @@ if($_POST['submit'] == $local_text['upload'])
 
 				if(move_uploaded_file($_FILES['file']['tmp_name'], $new_path))
 				{
+					if(isset($_SESSION['studsub']) && $_SESSION['studsub'] != '')
+					{
+						header("Location: ../index.php?studsub=".$_SESSION['studsub']);
+						exit;
+					}
 					if(isset($_SESSION['subf']) && $_SESSION['subf'] != '')
 					{
 						header("Location: ../index.php?subf=".$_SESSION['subf']."&&folder1=".$_SESSION['folder1']);
@@ -148,6 +152,7 @@ if($_POST['submit'] == $local_text['upload'])
 						header("Location: ../index.php");
 						exit;
 					}
+
 					
 				}	
 				else
@@ -159,8 +164,7 @@ if($_POST['submit'] == $local_text['upload'])
 			}
 	}
 	else
-	{
-		
+	{	
 		if(isset($_SESSION['subf']) && $_SESSION['subf'] != '')
 		{
 			header("Location: ../index.php?subf=".$_SESSION['subf']."&&folder1=".$_SESSION['folder1']."&err=".base64_encode("size"));
