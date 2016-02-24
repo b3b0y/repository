@@ -207,59 +207,6 @@
 								</div>
 						<?php 
 							}
-							/*
-							if(isset($_GET['subject']) && $_GET['subject'] == 'Dropped') 
-							{
-						?>
-								<div class="box-header" data-original-title>
-									<h2><i class="halflings-icon book"></i><span class="break"></span>Subject</h2>
-								</div>
-								<div class="box-content">
-									<table class="table table-striped table-bordered bootstrap-datatable datatable">
-									  <thead>
-										  <tr>
-										  	<th class="group-word">Subject code</th>
-			              					<th class="group-false">Description</th>
-			              					<th class="group-false">Semester</th>
-			              					<th class="group-false">S.Y.</th>
-			              					<th class="group-false">Action</th>
-										  </tr>
-									  </thead>   
-									  <tbody>
-									  	<?php
-
-									  			if($_SESSION['UserLvl'] == 3) 
-									  			{
-									  				$result = mysql_query("SELECT  fr_ins_subject.*,sub.*,sem.*,sy.* FROM  fr_ins_subject , fr_subject as sub , fr_semester as sem, fr_sy as sy WHERE sub.SubCode = fr_ins_subject.Subject AND sem.SemID = sub.SemID AND sy.SYID = sem.SYID AND sem.sem_status = 'Active' AND fr_ins_subject.user_id = '".$_SESSION['user_id']."'");
-									  			}
-									  			else if($_SESSION['UserLvl'] = 4) 
-									  			{
-									  				$result = mysql_query("SELECT sub.*,sem.*,sy.* FROM fr_subject as sub , fr_semester as sem, fr_sy as sy WHERE sem.SemID = sub.SemID AND sy.SYID = sem.SYID AND sem.sem_status = 'Active'");
-									  			}
-											 	
-
-											 	if(mysql_num_rows($result) > 0)
-											 	{
-											 		while ($row = mysql_fetch_array($result)) 
-											 		{								 			
-											 ?>
-											 		<tr>
-											 			<td><?php echo $row['SubCode']; ?></td>
-			              								<td><?php echo $row['Description']; ?></td>
-												    	<td><?php echo $row['Semester']; ?></td>
-												    	<td><?php echo $row['SYstart']." - ".$row['SYend'] ; ?></td>
-												    	<td><a href="reports/subject.php?view=Dropped&&subcode=<?php echo $row['SubCode']; ?>&&sem=<?php echo $row['SemID']; ?>"><button>View</button></a></td>
-												    </tr>   
-											<?php
-													}
-												}
-											?>
-
-									  </tbody>
-								  </table>            
-								</div>
-						<?php 
-							}*/
 							if(isset($_GET['activity']) && $_GET['activity'] == 'activity') 
 							{
 						?>

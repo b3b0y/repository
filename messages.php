@@ -89,7 +89,7 @@
 
 						?>
 								<li>
-									<span class="from"><a onclick="return confirm('Are you sure you want to delete?');" href="php/delete.php?id=<?php echo $row['id']; ?>&&delete=notif"> <i class="halflings-icon trash"> </i> </a>  <span class=""><i></i></span><i></i></span></span><span class="title"><?php echo $row['message']; ?></span><span class="date"> <b><?php  echo date_format($date,"M d, Y").", ". time_elapsed_string($row['Date']); ?> </b></span>
+									<span class="from" id="delete"><a onclick="return confirm('Are you sure you want to delete?');" href="php/delete.php?id=<?php echo $row['id']; ?>&&delete=notif"> <i class="halflings-icon trash"> </i> </a>  <span class=""><i></i></span><i></i></span></span><span class="title"><?php echo $row['message']; ?></span><span class="date"> <b><?php  echo date_format($date,"M d, Y").", ". time_elapsed_string($row['Date']); ?> </b></span>
 								</li>
 						<?php
 								}
@@ -128,6 +128,8 @@
 	</footer>
 	
 	<!-- start: JavaScript-->
+
+		<script src="notification.js"></script>
 
 		<script src="js/jquery-1.9.1.min.js"></script>
 	

@@ -6,7 +6,7 @@ $listing_mode = 0;
 //Directory to browse ***INCLUDING TRAILING SLASH***. Leave it as "./" if you want to browse the directory this file is in for HTTP listing or leave it blank for browsing the root directory for FTP listing.  This can be an absolute or relative path (relative to the index.php file). CAUTION: Listing a directory above your web root will cause errors.
 //$dir_to_browse = "./Data/"; //default[HTTP] = "./" or default[FTP] = "/"
 	
-	/*
+	
 	if( !isset($_GET['id']) || !isset($_GET['subf']) || !isset($_GET['studsub']) || !isset($_GET['share']) || !isset($_GET['archive']))
 	{
 		$result1 = mysql_query("SELECT fr_path.* FROM fr_path  WHERE user_id = '".$_SESSION['user_id']."'")or die(mysql_error());
@@ -16,7 +16,7 @@ $listing_mode = 0;
 			$dir_to_browse = $row['url']."/";
 		}
 	}
-	*/
+	
 	if(isset($_GET['notid']) && !empty($_GET['notid']))
 	{
 		mysql_query("UPDATE fr_notification SET status = 'read' WHERE id = '".$_GET['notid']."'");

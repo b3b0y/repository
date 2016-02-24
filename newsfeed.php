@@ -31,7 +31,7 @@
 			{	
 				   $message = $name.'  send a New Announcement in'. $row['subject'];  
 
-				mysql_query("INSERT INTO fr_notification(user_id,link,message,status,Date) VALUES('".$row['user_id']."','".$link."','".$message."','unread','".$date."')");
+				mysql_query("INSERT INTO fr_notification(user_id,sender_id,link,message,status,Date) VALUES('".$row['user_id']."','".$_SESSION['user_id']."','".$link."','".$message."','unread','".$date."')");
 			}
 
 			echo "<script> window.location.href='newsfeed.php'; </script>";
@@ -154,7 +154,7 @@
 					}
 				?>
 
-				<div class="row-fluid">
+				<div id="ssss" class="row-fluid">
 					<div class="content">
 						<br>
 						<div class="span12" style="overflow-y: scroll; height:1000px;">
@@ -250,6 +250,10 @@
 	</footer>
 	
 	<!-- start: JavaScript-->
+
+		<script src="notification.js"></script>
+
+
 
 		<script src="js/jquery-1.9.1.min.js"></script>
         <script src="assets/js/jquery.backstretch.min.js"></script>

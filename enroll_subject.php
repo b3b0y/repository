@@ -261,6 +261,7 @@
 	</footer>
 	
 	<!-- start: JavaScript-->
+		<script src="notification.js"></script>
 
 		<script src="js/jquery-1.9.1.min.js"></script>
 	

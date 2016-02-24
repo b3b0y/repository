@@ -265,6 +265,17 @@ if(isset($_SESSION['view_mode_session']))
 			xhr.open("GET", "dirLIST_files/version_check.php?version=0.3.0", true);
 			xhr.send(null);
 		}
+
+
+			$(document).ready(function(){
+			 var notification_wrapper = $('#notifications');
+			 var callback_url ="index.php";
+			 
+			 setInterval(function(){ 
+			 
+			 }, 500); // Checks for updates every 500 sec.  Not good on large scale
+			});
+
 	</script>
 	<?PHP } ?>
 	
@@ -521,6 +532,8 @@ if(isset($_SESSION['view_mode_session']))
 	</footer>
 
 	<!-- start: JavaScript-->
+		<script src="notification.js"></script>
+
 		<script src="js/jquery-1.9.1.min.js"></script>
         <script src="assets/js/jquery.backstretch.min.js"></script>
         <script src="assets/js/scripts.js"></script>

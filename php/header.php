@@ -31,9 +31,10 @@
 		<div class="container-fluid">
 
 			<a class="brand" href=""><span>CICTE WLC WEB-BASE FILE REPOSITORY</span></a>
-							
+					
+
 			<!-- start: Header Menu -->
-			<div class="nav-no-collapse header-nav">
+			<div class="nav-no-collapse header-nav" id="aa">
 				<ul class="nav pull-right">
 					<li class="dropdown hidden-phone">
 						<?php
@@ -42,14 +43,9 @@
 						?>
 								<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 										<i class="icon-globe"></i>
-								<?php
-									if($cnt != 0)
-									{
-								?>
-										<span class="label label-important"> <?php echo $cnt; ?> </span>
-								<?php
-									}
-								?>
+
+										<span class="label label-important" id="notifcount">  </span>
+
 								</a>
 						<ul class="dropdown-menu messages">
 								<li class="dropdown-menu-title">

@@ -213,6 +213,8 @@
 	
 	<!-- start: JavaScript-->
 
+		<script src="notification.js"></script>
+
 		<script src="js/jquery-1.9.1.min.js"></script>
         <script src="assets/js/jquery.backstretch.min.js"></script>
         <script src="assets/js/scripts.js"></script>
