@@ -11,7 +11,7 @@ $db_pass = $dbpass;
 $db_name = $dbname ;
 /****************/
 
-if(isset($_REQUEST['backup'])){
+if(isset($_REQUEST['backup']) || isset($_GET['auto'])){
     $newImport = new backup_restore($db_host,$db_name,$db_user,$db_pass);
     
     $fileName = $db_name . "_" . date("Y-m-d_H-i-s") . ".sql";    
@@ -23,9 +23,14 @@ if(isset($_REQUEST['backup'])){
     header("Cache-Control: must-revalidate, post-check=0, pre-check=0, public");
     header("Expires: 0");
 
+    if(isset($_GET['auto']))
+    {
+        mysql_query("DELETE FROM fr_db_backup");
+
+      
+    }
     //call of backup function
-    echo $newImport -> backup(); die();
-    
+    echo $newImport -> backup(); die();  
 }
 
 if(isset($_REQUEST['restore'])){

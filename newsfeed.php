@@ -253,8 +253,6 @@
 
 		<script src="notification.js"></script>
 
-
-
 		<script src="js/jquery-1.9.1.min.js"></script>
         <script src="assets/js/jquery.backstretch.min.js"></script>
         <script src="assets/js/scripts.js"></script>
@@ -312,6 +310,8 @@
 		<script src="js/retina.js"></script>
 
 		<script src="js/custom.js"></script>
+
+		<script src="js/jquery.timeago.js" type="text/javascript"></script>
 	<!-- end: JavaScript-->
 	
 </body>

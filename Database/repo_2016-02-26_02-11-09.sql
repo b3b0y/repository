@@ -1,6 +1,6 @@
 # MySQL database backup
 #
-# Generated: Monday 22. February 2016 03:21 HKT
+# Generated: Friday 26. February 2016 02:11 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -40,7 +40,7 @@ CREATE TABLE `fr_archive` (
 
 # MySQL database backup
 #
-# Generated: Monday 22. February 2016 03:21 HKT
+# Generated: Friday 26. February 2016 02:11 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -84,7 +84,7 @@ INSERT INTO `fr_course` VALUES (4, 'BSCOE', 'Bachelor of Science in Computer Eng
 
 # MySQL database backup
 #
-# Generated: Monday 22. February 2016 03:21 HKT
+# Generated: Friday 26. February 2016 02:11 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -93,6 +93,100 @@ INSERT INTO `fr_course` VALUES (4, 'BSCOE', 'Bachelor of Science in Computer Eng
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_course`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_data_backup`
+# --------------------------------------------------------
+
+
+#
+# Delete any existing table `fr_data_backup`
+#
+
+DROP TABLE IF EXISTS `fr_data_backup`;
+
+
+#
+# Table structure of table `fr_data_backup`
+#
+
+CREATE TABLE `fr_data_backup` (
+  `id` int(11) NOT NULL auto_increment,
+  `backup_date` date NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 ;
+
+#
+# Data contents of table fr_data_backup (1 records)
+#
+ 
+INSERT INTO `fr_data_backup` VALUES (7, '2016-02-16') ;
+#
+# End of data contents of table fr_data_backup
+# --------------------------------------------------------
+
+# MySQL database backup
+#
+# Generated: Friday 26. February 2016 02:11 HKT
+# Hostname: localhost
+# Database: `repo`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_archive`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_course`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_data_backup`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_db_backup`
+# --------------------------------------------------------
+
+
+#
+# Delete any existing table `fr_db_backup`
+#
+
+DROP TABLE IF EXISTS `fr_db_backup`;
+
+
+#
+# Table structure of table `fr_db_backup`
+#
+
+CREATE TABLE `fr_db_backup` (
+  `id` int(11) NOT NULL auto_increment,
+  `Date` date NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 ;
+
+#
+# Data contents of table fr_db_backup (0 records)
+#
+
+#
+# End of data contents of table fr_db_backup
+# --------------------------------------------------------
+
+# MySQL database backup
+#
+# Generated: Friday 26. February 2016 02:11 HKT
+# Hostname: localhost
+# Database: `repo`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_archive`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_course`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_data_backup`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_db_backup`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_deadline`
@@ -113,6 +207,7 @@ DROP TABLE IF EXISTS `fr_deadline`;
 CREATE TABLE `fr_deadline` (
   `id` int(11) NOT NULL auto_increment,
   `folder_id` varchar(200) NOT NULL,
+  `folder_name` varchar(500) NOT NULL,
   `date_deadline` date NOT NULL,
   `time_deadline` time NOT NULL,
   `status` enum('open','closed') NOT NULL,
@@ -130,7 +225,7 @@ CREATE TABLE `fr_deadline` (
 
 # MySQL database backup
 #
-# Generated: Monday 22. February 2016 03:21 HKT
+# Generated: Friday 26. February 2016 02:11 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -139,6 +234,12 @@ CREATE TABLE `fr_deadline` (
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_course`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_data_backup`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_db_backup`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_deadline`
@@ -182,7 +283,7 @@ INSERT INTO `fr_ins_subject` VALUES (2, 2, 'IT8-A', './Data/Subject/Instructor/C
 
 # MySQL database backup
 #
-# Generated: Monday 22. February 2016 03:21 HKT
+# Generated: Friday 26. February 2016 02:11 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -191,6 +292,12 @@ INSERT INTO `fr_ins_subject` VALUES (2, 2, 'IT8-A', './Data/Subject/Instructor/C
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_course`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_data_backup`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_db_backup`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_deadline`
@@ -221,19 +328,21 @@ CREATE TABLE `fr_news` (
   `message` varchar(2000) NOT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ;
 
 #
-# Data contents of table fr_news (0 records)
+# Data contents of table fr_news (2 records)
 #
-
+ 
+INSERT INTO `fr_news` VALUES (2, 1, 2, '1', '2016-02-25 20:59:06') ; 
+INSERT INTO `fr_news` VALUES (3, 1, 2, 's', '2016-02-25 21:34:19') ;
 #
 # End of data contents of table fr_news
 # --------------------------------------------------------
 
 # MySQL database backup
 #
-# Generated: Monday 22. February 2016 03:21 HKT
+# Generated: Friday 26. February 2016 02:11 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -242,6 +351,12 @@ CREATE TABLE `fr_news` (
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_course`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_data_backup`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_db_backup`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_deadline`
@@ -271,36 +386,38 @@ DROP TABLE IF EXISTS `fr_notification`;
 CREATE TABLE `fr_notification` (
   `id` int(11) NOT NULL auto_increment,
   `user_id` int(11) NOT NULL,
+  `sender_id` int(11) NOT NULL,
   `link` varchar(1000) NOT NULL,
   `message` varchar(1000) NOT NULL,
   `status` enum('unread','read') NOT NULL,
   `Date` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 ;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 ;
 
 #
-# Data contents of table fr_notification (12 records)
+# Data contents of table fr_notification (13 records)
 #
  
-INSERT INTO `fr_notification` VALUES (1, 2, 'subjectmanagement.php?subject=approve', 'Leo Marapoc enroll IT11', 'read', '2016-02-22 02:45:18') ; 
-INSERT INTO `fr_notification` VALUES (2, 3, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT11', 'read', '2016-02-22 02:45:29') ; 
-INSERT INTO `fr_notification` VALUES (3, 2, 'subjectmanagement.php?subject=approve', 'Sheila Mancera enroll IT11', 'read', '2016-02-22 02:58:52') ; 
-INSERT INTO `fr_notification` VALUES (4, 5, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT11', 'read', '2016-02-22 02:59:20') ; 
-INSERT INTO `fr_notification` VALUES (5, 2, 'subjectmanagement.php?subject=approve', 'Trina Larazzabal enroll IT11', 'read', '2016-02-22 03:03:45') ; 
-INSERT INTO `fr_notification` VALUES (6, 7, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT11', 'read', '2016-02-22 03:04:05') ; 
-INSERT INTO `fr_notification` VALUES (7, 2, 'subjectmanagement.php?subject=approve', 'Trina Larazzabal enroll IT11', 'read', '2016-02-22 03:04:58') ; 
-INSERT INTO `fr_notification` VALUES (8, 7, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT11', 'read', '2016-02-22 03:05:09') ; 
-INSERT INTO `fr_notification` VALUES (9, 2, 'subjectmanagement.php?subject=approve', 'Trina Larazzabal enroll IT11', 'read', '2016-02-22 03:09:06') ; 
-INSERT INTO `fr_notification` VALUES (10, 7, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT11', 'read', '2016-02-22 03:09:15') ; 
-INSERT INTO `fr_notification` VALUES (11, 2, 'subjectmanagement.php?subject=approve', 'Trina Larazzabal enroll IT11', 'read', '2016-02-22 03:10:43') ; 
-INSERT INTO `fr_notification` VALUES (12, 7, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT11', 'read', '2016-02-22 03:11:01') ;
+INSERT INTO `fr_notification` VALUES (1, 3, 2, 'newsfeed.php?', 'Joscoro Cantero  send a New Announcement inIT11', 'read', '2016-02-25 20:28:46') ; 
+INSERT INTO `fr_notification` VALUES (2, 5, 2, 'newsfeed.php?', 'Joscoro Cantero  send a New Announcement inIT11', 'unread', '2016-02-25 20:28:46') ; 
+INSERT INTO `fr_notification` VALUES (3, 7, 2, 'newsfeed.php?', 'Joscoro Cantero  send a New Announcement inIT11', 'unread', '2016-02-25 20:28:46') ; 
+INSERT INTO `fr_notification` VALUES (4, 3, 2, 'newsfeed.php?', 'Joscoro Cantero  send a New Announcement inIT11', 'read', '2016-02-25 20:59:06') ; 
+INSERT INTO `fr_notification` VALUES (5, 5, 2, 'newsfeed.php?', 'Joscoro Cantero  send a New Announcement inIT11', 'unread', '2016-02-25 20:59:06') ; 
+INSERT INTO `fr_notification` VALUES (6, 7, 2, 'newsfeed.php?', 'Joscoro Cantero  send a New Announcement inIT11', 'unread', '2016-02-25 20:59:06') ; 
+INSERT INTO `fr_notification` VALUES (7, 3, 2, 'newsfeed.php?', 'Joscoro Cantero  send a New Announcement inIT11', 'read', '2016-02-25 21:34:19') ; 
+INSERT INTO `fr_notification` VALUES (8, 5, 2, 'newsfeed.php?', 'Joscoro Cantero  send a New Announcement inIT11', 'unread', '2016-02-25 21:34:19') ; 
+INSERT INTO `fr_notification` VALUES (9, 7, 2, 'newsfeed.php?', 'Joscoro Cantero  send a New Announcement inIT11', 'unread', '2016-02-25 21:34:19') ; 
+INSERT INTO `fr_notification` VALUES (10, 2, 0, 'subjectmanagement.php?subject=approve', 'Leo Marapoc enroll IT11', 'read', '2016-02-26 02:03:34') ; 
+INSERT INTO `fr_notification` VALUES (11, 3, 0, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT11', 'read', '2016-02-26 02:03:55') ; 
+INSERT INTO `fr_notification` VALUES (12, 2, 0, 'subjectmanagement.php?subject=approve', 'Leo Marapoc enroll IT8-A', 'read', '2016-02-26 02:05:35') ; 
+INSERT INTO `fr_notification` VALUES (13, 3, 0, 'enroll_subject.php?subject=subject', 'You are now enrolled in IT8-A', 'read', '2016-02-26 02:05:53') ;
 #
 # End of data contents of table fr_notification
 # --------------------------------------------------------
 
 # MySQL database backup
 #
-# Generated: Monday 22. February 2016 03:21 HKT
+# Generated: Friday 26. February 2016 02:11 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -309,6 +426,12 @@ INSERT INTO `fr_notification` VALUES (12, 7, 'enroll_subject.php?subject=subject
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_course`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_data_backup`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_db_backup`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_deadline`
@@ -361,7 +484,7 @@ INSERT INTO `fr_path` VALUES (6, './Data/Student/BSBA/Larazzabal-123', 7) ;
 
 # MySQL database backup
 #
-# Generated: Monday 22. February 2016 03:21 HKT
+# Generated: Friday 26. February 2016 02:11 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -370,6 +493,12 @@ INSERT INTO `fr_path` VALUES (6, './Data/Student/BSBA/Larazzabal-123', 7) ;
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_course`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_data_backup`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_db_backup`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_deadline`
@@ -422,7 +551,7 @@ INSERT INTO `fr_semester` VALUES (2, '2nd Semester', 1, 'Inactive') ;
 
 # MySQL database backup
 #
-# Generated: Monday 22. February 2016 03:21 HKT
+# Generated: Friday 26. February 2016 02:11 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -431,6 +560,12 @@ INSERT INTO `fr_semester` VALUES (2, '2nd Semester', 1, 'Inactive') ;
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_course`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_data_backup`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_db_backup`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_deadline`
@@ -490,7 +625,7 @@ CREATE TABLE `fr_share_folder` (
 
 # MySQL database backup
 #
-# Generated: Monday 22. February 2016 03:21 HKT
+# Generated: Friday 26. February 2016 02:11 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -499,6 +634,12 @@ CREATE TABLE `fr_share_folder` (
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_course`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_data_backup`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_db_backup`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_deadline`
@@ -551,7 +692,7 @@ CREATE TABLE `fr_staff` (
 # Data contents of table fr_staff (3 records)
 #
  
-INSERT INTO `fr_staff` VALUES (1, 1, 'admin', 'admin', 'admin', 100) ; 
+INSERT INTO `fr_staff` VALUES (1, 1, 'admin', 'admin', 'admin', 5000) ; 
 INSERT INTO `fr_staff` VALUES (2, 2, 'Joscoro', 'Cantero', '', 5) ; 
 INSERT INTO `fr_staff` VALUES (3, 4, 'Cheryl', 'Tarre', '', 5) ;
 #
@@ -560,7 +701,7 @@ INSERT INTO `fr_staff` VALUES (3, 4, 'Cheryl', 'Tarre', '', 5) ;
 
 # MySQL database backup
 #
-# Generated: Monday 22. February 2016 03:21 HKT
+# Generated: Friday 26. February 2016 02:11 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -569,6 +710,12 @@ INSERT INTO `fr_staff` VALUES (3, 4, 'Cheryl', 'Tarre', '', 5) ;
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_course`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_data_backup`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_db_backup`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_deadline`
@@ -638,7 +785,7 @@ INSERT INTO `fr_stud` VALUES (4, 7, 123, 'Trina', 'Larazzabal', '', 'BSBA', '3rd
 
 # MySQL database backup
 #
-# Generated: Monday 22. February 2016 03:21 HKT
+# Generated: Friday 26. February 2016 02:11 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -647,6 +794,12 @@ INSERT INTO `fr_stud` VALUES (4, 7, 123, 'Trina', 'Larazzabal', '', 'BSBA', '3rd
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_course`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_data_backup`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_db_backup`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_deadline`
@@ -702,22 +855,21 @@ CREATE TABLE `fr_stud_subject` (
   `status` enum('APPROVED','DISAPPROVED','Dropped') NOT NULL,
   `size_limit` double NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 ;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ;
 
 #
-# Data contents of table fr_stud_subject (3 records)
+# Data contents of table fr_stud_subject (2 records)
 #
  
-INSERT INTO `fr_stud_subject` VALUES (1, 3, 'IT11', './Data/Subject/Instructor/Cantero, Joscoro/2016-2017/1st Semester/IT11/Student/552-Marapoc', 1, '2016-02-22', '02:45:29', 'APPROVED', '33.3333333333') ; 
-INSERT INTO `fr_stud_subject` VALUES (2, 5, 'IT11', './Data/Subject/Instructor/Cantero, Joscoro/2016-2017/1st Semester/IT11/Student/445-Mancera', 1, '2016-02-22', '02:59:20', 'APPROVED', '33.3333333333') ; 
-INSERT INTO `fr_stud_subject` VALUES (6, 7, 'IT11', './Data/Subject/Instructor/Cantero, Joscoro/2016-2017/1st Semester/IT11/Student/123-Larazzabal', 1, '2016-02-22', '03:11:01', 'APPROVED', '33.3333333333') ;
+INSERT INTO `fr_stud_subject` VALUES (1, 3, 'IT11', './Data/Subject/Instructor/Cantero, Joscoro/2016-2017/1st Semester/IT11/Student/552-Marapoc', 1, '2016-02-26', '02:03:55', 'APPROVED', '100') ; 
+INSERT INTO `fr_stud_subject` VALUES (2, 3, 'IT8-A', './Data/Subject/Instructor/Cantero, Joscoro/2016-2017/1st Semester/IT8-A/Student/552-Marapoc', 2, '2016-02-26', '02:05:53', 'APPROVED', '2') ;
 #
 # End of data contents of table fr_stud_subject
 # --------------------------------------------------------
 
 # MySQL database backup
 #
-# Generated: Monday 22. February 2016 03:21 HKT
+# Generated: Friday 26. February 2016 02:11 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -726,6 +878,12 @@ INSERT INTO `fr_stud_subject` VALUES (6, 7, 'IT11', './Data/Subject/Instructor/C
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_course`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_data_backup`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_db_backup`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_deadline`
@@ -813,7 +971,7 @@ INSERT INTO `fr_subject` VALUES (20, 'Thesis', 'Thesis Proposal', 'NOT ASSIGNED'
 
 # MySQL database backup
 #
-# Generated: Monday 22. February 2016 03:21 HKT
+# Generated: Friday 26. February 2016 02:11 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -822,6 +980,12 @@ INSERT INTO `fr_subject` VALUES (20, 'Thesis', 'Thesis Proposal', 'NOT ASSIGNED'
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_course`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_data_backup`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_db_backup`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_deadline`
@@ -890,7 +1054,7 @@ INSERT INTO `fr_sy` VALUES (1, 2016, 2017) ;
 
 # MySQL database backup
 #
-# Generated: Monday 22. February 2016 03:21 HKT
+# Generated: Friday 26. February 2016 02:11 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -899,6 +1063,12 @@ INSERT INTO `fr_sy` VALUES (1, 2016, 2017) ;
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_course`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_data_backup`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_db_backup`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_deadline`
@@ -968,10 +1138,10 @@ CREATE TABLE `fr_user` (
 # Data contents of table fr_user (7 records)
 #
  
-INSERT INTO `fr_user` VALUES (1, 'admin', 'admin', 5, 'online', '2016-02-22 03:21:09', '2016-02-22 12:40:16', 1) ; 
-INSERT INTO `fr_user` VALUES (2, 'cantero', '12345', 3, 'offline', '2016-02-22 03:03:58', '2016-02-22 03:20:00', 1) ; 
-INSERT INTO `fr_user` VALUES (3, 'marapoc', '12345', 1, 'offline', '2016-02-22 03:00:46', '2016-02-22 03:03:50', 1) ; 
-INSERT INTO `fr_user` VALUES (4, 'tarre', '12345', 4, 'offline', '2016-02-22 02:56:37', '2016-02-22 02:58:09', 1) ; 
+INSERT INTO `fr_user` VALUES (1, 'admin', 'admin', 5, 'offline', '2016-02-25 11:31:57', '2016-02-26 02:02:04', 1) ; 
+INSERT INTO `fr_user` VALUES (2, 'cantero', '12345', 3, 'offline', '2016-02-26 02:02:23', '2016-02-26 02:10:43', 1) ; 
+INSERT INTO `fr_user` VALUES (3, 'marapoc', '12345', 1, 'offline', '2016-02-26 02:02:13', '2016-02-26 02:09:06', 1) ; 
+INSERT INTO `fr_user` VALUES (4, 'tarre', '12345', 4, 'online', '2016-02-26 02:10:54', '2016-02-26 02:02:18', 1) ; 
 INSERT INTO `fr_user` VALUES (5, 'mancera', '12345', 1, 'offline', '2016-02-22 02:58:30', '2016-02-22 03:03:19', 1) ; 
 INSERT INTO `fr_user` VALUES (6, '443', '123', 1, 'pending', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1) ; 
 INSERT INTO `fr_user` VALUES (7, 'trina', '12345', 1, 'offline', '2016-02-22 03:03:36', '2016-02-22 03:21:04', 1) ;
@@ -981,7 +1151,7 @@ INSERT INTO `fr_user` VALUES (7, 'trina', '12345', 1, 'offline', '2016-02-22 03:
 
 # MySQL database backup
 #
-# Generated: Monday 22. February 2016 03:21 HKT
+# Generated: Friday 26. February 2016 02:11 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -990,6 +1160,12 @@ INSERT INTO `fr_user` VALUES (7, 'trina', '12345', 1, 'offline', '2016-02-22 03:
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_course`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_data_backup`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_db_backup`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_deadline`
@@ -1073,7 +1249,7 @@ INSERT INTO `fr_user_permissions` VALUES (6, 7, 1, 1, 1, 1, 1) ;
 
 # MySQL database backup
 #
-# Generated: Monday 22. February 2016 03:21 HKT
+# Generated: Friday 26. February 2016 02:11 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -1082,6 +1258,12 @@ INSERT INTO `fr_user_permissions` VALUES (6, 7, 1, 1, 1, 1, 1) ;
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_course`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_data_backup`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_db_backup`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_deadline`
@@ -1163,7 +1345,7 @@ INSERT INTO `position` VALUES (5, 'Student', 1) ;
 
 # MySQL database backup
 #
-# Generated: Monday 22. February 2016 03:21 HKT
+# Generated: Friday 26. February 2016 02:11 HKT
 # Hostname: localhost
 # Database: `repo`
 # --------------------------------------------------------
@@ -1172,6 +1354,12 @@ INSERT INTO `position` VALUES (5, 'Student', 1) ;
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_course`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_data_backup`
+# --------------------------------------------------------
+# --------------------------------------------------------
+# Table: `fr_db_backup`
 # --------------------------------------------------------
 # --------------------------------------------------------
 # Table: `fr_deadline`

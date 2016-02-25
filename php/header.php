@@ -1,13 +1,4 @@
 <?php 
-	
-
-	if(isset($_GET['readall']) && $_GET['readall'] == '1')
-	{
-		mysql_query("UPDATE fr_notification SET status = 'read' WHERE user_id = '".$_GET['user_id']."'");
-	
-
-	}
-	
 		if($_SESSION['UserLvl'] == 1)
 		{
 			$result1 = mysql_query("SELECT * FROM fr_stud WHERE user_id = '".$_SESSION['user_id']."'");
@@ -34,48 +25,15 @@
 					
 
 			<!-- start: Header Menu -->
-			<div class="nav-no-collapse header-nav" id="aa">
+			<div class="nav-no-collapse header-nav">
 				<ul class="nav pull-right">
 					<li class="dropdown hidden-phone">
-						<?php
-							$result = mysql_query("SELECT * FROM fr_notification WHERE user_id = '".$_SESSION['user_id']."' AND status = 'unread' ORDER BY id DESC");
-							$cnt =  mysql_num_rows($result);
-						?>
-								<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-										<i class="icon-globe"></i>
-
-										<span class="label label-important" id="notifcount">  </span>
-
-								</a>
-						<ul class="dropdown-menu messages">
-								<li class="dropdown-menu-title">
- 									<span>You have <?php echo $cnt; ?> notifications</span>
-									<a href="<?php echo $_SERVER["PHP_SELF"]?>?readall=1&&user_id=<?php echo $_SESSION['user_id']; ?>"><i class="icon-repeat"></i></a>
-								</li>
-								<?php
-									while ($row = mysql_fetch_array($result)) 
-									{
-								?>	
-		                            	<li>
-		                                    <a href="<?php echo $row['link']; ?>&&notid=<?php echo $row['id']; ?>">
-		                                    	<span class="avatar"><img src="" alt=""></span>
-		                                    	<span class="header">
-													<span class="from">
-														&nbsp
-												    </span>
-													<span class="time">
-												    	<?php  echo time_elapsed_string($row['Date']); ?>
-												    </span>
-												</span>
-												<span class="message">
-												<?php echo $row['message']; ?>
-												</span>
-		                                    </a>
-		                                </li>
-                                <?php
-                                	}
-                                ?>
-							</ul>
+						<a  class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								<i class="icon-globe" id="notifcount"></i>
+						</a>
+						<ul class="dropdown-menu messages" id="msg">
+	
+						</ul>
 					</li>
 					<!-- start: User Dropdown -->
 				

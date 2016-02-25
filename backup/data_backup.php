@@ -1,6 +1,7 @@
 <?php date_default_timezone_set("Asia/Hong_kong");
 	session_start();
 
+	include_once("../php/config.php");
 
 	if($_SESSION['UserLvl'] < 4)
 	{
@@ -9,7 +10,6 @@
     else
     {  
 
-    
 	$file_path = "../Data";
 
 	if(is_dir($file_path))
@@ -75,12 +75,18 @@
 			delete_directory($zip_file_name.'/', 0);
 			elseif(is_file($zip_file_name))
 				unlink($zip_file_name);
-			exit;
-		}
-	}
 
-	
-		  header('Location: ../dashboard.php');
+			if(isset($_GET['auto']))
+			{
+				mysql_query("DELETE FROM fr_data_backup");
+
+				header('Location: ../backup.php?backup=data');
+			}
+			
+		}
+
+	}
+		  //header('Location: ../dashboard.php');
 	}
 
 
